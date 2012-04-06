@@ -1,0 +1,7 @@
+This is an public example of how you could implement simple tools using Visual Studio Tools for Office.
+
+This is only a proof of concept show how I have done things and perhaps, this information can be useful for others looking for good resources.
+
+I'll try to explain in my blog how I decided to implement a given funcionality.
+
+The project needs Visual Studio 2010 and Excel 2010 to run. This is a document-customization add-in and won't install any persistent add-in your Excel.
