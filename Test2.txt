@@ -1,0 +1,3 @@
+Adição de texto ao primeiro arquivo.
+Segunda adição de texto ao primeiro arquivo.
+Terceira edição de texto.
