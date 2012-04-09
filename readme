@@ -1,7 +1,5 @@
 This is a public example of how you could implement simple tools using Visual Studio Tools for Office 2010.
 
-This is a personal cash flow application intended to be used for a small family. You'll have the possibility to manage bank accounts, credit cards, checks and you'll be able to figure out how much money your family will have in a given moment. I have this need and I found useful to share this others in a interesting way, showing how you can customize Excel with top technology, making it a great front-end for bigger systems.
+This is a personal cash flow application intended to be used for a small family. You'll have the possibility to manage bank accounts, credit cards, checks and you'll be able to figure out how much money your family will have at a given month or day. I have this need and I found useful to share this with others in a interesting way, showing how you can customize Excel with top technology, making it a great front-end for bigger systems.
 
 I'll try to explain in my blog how I decided to implement all the major functionalities. My blog is www.mariomeyrelles.com. In the next weeks I will try to post some content in my blog to you understand how the project works. 
-
-Hope this project helps you.
