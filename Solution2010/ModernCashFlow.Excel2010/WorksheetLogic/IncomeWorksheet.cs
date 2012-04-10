@@ -34,10 +34,11 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         private static BaseController<Income> _controller;
         private static CommandManager _commandManager;
 
-        public IncomeWorksheet()
+        [Inject]
+        public IncomeWorksheet(CommandManager commandManager, BaseController<Income> controller)
         {
-            _commandManager = NinjectContainer.Kernel.Get<CommandManager>();
-            _controller = NinjectContainer.Kernel.Get<BaseController<Income>>();
+            _commandManager = commandManager;
+            _controller = controller;
             _controller.UpdateAllLocalData += WriteToWorksheet;
             _controller.UpdateSingleLocalData += OnUpdateSingleLocalData;
             _controller.RetrieveAllLocalData += OnRetrieveLocalData;
@@ -347,7 +348,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                     if (result == DialogResult.OK)
                     {
-                        _commandManager.IncluirSaidas();
+                        _commandManager.IncludeNewIncomeTransactions();
                     }
                 }
             }

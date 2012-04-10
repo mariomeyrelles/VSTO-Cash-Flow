@@ -31,14 +31,15 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         private static Dictionary<string, int> _absCols;
         private static Dictionary<Guid, Range> _index;
         private string[] _databindCols;
+        
         private static BaseController<Expense> _controller;
         private static CommandManager _commandManager;
-
-
-        public ExpenseWorksheet()
+        
+        [Inject]
+        public ExpenseWorksheet(CommandManager commandManager, BaseController<Expense> controller)
         {
-            _commandManager = NinjectContainer.Kernel.Get<CommandManager>();
-            _controller = NinjectContainer.Kernel.Get<BaseController<Expense>>();
+            _commandManager = commandManager;
+            _controller = controller;
             _controller.UpdateAllLocalData += WriteToWorksheet;
             _controller.UpdateSingleLocalData += OnUpdateSingleLocalData;
             _controller.RetrieveAllLocalData += OnRetrieveLocalData;
@@ -50,8 +51,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         public void ConfigureValidationLists()
         {
             Unprotect();
-
-            //todo: organizar melhor o código para ficar mais clara a montagem as listas de validação.
+            
             PrepareValidationListForTransactionStatus();
 
             Protect();
@@ -354,7 +354,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                     if (result == DialogResult.OK)
                     {
-                        _commandManager.IncluirSaidas();
+                        _commandManager.IncludeNewExpenseTransactions();
                     }
                 }
             }

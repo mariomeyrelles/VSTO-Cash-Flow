@@ -15,20 +15,24 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
     /// </summary>
     public class CommandManager
     {
-        private WpfUserControl _saidaInspector;
-        private BaseController<Expense> _expenseController;
-        private BaseController<Income> _incomeController;
+        private WpfUserControl _sideInspectorPane;
+
+
+        [Inject]       
+        public BaseController<Expense> ExpenseController { get; set; }
+
+        [Inject]
+        public BaseController<Income> IncomeController { get; set; }
 
 
         //todo: create formal commands
+    
 
         public void UpdateSidePanel(dynamic entity)
         {
-            if (_saidaInspector == null) return;
-            _saidaInspector.Model = entity;
-            _saidaInspector.Refresh();
-            //var form = new FormSaida() { Model = entity };
-            //form.Show();
+            if (_sideInspectorPane == null) return;
+            _sideInspectorPane.Model = entity;
+            _sideInspectorPane.Refresh();
         }
 
         public void ShowSplashWindow()
@@ -38,30 +42,23 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
 
         public void LoadAllTransactions()
         {
-            //todo: tirar esta lógica deste comando.
-            _expenseController = _expenseController ?? NinjectContainer.Kernel.Get<BaseController<Expense>>();
-            _incomeController = _incomeController ?? NinjectContainer.Kernel.Get<BaseController<Income>>();
-            _expenseController.GetLocalDataAndSyncronizeSession();
-            _incomeController.GetLocalDataAndSyncronizeSession(); 
+            ExpenseController.GetLocalDataAndSyncronizeSession();
+            IncomeController.GetLocalDataAndSyncronizeSession(); 
         }
 
         public void ConvertTodayPaymentsToPending()
         {
-            _expenseController = _expenseController ?? NinjectContainer.Kernel.Get<BaseController<Expense>>();
             var paymentSvc = NinjectContainer.Kernel.Get<ExpenseStatusService>();
-
-            var todayPayments = paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
-
+            var todayPayments = paymentSvc.GetTodayPayments(ExpenseController.CurrentSessionData).ToList();
             todayPayments.ForEach(x => x.Expense.TransactionStatus = TransactionStatus.Pending);
-
         }
 
         public void ProcessTodayPayments()
         {
             var paymentSvc = NinjectContainer.Kernel.Get<ExpenseStatusService>();
-            var todayPayments = paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
-            var comingPayments = paymentSvc.GetComingPayments(_expenseController.CurrentSessionData).ToList();
-            var latePayments = paymentSvc.GetLatePayments(_expenseController.CurrentSessionData).ToList();
+            var todayPayments = paymentSvc.GetTodayPayments(ExpenseController.CurrentSessionData).ToList();
+            var comingPayments = paymentSvc.GetComingPayments(ExpenseController.CurrentSessionData).ToList();
+            var latePayments = paymentSvc.GetLatePayments(ExpenseController.CurrentSessionData).ToList();
 
             var form = new FormPendingExpensesViewModel { TodayPayments = todayPayments, ComingPayments = comingPayments, LatePayments = latePayments };
             form.ShowDialog();
@@ -72,37 +69,47 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             processedPayments.AddRange(EditPendingExpenseDto.ToList(form.LatePayments, w => w.IsPaid == true));
             processedPayments.AddRange(EditPendingExpenseDto.ToList(form.ComingPayments, w => w.IsPaid == true));
 
-            _expenseController.AcceptDataCollection(processedPayments, true);
+            ExpenseController.AcceptDataCollection(processedPayments, true);
 
         }
-
 
 
         public void ConfigureSidePanel()
         {
-            _saidaInspector = new WpfUserControl();
-            Globals.ThisWorkbook.ActionsPane.Controls.Add(_saidaInspector);
+            _sideInspectorPane = new WpfUserControl();
+            Globals.ThisWorkbook.ActionsPane.Controls.Add(_sideInspectorPane);
             //solicitar o refresh do host do wpf sempre que o panel mudar de tamanho ou acontecer algum scroll.
-            Globals.ThisWorkbook.ActionsPane.Resize += delegate { _saidaInspector.Refresh(); };
-            Globals.ThisWorkbook.ActionsPane.Scroll += delegate { _saidaInspector.Refresh(); };
+            Globals.ThisWorkbook.ActionsPane.Resize += delegate { _sideInspectorPane.Refresh(); };
+            Globals.ThisWorkbook.ActionsPane.Scroll += delegate { _sideInspectorPane.Refresh(); };
         }
 
 
-        public void IncluirSaidas()
+        public void IncludeNewExpenseTransactions()
         {
             
-            foreach (var saida in _expenseController.CurrentSessionData.Where(saida => saida.IsTransient))
+            foreach (var expense in ExpenseController.CurrentSessionData.Where(e => e.IsTransient))
             {
-                saida.EditStatus = saida.IsValid ? EditStatus.Complete : EditStatus.Incomplete;
+                expense.EditStatus = expense.IsValid ? EditStatus.Complete : EditStatus.Incomplete;
             }
-            _expenseController.RefreshAllLocalData();
-
+            ExpenseController.RefreshAllLocalData();
         }
+
+        public void IncludeNewIncomeTransactions()
+        {
+            foreach (var income in IncomeController.CurrentSessionData.Where(i => i.IsTransient))
+            {
+                income.EditStatus = income.IsValid ? EditStatus.Complete : EditStatus.Incomplete;
+            }
+            ExpenseController.RefreshAllLocalData();
+        }
+
 
         public void WriteAllTransactionsToWorsheets()
         {
-            _expenseController.RefreshAllLocalData();
-            _incomeController.RefreshAllLocalData();
+            ExpenseController.RefreshAllLocalData();
+            IncomeController.RefreshAllLocalData();
         }
+
+        
     }
 }

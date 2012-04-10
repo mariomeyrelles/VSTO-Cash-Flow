@@ -68,7 +68,6 @@ namespace ModernCashFlow.Excel2010
 
 
             //serviços de domínio
-
             _kernel.Bind<ExpenseStatusService>().ToSelf().InSingletonScope();
 
         }
