@@ -48,7 +48,7 @@ namespace ModernCashFlow.Excel2010
         private void btnPendingPayments_Click(object sender, RibbonControlEventArgs e)
         {
             var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
-            commandManager.LoadAllPayments();
+            commandManager.LoadAllTransactions();
             commandManager.ProcessTodayPayments();
         }
 

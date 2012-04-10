@@ -13,11 +13,11 @@ namespace ModernCashFlow.Excel2010 {
     
     
     /// 
-    [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(3)]
+    [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(1)]
     [global::System.Security.Permissions.PermissionSetAttribute(global::System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
-    public sealed partial class Sheet6 : Microsoft.Office.Tools.Excel.WorksheetBase {
+    public sealed partial class Incomes : Microsoft.Office.Tools.Excel.WorksheetBase {
         
-        internal Microsoft.Office.Tools.Excel.ListObject tblSaidas;
+        internal Microsoft.Office.Tools.Excel.ListObject tblEntradas;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         private global::System.Object missing = global::System.Type.Missing;
@@ -25,8 +25,8 @@ namespace ModernCashFlow.Excel2010 {
         /// 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Sheet6(global::Microsoft.Office.Tools.Excel.Factory factory, global::System.IServiceProvider serviceProvider) : 
-                base(factory, serviceProvider, "Sheet6", "Sheet6") {
+        public Incomes(global::Microsoft.Office.Tools.Excel.Factory factory, global::System.IServiceProvider serviceProvider) : 
+                base(factory, serviceProvider, "Incomes", "Incomes") {
         }
         
         /// 
@@ -35,7 +35,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         protected override void Initialize() {
             base.Initialize();
-            Globals.Sheet6 = this;
+            Globals.Incomes = this;
             global::System.Windows.Forms.Application.EnableVisualStyles();
             this.InitializeCachedData();
             this.InitializeControls();
@@ -116,7 +116,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void BeginInitialization() {
             this.BeginInit();
-            this.tblSaidas.BeginInit();
+            this.tblEntradas.BeginInit();
         }
         
         /// 
@@ -124,7 +124,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void EndInitialization() {
-            this.tblSaidas.EndInit();
+            this.tblEntradas.EndInit();
             this.EndInit();
         }
         
@@ -133,7 +133,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeControls() {
-            this.tblSaidas = Globals.Factory.CreateListObject(null, null, "Sheet6:tblSaidas", "tblSaidas", this);
+            this.tblEntradas = Globals.Factory.CreateListObject(null, null, "Incomes:tblEntradas", "tblEntradas", this);
         }
         
         /// 
@@ -141,13 +141,6 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeComponents() {
-            // 
-            // tblSaidas
-            // 
-            this.tblSaidas.DefaultDataSourceUpdateMode = System.Windows.Forms.DataSourceUpdateMode.Never;
-            // 
-            // Sheet6
-            // 
         }
         
         /// 
@@ -162,22 +155,22 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         protected override void OnShutdown() {
-            this.tblSaidas.Dispose();
+            this.tblEntradas.Dispose();
             base.OnShutdown();
         }
     }
     
     internal sealed partial class Globals {
         
-        private static Sheet6 _Sheet6;
+        private static Incomes _Incomes;
         
-        internal static Sheet6 Sheet6 {
+        internal static Incomes Incomes {
             get {
-                return _Sheet6;
+                return _Incomes;
             }
             set {
-                if ((_Sheet6 == null)) {
-                    _Sheet6 = value;
+                if ((_Incomes == null)) {
+                    _Incomes = value;
                 }
                 else {
                     throw new System.NotSupportedException();

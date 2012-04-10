@@ -13,9 +13,15 @@ namespace ModernCashFlow.Excel2010 {
     
     
     /// 
-    [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(1)]
+    [Microsoft.VisualStudio.Tools.Applications.Runtime.StartupObjectAttribute(4)]
     [global::System.Security.Permissions.PermissionSetAttribute(global::System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
-    public sealed partial class Sheet3 : Microsoft.Office.Tools.Excel.WorksheetBase {
+    public sealed partial class Config : Microsoft.Office.Tools.Excel.WorksheetBase {
+        
+        internal Microsoft.Office.Tools.Excel.ListObject tblConfigStatusConfirmacao;
+        
+        internal Microsoft.Office.Tools.Excel.ListObject tblTiposCentroCusto;
+        
+        internal Microsoft.Office.Tools.Excel.ListObject Table8;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         private global::System.Object missing = global::System.Type.Missing;
@@ -23,8 +29,8 @@ namespace ModernCashFlow.Excel2010 {
         /// 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
-        public Sheet3(global::Microsoft.Office.Tools.Excel.Factory factory, global::System.IServiceProvider serviceProvider) : 
-                base(factory, serviceProvider, "Sheet3", "Sheet3") {
+        public Config(global::Microsoft.Office.Tools.Excel.Factory factory, global::System.IServiceProvider serviceProvider) : 
+                base(factory, serviceProvider, "Config", "Config") {
         }
         
         /// 
@@ -33,7 +39,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         protected override void Initialize() {
             base.Initialize();
-            Globals.Sheet3 = this;
+            Globals.Config = this;
             global::System.Windows.Forms.Application.EnableVisualStyles();
             this.InitializeCachedData();
             this.InitializeControls();
@@ -114,6 +120,9 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void BeginInitialization() {
             this.BeginInit();
+            this.tblConfigStatusConfirmacao.BeginInit();
+            this.tblTiposCentroCusto.BeginInit();
+            this.Table8.BeginInit();
         }
         
         /// 
@@ -121,6 +130,9 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void EndInitialization() {
+            this.Table8.EndInit();
+            this.tblTiposCentroCusto.EndInit();
+            this.tblConfigStatusConfirmacao.EndInit();
             this.EndInit();
         }
         
@@ -129,6 +141,9 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeControls() {
+            this.tblConfigStatusConfirmacao = Globals.Factory.CreateListObject(null, null, "Config:tblConfigStatusConfirmacao", "tblConfigStatusConfirmacao", this);
+            this.tblTiposCentroCusto = Globals.Factory.CreateListObject(null, null, "Config:tblTiposCentroCusto", "tblTiposCentroCusto", this);
+            this.Table8 = Globals.Factory.CreateListObject(null, null, "Config:Table8", "Table8", this);
         }
         
         /// 
@@ -144,19 +159,30 @@ namespace ModernCashFlow.Excel2010 {
         private bool NeedsFill(string MemberName) {
             return this.DataHost.NeedsFill(this, MemberName);
         }
+        
+        /// 
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
+        protected override void OnShutdown() {
+            this.Table8.Dispose();
+            this.tblTiposCentroCusto.Dispose();
+            this.tblConfigStatusConfirmacao.Dispose();
+            base.OnShutdown();
+        }
     }
     
     internal sealed partial class Globals {
         
-        private static Sheet3 _Sheet3;
+        private static Config _Config;
         
-        internal static Sheet3 Sheet3 {
+        internal static Config Config {
             get {
-                return _Sheet3;
+                return _Config;
             }
             set {
-                if ((_Sheet3 == null)) {
-                    _Sheet3 = value;
+                if ((_Config == null)) {
+                    _Config = value;
                 }
                 else {
                     throw new System.NotSupportedException();

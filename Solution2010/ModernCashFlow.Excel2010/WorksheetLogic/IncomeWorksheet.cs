@@ -26,7 +26,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
     public class IncomeWorksheet
     {
         private static ListObject _tbl;
-        private static readonly Sheet4 _sheet = Globals.Sheet4;
+        private static readonly Incomes _sheet = Globals.Incomes;
         private static Dictionary<string, int> _cols;
         private static Dictionary<string, int> _absCols;
         private static Dictionary<Guid, Range> _index;

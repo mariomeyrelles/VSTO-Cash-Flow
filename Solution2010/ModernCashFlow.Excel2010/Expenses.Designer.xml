@@ -1,0 +1,3 @@
+﻿<hostitem:hostItem hostitem:baseType="Microsoft.Office.Tools.Excel.WorksheetBase" hostitem:namespace="ModernCashFlow.Excel2010" hostitem:className="Expenses" hostitem:identifier="Expenses" hostitem:primaryCookie="Expenses" hostitem:factoryType="Microsoft.Office.Tools.Excel.Factory" hostitem:startupIndex="2" xmlns:hostitem="http://schemas.microsoft.com/2004/VisualStudio/Tools/Applications/HostItem.xsd">
+  <hostitem:hostControl hostitem:name="tblSaidas" hostitem:identifier="tblSaidas" hostitem:type="Microsoft.Office.Tools.Excel.ListObject" hostitem:primaryCookie="Expenses:tblSaidas" hostitem:extenderCookie="" hostitem:modifier="Internal" />
+</hostitem:hostItem>

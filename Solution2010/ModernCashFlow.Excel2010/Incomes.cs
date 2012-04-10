@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Excel;
-using Microsoft.VisualStudio.Tools.Applications.Runtime;
 using ModernCashFlow.Excel2010.WorksheetLogic;
 using Ninject;
-using Excel = Microsoft.Office.Interop.Excel;
-using Office = Microsoft.Office.Core;
 
 namespace ModernCashFlow.Excel2010
 {
-    public partial class Sheet4
+    public partial class Incomes
     {
-        
-        private void Sheet4_Startup(object sender, System.EventArgs e)
+        private void Incomes_Startup(object sender, System.EventArgs e)
         {
             this.tblEntradas.Change += (this.tblEntradas_Change);
             this.tblEntradas.BeforeRightClick += (tblEntradas_BeforeRightClick);
@@ -25,18 +17,18 @@ namespace ModernCashFlow.Excel2010
             var wksHelper = NinjectContainer.Kernel.Get<IncomeWorksheet>();
             wksHelper.ReadColumnPositions();
             wksHelper.ConfigureValidationLists();
-
             ThisWorkbook.NotifySheetLoaded(this);
         }
 
-        void tblEntradas_SelectionChange(Excel.Range target)
+
+        void tblEntradas_SelectionChange(Range target)
         {
             var eventHandlers = NinjectContainer.Kernel.Get<IncomeWorksheet.Events>();
             eventHandlers.OnSelectionChange(target);
 
         }
 
-        void tblEntradas_BeforeRightClick(Excel.Range target, ref bool cancel)
+        void tblEntradas_BeforeRightClick(Range target, ref bool cancel)
         {
             Application.EnableEvents = false;
 
@@ -46,7 +38,8 @@ namespace ModernCashFlow.Excel2010
             Application.EnableEvents = true;
         }
 
-        private void tblEntradas_Change(Excel.Range target, ListRanges changedRanges)
+
+        private void tblEntradas_Change(Range target, ListRanges changedRanges)
         {
             //todo: analisar se é preciso colocar try catch para manter os eventos da app ativos mesmo em caso de erro.
             Application.EnableEvents = false;
@@ -56,12 +49,10 @@ namespace ModernCashFlow.Excel2010
 
             Application.EnableEvents = true;
         }
-
-
-
-        private void Sheet4_Shutdown(object sender, System.EventArgs e)
+        private void Incomes_Shutdown(object sender, System.EventArgs e)
         {
         }
+
 
         #region VSTO Designer generated code
 
@@ -71,8 +62,8 @@ namespace ModernCashFlow.Excel2010
         /// </summary>
         private void InternalStartup()
         {
-            this.Startup += new System.EventHandler(Sheet4_Startup);
-            this.Shutdown += new System.EventHandler(Sheet4_Shutdown);
+            this.Startup += new System.EventHandler(Incomes_Startup);
+            this.Shutdown += new System.EventHandler(Incomes_Shutdown);
         }
 
         #endregion

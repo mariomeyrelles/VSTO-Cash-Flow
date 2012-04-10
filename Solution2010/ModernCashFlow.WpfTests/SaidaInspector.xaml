@@ -6,9 +6,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="508" d:DesignWidth="300">
     <Grid>
-        <Grid.Resources>
+        <!--<Grid.Resources>
             <ResourceDictionary Source="/ReuxablesLegacy;component/edge.xaml" />
-        </Grid.Resources>
+        </Grid.Resources>-->
         <Grid Margin="10,10,10,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="52*" Name="Header" />

@@ -1,13 +1,13 @@
 ﻿namespace ModernCashFlow.Excel2010
 {
-    public partial class Sheet9
+    public partial class Transfers
     {
-        private void Sheet9_Startup(object sender, System.EventArgs e)
+        private void Transfers_Startup(object sender, System.EventArgs e)
         {
             ThisWorkbook.NotifySheetLoaded(this);
         }
 
-        private void Sheet9_Shutdown(object sender, System.EventArgs e)
+        private void Transfers_Shutdown(object sender, System.EventArgs e)
         {
         }
 
@@ -19,8 +19,8 @@
         /// </summary>
         private void InternalStartup()
         {
-            this.Startup += new System.EventHandler(Sheet9_Startup);
-            this.Shutdown += new System.EventHandler(Sheet9_Shutdown);
+            this.Startup += new System.EventHandler(Transfers_Startup);
+            this.Shutdown += new System.EventHandler(Transfers_Shutdown);
         }
 
         #endregion

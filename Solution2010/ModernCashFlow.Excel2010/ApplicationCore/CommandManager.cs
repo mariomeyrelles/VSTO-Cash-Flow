@@ -16,8 +16,8 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
     public class CommandManager
     {
         private WpfUserControl _saidaInspector;
-        private BaseController<Expense> _paymentController;
-        private BaseController<Income> _entradaController;
+        private BaseController<Expense> _expenseController;
+        private BaseController<Income> _incomeController;
 
 
         //todo: create formal commands
@@ -29,8 +29,6 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             _saidaInspector.Refresh();
             //var form = new FormSaida() { Model = entity };
             //form.Show();
-           
-
         }
 
         public void ShowSplashWindow()
@@ -38,33 +36,32 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             ProcessTodayPayments();
         }
 
-        public void LoadAllPayments()
+        public void LoadAllTransactions()
         {
             //todo: tirar esta lógica deste comando.
-            _paymentController = _paymentController ?? NinjectContainer.Kernel.Get<BaseController<Expense>>();
-            _entradaController = _entradaController ?? NinjectContainer.Kernel.Get<BaseController<Income>>();
-            _paymentController.GetLocalDataAndSyncronizeSession();
-            _entradaController.GetLocalDataAndSyncronizeSession(); 
+            _expenseController = _expenseController ?? NinjectContainer.Kernel.Get<BaseController<Expense>>();
+            _incomeController = _incomeController ?? NinjectContainer.Kernel.Get<BaseController<Income>>();
+            _expenseController.GetLocalDataAndSyncronizeSession();
+            _incomeController.GetLocalDataAndSyncronizeSession(); 
         }
 
         public void ConvertTodayPaymentsToPending()
         {
-            _paymentController = _paymentController ?? NinjectContainer.Kernel.Get<BaseController<Expense>>();
+            _expenseController = _expenseController ?? NinjectContainer.Kernel.Get<BaseController<Expense>>();
             var paymentSvc = NinjectContainer.Kernel.Get<ExpenseStatusService>();
 
-            var todayPayments = paymentSvc.GetTodayPayments(_paymentController.CurrentSessionData).ToList();
+            var todayPayments = paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
 
             todayPayments.ForEach(x => x.Expense.TransactionStatus = TransactionStatus.Pending);
-            _paymentController.RefreshAllLocalData();
 
         }
 
         public void ProcessTodayPayments()
         {
             var paymentSvc = NinjectContainer.Kernel.Get<ExpenseStatusService>();
-            var todayPayments = paymentSvc.GetTodayPayments(_paymentController.CurrentSessionData).ToList();
-            var comingPayments = paymentSvc.GetComingPayments(_paymentController.CurrentSessionData).ToList();
-            var latePayments = paymentSvc.GetLatePayments(_paymentController.CurrentSessionData).ToList();
+            var todayPayments = paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
+            var comingPayments = paymentSvc.GetComingPayments(_expenseController.CurrentSessionData).ToList();
+            var latePayments = paymentSvc.GetLatePayments(_expenseController.CurrentSessionData).ToList();
 
             var form = new FormPendingExpensesViewModel { TodayPayments = todayPayments, ComingPayments = comingPayments, LatePayments = latePayments };
             form.ShowDialog();
@@ -75,7 +72,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             processedPayments.AddRange(EditPendingExpenseDto.ToList(form.LatePayments, w => w.IsPaid == true));
             processedPayments.AddRange(EditPendingExpenseDto.ToList(form.ComingPayments, w => w.IsPaid == true));
 
-            _paymentController.AcceptDataCollection(processedPayments, true);
+            _expenseController.AcceptDataCollection(processedPayments, true);
 
         }
 
@@ -94,12 +91,18 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         public void IncluirSaidas()
         {
             
-            foreach (var saida in _paymentController.CurrentSessionData.Where(saida => saida.IsTransient))
+            foreach (var saida in _expenseController.CurrentSessionData.Where(saida => saida.IsTransient))
             {
                 saida.EditStatus = saida.IsValid ? EditStatus.Complete : EditStatus.Incomplete;
             }
-            _paymentController.RefreshAllLocalData();
+            _expenseController.RefreshAllLocalData();
 
+        }
+
+        public void WriteAllTransactionsToWorsheets()
+        {
+            _expenseController.RefreshAllLocalData();
+            _incomeController.RefreshAllLocalData();
         }
     }
 }
