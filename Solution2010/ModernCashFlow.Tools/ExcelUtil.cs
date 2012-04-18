@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -22,12 +23,13 @@ namespace ModernCashFlow.Tools
             //look for properties with the Localizable Description attribute.
             var props = from x in typeof(T).GetProperties()
                         select new 
-                            {   Descriptions = x.GetCustomAttributes(false).OfType<LocalizableColumnNameAttribute>().FirstOrDefault(),
-                                PropertyName =  x.Name 
+                            {   Description = x.GetCustomAttributes(false).OfType<LocalizableColumnNameAttribute>().FirstOrDefault(),
+                                PropertyName =  x.Name,
+                                PropertyType = x.GetType()
                             };
             
             //Consider the resource key to be same 
-            var localizedDescriptions = from x in props.Where(x => x.Descriptions != null)
+            var localizedDescriptions = from x in props.Where(x => x.Description != null)
                                         select new
                                                 {
                                                     ResourceKey = x.PropertyName,
@@ -42,6 +44,15 @@ namespace ModernCashFlow.Tools
 
             
             columnIds.AddRange(colId);
+
+            for (int i = 0; i < columnIds.Count; i++)
+            {
+                //this solution works. Write a double value using FromOADate(datetime).
+                if (columnIds[i] == "Date")
+                {
+                    columnIds[i] = columnIds[i] + "_OA";
+                }
+            }
 
             return columnIds.ToArray();
 

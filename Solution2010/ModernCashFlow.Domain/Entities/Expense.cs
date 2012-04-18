@@ -64,6 +64,17 @@ namespace ModernCashFlow.Domain.Entities
             set { SetField(ref _date, value, () => Date); }
         }
 
+
+        public double? Date_OA
+        {
+            get
+            {
+                var dateTime = this.Date;
+                if (dateTime != null) return dateTime.Value.ToOADate();
+                return null;
+            }
+        }
+
         private double? _expectedValue;
 
         /// <summary>

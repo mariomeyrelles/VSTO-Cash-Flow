@@ -11,6 +11,11 @@ namespace ModernCashFlow.Tools
             return new DateTime(data.Year, data.Month, data.Day);
         }
 
+        public static DateTime Today(this double data)
+        {
+            return DateTime.FromOADate(data);
+        }
+
         public static DateTime Today(this DateTime? data)
         {
             if (data.HasValue)

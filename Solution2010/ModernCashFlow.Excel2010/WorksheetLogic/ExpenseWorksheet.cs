@@ -130,8 +130,6 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             //todo: manter a formatação dos demais campos para evitar que o usuário estrague a formatação do campo
             _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
             _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
-            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.Date)].NumberFormat = "yyyy-MM-dd";
-            
 
             _tbl.Range.Columns.AutoFit();
             
@@ -233,7 +231,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         
         public static void ReadListObjectRow(int row, object[,] dados, Expense s)
         {
-            //s.TransactionDate = Parse.ToDateTime(dados[row, _cols[MainResources.TransactionDate]]) ?? DateTime.Now;
+            s.TransactionDate = Parse.ToDateTime(dados[row, _cols[MainResources.TransactionDate]]) ?? DateTime.Now;
             s.Date = Parse.ToDateTime(dados[row, _cols[MainResources.Date]]);
             s.ExpectedValue = Parse.ToDouble(dados[row, _cols[MainResources.ExpectedValue]]);
             s.AccountName = Parse.ToString(dados[row, _cols[MainResources.AccountName]]);
@@ -246,7 +244,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             s.ActualValue = Parse.ToDouble(dados[row, _cols[MainResources.ActualValue]]);
             s.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(Parse.ToString(dados[row, _cols[MainResources.TransactionStatusDescription]]));
             s.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(Parse.ToString(dados[row, _cols[MainResources.EditStatus]]));
-            //s.DueDate = Parse.ToDateTime(dados[row, _cols[MainResources.DueDate]]);
+            s.DueDate = Parse.ToDateTime(dados[row, _cols[MainResources.DueDate]]);
             s.IsRecurring = Parse.ToBoolean(dados[row, _cols[MainResources.IsRecurring]]);
             s.MonthlyInterval = Parse.ToInt(dados[row, _cols[MainResources.MonthlyInterval]]);
             s.RemainingInstallments = Parse.ToInt(dados[row, _cols[MainResources.RemainingInstallments]]);
