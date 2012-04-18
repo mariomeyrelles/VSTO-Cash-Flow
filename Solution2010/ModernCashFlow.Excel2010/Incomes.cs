@@ -9,9 +9,9 @@ namespace ModernCashFlow.Excel2010
     {
         private void Incomes_Startup(object sender, System.EventArgs e)
         {
-            this.tblEntradas.Change += (this.tblEntradas_Change);
-            this.tblEntradas.BeforeRightClick += (tblEntradas_BeforeRightClick);
-            this.tblEntradas.SelectionChange += (tblEntradas_SelectionChange);
+            this.tblIncomes.Change += (this.tblIncomes_Change);
+            this.tblIncomes.BeforeRightClick += (tblIncomes_BeforeRightClick);
+            this.tblIncomes.SelectionChange += (tblIncomes_SelectionChange);
 
 
             var wksHelper = NinjectContainer.Kernel.Get<IncomeWorksheet>();
@@ -21,14 +21,14 @@ namespace ModernCashFlow.Excel2010
         }
 
 
-        void tblEntradas_SelectionChange(Range target)
+        void tblIncomes_SelectionChange(Range target)
         {
             var eventHandlers = NinjectContainer.Kernel.Get<IncomeWorksheet.Events>();
             eventHandlers.OnSelectionChange(target);
 
         }
 
-        void tblEntradas_BeforeRightClick(Range target, ref bool cancel)
+        void tblIncomes_BeforeRightClick(Range target, ref bool cancel)
         {
             Application.EnableEvents = false;
 
@@ -39,7 +39,7 @@ namespace ModernCashFlow.Excel2010
         }
 
 
-        private void tblEntradas_Change(Range target, ListRanges changedRanges)
+        private void tblIncomes_Change(Range target, ListRanges changedRanges)
         {
             //todo: analisar se é preciso colocar try catch para manter os eventos da app ativos mesmo em caso de erro.
             Application.EnableEvents = false;

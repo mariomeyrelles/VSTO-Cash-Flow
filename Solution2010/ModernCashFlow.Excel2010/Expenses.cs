@@ -11,9 +11,9 @@ namespace ModernCashFlow.Excel2010
         private void Expenses_Startup(object sender, System.EventArgs e)
         {
 
-            this.tblSaidas.Change += (this.tblSaidas_Change);
-            this.tblSaidas.BeforeRightClick += (tblSaidas_BeforeRightClick);
-            this.tblSaidas.SelectionChange += (tblSaidas_SelectionChange);
+            this.tblExpenses.Change += (this.tblExpenses_Change);
+            this.tblExpenses.BeforeRightClick += (tblExpenses_BeforeRightClick);
+            this.tblExpenses.SelectionChange += (tblExpenses_SelectionChange);
 
 
             var wksHelper = NinjectContainer.Kernel.Get<ExpenseWorksheet>();
@@ -23,13 +23,13 @@ namespace ModernCashFlow.Excel2010
             ThisWorkbook.NotifySheetLoaded(this);
         }
 
-        void tblSaidas_SelectionChange(Excel.Range target)
+        void tblExpenses_SelectionChange(Excel.Range target)
         {
             var eventHandlers = NinjectContainer.Kernel.Get<ExpenseWorksheet.Events>();
             eventHandlers.OnSelectionChange(target);
         }
 
-        void tblSaidas_BeforeRightClick(Excel.Range target, ref bool cancel)
+        void tblExpenses_BeforeRightClick(Excel.Range target, ref bool cancel)
         {
             Application.EnableEvents = false;
 
@@ -39,7 +39,7 @@ namespace ModernCashFlow.Excel2010
             Application.EnableEvents = true;
         }
 
-        private void tblSaidas_Change(Excel.Range target, ListRanges changedRanges)
+        private void tblExpenses_Change(Excel.Range target, ListRanges changedRanges)
         {
             //todo: analisar se é preciso colocar try catch para manter os eventos da app ativos mesmo em caso de erro.
             Application.EnableEvents = false;

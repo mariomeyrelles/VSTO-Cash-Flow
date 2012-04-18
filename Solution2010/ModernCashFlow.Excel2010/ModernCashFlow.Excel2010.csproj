@@ -180,6 +180,12 @@
     </Compile>
     <Compile Include="WorksheetLogic\IncomeWorksheet.cs" />
     <Compile Include="WorksheetLogic\ExpenseWorksheet.cs" />
+    <EmbeddedResource Include="Config.resx">
+      <DependentUpon>Config.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Expenses.resx">
+      <DependentUpon>Expenses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormPendingPaymentsViewModel.resx">
       <DependentUpon>FormPendingPaymentsViewModel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -188,8 +194,14 @@
       <DependentUpon>WpfUserControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Incomes.resx">
+      <DependentUpon>Incomes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RibbonPrincipal.resx">
       <DependentUpon>RibbonPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transfers.resx">
+      <DependentUpon>Transfers.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="CashFlow.xlsm" />
     <None Include="ModernCashFlow.Excel2010_1_TemporaryKey.pfx" />

@@ -17,7 +17,7 @@ namespace ModernCashFlow.Excel2010 {
     [global::System.Security.Permissions.PermissionSetAttribute(global::System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
     public sealed partial class Incomes : Microsoft.Office.Tools.Excel.WorksheetBase {
         
-        internal Microsoft.Office.Tools.Excel.ListObject tblEntradas;
+        internal Microsoft.Office.Tools.Excel.ListObject tblIncomes;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         private global::System.Object missing = global::System.Type.Missing;
@@ -116,7 +116,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void BeginInitialization() {
             this.BeginInit();
-            this.tblEntradas.BeginInit();
+            this.tblIncomes.BeginInit();
         }
         
         /// 
@@ -124,7 +124,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void EndInitialization() {
-            this.tblEntradas.EndInit();
+            this.tblIncomes.EndInit();
             this.EndInit();
         }
         
@@ -133,7 +133,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeControls() {
-            this.tblEntradas = Globals.Factory.CreateListObject(null, null, "Incomes:tblEntradas", "tblEntradas", this);
+            this.tblIncomes = Globals.Factory.CreateListObject(null, null, "Incomes:tblIncomes", "tblIncomes", this);
         }
         
         /// 
@@ -141,6 +141,13 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeComponents() {
+            // 
+            // tblIncomes
+            // 
+            this.tblIncomes.DefaultDataSourceUpdateMode = System.Windows.Forms.DataSourceUpdateMode.Never;
+            // 
+            // Incomes
+            // 
         }
         
         /// 
@@ -155,7 +162,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         protected override void OnShutdown() {
-            this.tblEntradas.Dispose();
+            this.tblIncomes.Dispose();
             base.OnShutdown();
         }
     }

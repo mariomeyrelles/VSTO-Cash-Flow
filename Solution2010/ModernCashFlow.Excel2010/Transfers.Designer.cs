@@ -17,7 +17,7 @@ namespace ModernCashFlow.Excel2010 {
     [global::System.Security.Permissions.PermissionSetAttribute(global::System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
     public sealed partial class Transfers : Microsoft.Office.Tools.Excel.WorksheetBase {
         
-        internal Microsoft.Office.Tools.Excel.ListObject Table4;
+        internal Microsoft.Office.Tools.Excel.ListObject tblTransfers1;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         private global::System.Object missing = global::System.Type.Missing;
@@ -116,7 +116,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void BeginInitialization() {
             this.BeginInit();
-            this.Table4.BeginInit();
+            this.tblTransfers1.BeginInit();
         }
         
         /// 
@@ -124,7 +124,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void EndInitialization() {
-            this.Table4.EndInit();
+            this.tblTransfers1.EndInit();
             this.EndInit();
         }
         
@@ -133,7 +133,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeControls() {
-            this.Table4 = Globals.Factory.CreateListObject(null, null, "Transfers:Table4", "Table4", this);
+            this.tblTransfers1 = Globals.Factory.CreateListObject(null, null, "Transfers:tblTransfers", "tblTransfers1", this);
         }
         
         /// 
@@ -141,6 +141,13 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeComponents() {
+            // 
+            // tblTransfers1
+            // 
+            this.tblTransfers1.DefaultDataSourceUpdateMode = System.Windows.Forms.DataSourceUpdateMode.Never;
+            // 
+            // Transfers
+            // 
         }
         
         /// 
@@ -155,7 +162,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         protected override void OnShutdown() {
-            this.Table4.Dispose();
+            this.tblTransfers1.Dispose();
             base.OnShutdown();
         }
     }

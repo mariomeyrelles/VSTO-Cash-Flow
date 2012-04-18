@@ -17,11 +17,7 @@ namespace ModernCashFlow.Excel2010 {
     [global::System.Security.Permissions.PermissionSetAttribute(global::System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
     public sealed partial class Config : Microsoft.Office.Tools.Excel.WorksheetBase {
         
-        internal Microsoft.Office.Tools.Excel.ListObject tblConfigStatusConfirmacao;
-        
-        internal Microsoft.Office.Tools.Excel.ListObject tblTiposCentroCusto;
-        
-        internal Microsoft.Office.Tools.Excel.ListObject Table8;
+        internal Microsoft.Office.Tools.Excel.ListObject tblAccounts;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         private global::System.Object missing = global::System.Type.Missing;
@@ -120,9 +116,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void BeginInitialization() {
             this.BeginInit();
-            this.tblConfigStatusConfirmacao.BeginInit();
-            this.tblTiposCentroCusto.BeginInit();
-            this.Table8.BeginInit();
+            this.tblAccounts.BeginInit();
         }
         
         /// 
@@ -130,9 +124,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void EndInitialization() {
-            this.Table8.EndInit();
-            this.tblTiposCentroCusto.EndInit();
-            this.tblConfigStatusConfirmacao.EndInit();
+            this.tblAccounts.EndInit();
             this.EndInit();
         }
         
@@ -141,9 +133,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeControls() {
-            this.tblConfigStatusConfirmacao = Globals.Factory.CreateListObject(null, null, "Config:tblConfigStatusConfirmacao", "tblConfigStatusConfirmacao", this);
-            this.tblTiposCentroCusto = Globals.Factory.CreateListObject(null, null, "Config:tblTiposCentroCusto", "tblTiposCentroCusto", this);
-            this.Table8 = Globals.Factory.CreateListObject(null, null, "Config:Table8", "Table8", this);
+            this.tblAccounts = Globals.Factory.CreateListObject(null, null, "Config:tblAccounts", "tblAccounts", this);
         }
         
         /// 
@@ -151,6 +141,13 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         private void InitializeComponents() {
+            // 
+            // tblAccounts
+            // 
+            this.tblAccounts.DefaultDataSourceUpdateMode = System.Windows.Forms.DataSourceUpdateMode.Never;
+            // 
+            // Config
+            // 
         }
         
         /// 
@@ -165,9 +162,7 @@ namespace ModernCashFlow.Excel2010 {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Tools.Office.ProgrammingModel.dll", "10.0.0.0")]
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Never)]
         protected override void OnShutdown() {
-            this.Table8.Dispose();
-            this.tblTiposCentroCusto.Dispose();
-            this.tblConfigStatusConfirmacao.Dispose();
+            this.tblAccounts.Dispose();
             base.OnShutdown();
         }
     }

@@ -43,7 +43,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             _controller.UpdateAllLocalData += WriteToWorksheet;
             _controller.UpdateSingleLocalData += OnUpdateSingleLocalData;
             _controller.RetrieveAllLocalData += OnRetrieveLocalData;
-            _tbl = _sheet.tblSaidas;
+            _tbl = _sheet.tblExpenses;
             _index = new Dictionary<Guid, Range>();
         }
 
@@ -62,7 +62,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             var itens = Util.GetEnumDescriptions(typeof(TransactionStatus));
             var separator = Thread.CurrentThread.CurrentCulture.TextInfo.ListSeparator;
             var rawValues = string.Join(separator, itens);
-            var range = _sheet.Range[string.Format("tblSaidas[{0}]", MainResources.TransactionStatusDescription)];
+            var range = _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.TransactionStatusDescription)];
             range.Validation.Delete();
             range.Validation.Add(XlDVType.xlValidateList,
                                  XlDVAlertStyle.xlValidAlertInformation, XlFormatConditionOperator.xlBetween, rawValues);
@@ -106,8 +106,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             WriteWorksheetRow(range,updatedData);
 
             //todo: rever se precisa fazer isso em outros campos.
-            _sheet.Range[string.Format("tblSaidas[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
-            _sheet.Range[string.Format("tblSaidas[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
             
             Protect();
             
@@ -128,8 +128,9 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             _tbl.Disconnect();
 
             //todo: manter a formatação dos demais campos para evitar que o usuário estrague a formatação do campo
-            _sheet.Range[string.Format("tblSaidas[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
-            _sheet.Range[string.Format("tblSaidas[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.Date)].NumberFormat = "yyyy-MM-dd";
             
 
             _tbl.Range.Columns.AutoFit();
@@ -147,7 +148,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
             try
             {
-                object[,] dados = _tbl.Range.Value;
+                object[,] dados = _tbl.Range.Value2;
 
                 for (var row = 2; row <= dados.GetLength(0); row++)
                 {
@@ -232,8 +233,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         
         public static void ReadListObjectRow(int row, object[,] dados, Expense s)
         {
-            s.TransactionDate = Parse.ToDateTime(dados[row, _cols[MainResources.TransactionDate]]) ?? DateTime.Now;
-            s.Date = Convert.ToDateTime(dados[row, _cols[MainResources.Date]]);
+            //s.TransactionDate = Parse.ToDateTime(dados[row, _cols[MainResources.TransactionDate]]) ?? DateTime.Now;
+            s.Date = Parse.ToDateTime(dados[row, _cols[MainResources.Date]]);
             s.ExpectedValue = Parse.ToDouble(dados[row, _cols[MainResources.ExpectedValue]]);
             s.AccountName = Parse.ToString(dados[row, _cols[MainResources.AccountName]]);
             s.Reason = Parse.ToString(dados[row, _cols[MainResources.Reason]]);
@@ -245,7 +246,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             s.ActualValue = Parse.ToDouble(dados[row, _cols[MainResources.ActualValue]]);
             s.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(Parse.ToString(dados[row, _cols[MainResources.TransactionStatusDescription]]));
             s.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(Parse.ToString(dados[row, _cols[MainResources.EditStatus]]));
-            s.DueDate = Parse.ToDateTime(dados[row, _cols[MainResources.DueDate]]);
+            //s.DueDate = Parse.ToDateTime(dados[row, _cols[MainResources.DueDate]]);
             s.IsRecurring = Parse.ToBoolean(dados[row, _cols[MainResources.IsRecurring]]);
             s.MonthlyInterval = Parse.ToInt(dados[row, _cols[MainResources.MonthlyInterval]]);
             s.RemainingInstallments = Parse.ToInt(dados[row, _cols[MainResources.RemainingInstallments]]);

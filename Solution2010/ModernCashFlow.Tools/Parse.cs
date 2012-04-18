@@ -16,15 +16,30 @@ namespace ModernCashFlow.Tools
         /// <returns>Retorna um DateTime ou null em caso de falha.</returns>
         public static DateTime? ToDateTime(dynamic data)
         {
-            var c = CultureInfo.CurrentCulture;
+            var c = CultureInfo.CurrentUICulture;
 
             if (data == null) return null;
 
             var value = data.ToString();
             if (value == null) return null;
 
+            if (data is double)
+            {
+                return DateTime.FromOADate(data);
+            }
+
             DateTime output;
+
             return DateTime.TryParse(value, c, DateTimeStyles.None, out output) ? (DateTime?)output : null;
+        }
+
+        public static DateTime? ToDateTime2(dynamic data)
+        {
+
+            if (data == null) return null;
+
+            var value = data.ToString();
+            return value == null ? null : DateTime.FromOADate(data);
         }
 
         /// <summary>

@@ -42,7 +42,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             _controller.UpdateAllLocalData += WriteToWorksheet;
             _controller.UpdateSingleLocalData += OnUpdateSingleLocalData;
             _controller.RetrieveAllLocalData += OnRetrieveLocalData;
-            _tbl = _sheet.tblEntradas;
+            _tbl = _sheet.tblIncomes;
             _index = new Dictionary<Guid, Range>();
         }
 
@@ -56,7 +56,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
             var separator = Thread.CurrentThread.CurrentCulture.TextInfo.ListSeparator;
             var valores = string.Join(separator, itens);
-            var range = _sheet.Range["tblEntradas[Status do Lançamento]"];
+            var range = _sheet.Range["tblIncomes[Status do Lançamento]"];
             range.Validation.Delete();
             range.Validation.Add(XlDVType.xlValidateList,
                 XlDVAlertStyle.xlValidAlertInformation, XlFormatConditionOperator.xlBetween, valores);
@@ -101,8 +101,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
             WriteWorksheetRow(range, updatedData);
 
-            _sheet.Range[string.Format("tblEntradas[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
-            _sheet.Range[string.Format("tblEntradas[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblIncomes[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblIncomes[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
  
             Protect();
 
@@ -123,8 +123,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             _tbl.Disconnect();
 
             //todo: manter a formatação dos demais campos para evitar que o usuário estrague a formatação do campo
-            _sheet.Range[string.Format("tblEntradas[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
-            _sheet.Range[string.Format("tblEntradas[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblIncomes[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblIncomes[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
             
             _tbl.Range.Columns.AutoFit();
 

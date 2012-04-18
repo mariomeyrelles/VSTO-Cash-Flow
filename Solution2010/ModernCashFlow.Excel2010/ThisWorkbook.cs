@@ -85,12 +85,12 @@ namespace ModernCashFlow.Excel2010
         {
             //note: colocar coisas genéricas do startup da app
 
-            var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
-            commandManager.LoadAllTransactions();
-            commandManager.ConvertTodayPaymentsToPending();
-            commandManager.WriteAllTransactionsToWorsheets();
-            //commandManager.ShowSplashWindow();
-            commandManager.ConfigureSidePanel();
+            //var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
+            ////commandManager.LoadAllTransactions();
+            ////commandManager.ConvertTodayPaymentsToPending();
+            ////commandManager.WriteAllTransactionsToWorsheets();
+            //////commandManager.ShowSplashWindow();
+            //commandManager.ConfigureSidePanel();
         }
 
         private void ThisWorkbook_Shutdown(object sender, System.EventArgs e)

@@ -20,7 +20,7 @@ namespace ModernCashFlow.Tools
         /// <returns>Retorna um DateTime ou null em caso de falha.</returns>
         public static DateTime? ToDateTime(dynamic range)
         {
-            var c = CultureInfo.CurrentCulture;
+            var c = CultureInfo.CurrentUICulture;
 
             if (range == null || range.Value() == null) return null;
 
