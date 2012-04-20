@@ -294,7 +294,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                     }
 
                     Guid codLancamento = RangeUtils.ToGuid(targetRange.EntireRow.Cells[1, _absCols[MainResources.TransactionCode]]);
-                    var entity = _controller.CurrentSessionData.Where(x => x.TransactionCode == codLancamento).FirstOrDefault();
+                    var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
                     ReadWorksheetRow(targetRange, entity);
 
                     _controller.AcceptData(entity, true);

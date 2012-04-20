@@ -47,6 +47,16 @@ namespace ModernCashFlow.Domain.Entities
         [LocalizableColumnName]
         public DateTime? TransactionDate { get; set; }
 
+        public double? TransactionDate_OA
+        {
+            get
+            {
+                var dateTime = this.TransactionDate;
+                if (dateTime != null) return dateTime.Value.ToOADate();
+                return null;
+            }
+        }
+
 
         private DateTime? _date;
 
@@ -179,6 +189,16 @@ namespace ModernCashFlow.Domain.Entities
         /// </summary>
         [LocalizableColumnName]
         public DateTime? DueDate { get; set; }
+
+        public double? DueDate_OA
+        {
+            get
+            {
+                var dateTime = this.DueDate;
+                if (dateTime != null) return dateTime.Value.ToOADate();
+                return null;
+            }
+        }
 
         /// <summary>
         /// Indica que este lançamento representa o pagamento de despesa mensal recorrente.
