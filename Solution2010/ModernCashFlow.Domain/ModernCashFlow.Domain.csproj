@@ -43,6 +43,7 @@
     <Compile Include="BaseInterfaces\DomainBase.cs" />
     <Compile Include="BaseInterfaces\IDomainObject.cs" />
     <Compile Include="Dtos\EditPendingPaymentDto.cs" />
+    <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Income.cs" />
     <Compile Include="Entities\EditStatus.cs" />
     <Compile Include="Entities\TransactionStatus.cs" />

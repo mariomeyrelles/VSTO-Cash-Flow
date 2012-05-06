@@ -385,7 +385,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                 _menuInserir = (Office.CommandBarButton)_commandBar.Controls.Add(1);
                 _menuInserir.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
-                _menuInserir.Caption = "Novo...";
+                _menuInserir.Caption = "New Expense...";
                 _menuInserir.FaceId = 1544;
                 _menuInserir.Tag = "4";
 
@@ -403,7 +403,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                 _menuRemover = (Office.CommandBarButton)_commandBar.Controls.Add(1);
                 _menuRemover.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
-                _menuRemover.Caption = "Remover Item...";
+                _menuRemover.Caption = "Remove Expense...";
                 _menuRemover.FaceId = 0478;
                 _menuRemover.Tag = "3";
 

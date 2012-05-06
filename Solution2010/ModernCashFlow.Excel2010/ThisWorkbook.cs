@@ -85,18 +85,20 @@ namespace ModernCashFlow.Excel2010
         {
             //note: colocar coisas genéricas do startup da app
 
-            //var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
-            ////commandManager.LoadAllTransactions();
-            ////commandManager.ConvertTodayPaymentsToPending();
-            ////commandManager.WriteAllTransactionsToWorsheets();
-            //////commandManager.ShowSplashWindow();
-            //commandManager.ConfigureSidePanel();
+            var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
+            commandManager.LoadAllTransactions();
+            commandManager.ConvertTodayPaymentsToPending();
+            commandManager.WriteAllTransactionsToWorsheets();
+            //commandManager.ShowSplashWindow();
+            commandManager.ConfigureSidePanel();
+
         }
 
         private void ThisWorkbook_Shutdown(object sender, System.EventArgs e)
         {
             //finalizar a instância do engine do WPF.
             //_wpfApp.Shutdown();
+
         }
 
         private void ThisWorkbook_BeforeSave(bool SaveAsUI, ref bool Cancel)
@@ -104,6 +106,11 @@ namespace ModernCashFlow.Excel2010
             //todo: rever processos do before save.
             var eventHandlers = NinjectContainer.Kernel.Get<ExpenseWorksheet.Events>();
             eventHandlers.BeforeSave(SaveAsUI,ref Cancel);
+        }
+
+        private void ThisWorkbook_BeforeClose(ref bool cancel)
+        {
+              ThisApplication.CellDragAndDrop = true;
         }
 
 
@@ -132,11 +139,11 @@ namespace ModernCashFlow.Excel2010
             this.Startup += (ThisWorkbook_Startup);
             this.Shutdown += (ThisWorkbook_Shutdown);
             this.BeforeSave += (ThisWorkbook_BeforeSave);
+            this.BeforeClose += (ThisWorkbook_BeforeClose);
 
         }
 
-     
-
+       
         #endregion
 
     }

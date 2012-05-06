@@ -390,15 +390,15 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 //_menuEdit.FaceId = 0162;
                 //_menuEdit.Tag = "0";
 
-                _menuSalvar = (Office.CommandBarButton)_commandBar.Controls.Add(1);
-                _menuSalvar.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
-                _menuSalvar.Caption = "Salvar...";
-                _menuSalvar.FaceId = 1975;
-                _menuSalvar.Tag = "2";
+                //_menuSalvar = (Office.CommandBarButton)_commandBar.Controls.Add(1);
+                //_menuSalvar.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
+                //_menuSalvar.Caption = "Salvar...";
+                //_menuSalvar.FaceId = 1975;
+                //_menuSalvar.Tag = "2";
 
                 _menuRemover = (Office.CommandBarButton)_commandBar.Controls.Add(1);
                 _menuRemover.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
-                _menuRemover.Caption = "Remover Item...";
+                _menuRemover.Caption = "Remove Transaction...";
                 _menuRemover.FaceId = 0478;
                 _menuRemover.Tag = "3";
 
@@ -413,26 +413,25 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             {
                 Unprotect();
 
-                //criar uma nova entidade Saída.
-                var e = new Income();
-                e.TransactionDate = DateTime.Now;
-                e.TransactionCode = Guid.NewGuid();
-                e.EditStatus = EditStatus.Created;
-                e.TransactionStatus = TransactionStatus.Unknown;
+                //create a new Income
+                var newIncome = new Income();
+                newIncome.TransactionDate = DateTime.Now;
+                newIncome.TransactionCode = Guid.NewGuid();
+                newIncome.EditStatus = EditStatus.Created;
+                newIncome.TransactionStatus = TransactionStatus.Unknown;
 
                 //solicitar ao controller que aceite os novos dados.
-                var controller = NinjectContainer.Kernel.Get<BaseController<Income>>();
-                controller.AcceptData(e);
+                _controller.AcceptData(newIncome);
 
                 //configurar a linha nova da planilha com valores default.
                 var newRow = _tbl.ListRows.Add();
-                newRow.Range[1, _cols[MainResources.TransactionDate]].Value = e.TransactionDate;
-                newRow.Range[1, _cols[MainResources.TransactionCode]].Value = e.TransactionCode.ToString();
-                newRow.Range[1, _cols[MainResources.EditStatus]].Value = e.TransactionStatusDescription;
-                newRow.Range[1, _cols[MainResources.TransactionStatusDescription]].Value = e.TransactionStatus.GetDescription();
+                newRow.Range[1, _cols[MainResources.TransactionDate]].Value = newIncome.TransactionDate;
+                newRow.Range[1, _cols[MainResources.TransactionCode]].Value = newIncome.TransactionCode.ToString();
+                newRow.Range[1, _cols[MainResources.EditStatus]].Value = newIncome.TransactionStatusDescription;
+                newRow.Range[1, _cols[MainResources.TransactionStatusDescription]].Value = newIncome.TransactionStatus.GetDescription();
 
                 //atualizar o índice de linhas com esta nova saída.
-                _index.Set(e.TransactionCode, (Range)newRow.Range[1, _cols[MainResources.TransactionCode]]);
+                _index.Set(newIncome.TransactionCode, (Range)newRow.Range[1, _cols[MainResources.TransactionCode]]);
 
                 Protect();
             }

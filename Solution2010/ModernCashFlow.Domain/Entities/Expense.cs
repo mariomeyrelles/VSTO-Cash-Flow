@@ -350,7 +350,7 @@ namespace ModernCashFlow.Domain.Entities
             {
                 case TransactionStatus.Scheduled:
                     if (now < transactionDate)
-                        return string.Format("Este lançamento vence daqui há {0} dias. ", (transactionDate - now).Days);
+                        return string.Format("Este lançamento vence daqui a {0} dias. ", (transactionDate - now).Days);
                     if (now > transactionDate)
                         return string.Format("Este lançamento está em atraso há {0} dias.", (now - transactionDate).Days);
                     
