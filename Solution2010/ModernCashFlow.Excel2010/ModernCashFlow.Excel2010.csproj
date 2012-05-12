@@ -123,6 +123,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationCore\AccountController.cs" />
     <Compile Include="ApplicationCore\BaseController.cs" />
     <Compile Include="ApplicationCore\CommandManager.cs" />
     <Compile Include="ApplicationCore\DataManager.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Transfers.Designer.cs">
       <DependentUpon>Transfers.Designer.xml</DependentUpon>
     </Compile>
+    <Compile Include="WorksheetLogic\ConfigWorksheet.cs" />
     <Compile Include="WorksheetLogic\IncomeWorksheet.cs" />
     <Compile Include="WorksheetLogic\ExpenseWorksheet.cs" />
     <EmbeddedResource Include="Config.resx">

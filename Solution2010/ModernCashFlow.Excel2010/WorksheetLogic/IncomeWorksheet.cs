@@ -91,8 +91,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             _databindCols = ExcelUtil.PrepareColumnNamesForDatabinding<Income>(_cols.Keys.ToList());
         }
 
-
-
+        
         private void OnUpdateSingleLocalData(Income updatedData)
         {
             Unprotect(enableEvents: false);

@@ -1,3 +1,4 @@
+using System;
 using ModernCashFlow.Domain.BaseInterfaces;
 
 namespace ModernCashFlow.Domain.Entities
@@ -9,7 +10,7 @@ namespace ModernCashFlow.Domain.Entities
         public string Description { get; set; }
         public string ResponsibleName { get; set; }
         public double InitialBalance { get; set; }
-        public double InitialDate { get; set; }
+        public DateTime InitialDate { get; set; }
         public bool AcceptsDeposits { get; set; }
         public bool AcceptsManualAdjustment { get; set; }
         public bool AcceptsNegativeValues { get; set; }
