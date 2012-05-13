@@ -99,7 +99,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         
         private void OnUpdateSingleLocalData(Expense updatedData)
         {
-            Unprotect(enableEvents:false);
+            Unprotect();
 
             var range = _index[updatedData.TransactionCode];
 
@@ -120,7 +120,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
         private void WriteToWorksheet(IEnumerable<Expense> updatedData)
         {
-            Unprotect(enableEvents:false);
+            Unprotect();
 
             var data = updatedData.ToList();
 
@@ -269,14 +269,10 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         /// <summary>
         /// Desproteger a planilha para modificações
         /// </summary>
-        public static void Unprotect(bool enableEvents = true)
+        public static void Unprotect(bool enableEvents = false)
         {
             _sheet.Unprotect();
-            if (!enableEvents)
-            {
-                Globals.ThisWorkbook.ThisApplication.EnableEvents = false;
-            }
-
+            Globals.ThisWorkbook.ThisApplication.EnableEvents = enableEvents;
         }
 
 
@@ -381,13 +377,13 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 //fonte dos ícones (faceid): http://www.kebabshopblues.co.uk/2007/01/04/visual-studio-2005-tools-for-office-commandbarbutton-faceid-property/
 
                 //criar um novo command bar do tipo popup para acomodar os itens criados abaixo.
-                _commandBar = Globals.ThisWorkbook.Application.CommandBars.Add("EditarSaidas", Office.MsoBarPosition.msoBarPopup, false, true);
+                _commandBar = Globals.ThisWorkbook.Application.CommandBars.Add("ExpenseContextMenu", Office.MsoBarPosition.msoBarPopup, false, true);
 
                 _menuInserir = (Office.CommandBarButton)_commandBar.Controls.Add(1);
                 _menuInserir.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
                 _menuInserir.Caption = "New Expense...";
                 _menuInserir.FaceId = 1544;
-                _menuInserir.Tag = "4";
+                _menuInserir.Tag = "4a";
 
                 //_menuEdit = (Office.CommandBarButton)_commandBar.Controls.Add(1);
                 //_menuEdit.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
@@ -395,23 +391,23 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 //_menuEdit.FaceId = 0162;
                 //_menuEdit.Tag = "0";
 
-                _menuSalvar = (Office.CommandBarButton)_commandBar.Controls.Add(1);
-                _menuSalvar.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
-                _menuSalvar.Caption = "Salvar...";
-                _menuSalvar.FaceId = 1975;
-                _menuSalvar.Tag = "2";
+                //_menuSalvar = (Office.CommandBarButton)_commandBar.Controls.Add(1);
+                //_menuSalvar.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
+                //_menuSalvar.Caption = "Salvar...";
+                //_menuSalvar.FaceId = 1975;
+                //_menuSalvar.Tag = "2";
 
                 _menuRemover = (Office.CommandBarButton)_commandBar.Controls.Add(1);
                 _menuRemover.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
                 _menuRemover.Caption = "Remove Expense...";
                 _menuRemover.FaceId = 0478;
-                _menuRemover.Tag = "3";
+                _menuRemover.Tag = "3a";
 
 
                 //_menuEdit.Click += MenuEditClick;
                 //_menuSalvar.Click += MenuSaveClick;
                 //_menuRemover.Click += MenuRemoveClick;
-                _menuInserir.Click += MenuCreateClick;
+                _menuInserir.Click += this.MenuCreateClick;
             }
 
             private void MenuCreateClick(CommandBarButton ctrl, ref bool canceldefault)
@@ -419,24 +415,28 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 Unprotect();
 
                 //criar uma nova entidade Saída.
-                var saida = new Expense();
-                saida.TransactionDate = DateTime.Now;
-                saida.TransactionCode = Guid.NewGuid();
-                saida.EditStatus = EditStatus.Created;
-                saida.TransactionStatus = TransactionStatus.Unknown;
+                var newExpense = new Expense();
+                newExpense.Date = DateTime.Now;
+                newExpense.TransactionDate = DateTime.Now;
+                newExpense.TransactionCode = Guid.NewGuid();
+                newExpense.EditStatus = EditStatus.Created;
+                newExpense.TransactionStatus = TransactionStatus.Unknown;
                 
                 //solicitar ao controller que aceite os novos dados.
-                _controller.AcceptData(saida);
+                _controller.AcceptData(newExpense);
 
                 //configurar a linha nova da planilha com valores default.
                 var newRow = _tbl.ListRows.Add();
-                newRow.Range[1, _cols[Lang.TransactionDate]].Value2 = saida.TransactionDate;
-                newRow.Range[1, _cols[Lang.TransactionCode]].Value2 = saida.TransactionCode.ToString();
-                newRow.Range[1, _cols[Lang.EditStatus]].Value2 = saida.TransactionStatusDescription;
-                newRow.Range[1, _cols[Lang.TransactionStatusDescription]].Value2 = saida.TransactionStatus.GetDescription();
+                newRow.Range[1, _cols[Lang.Date]].Value2 = newExpense.Date;
+                newRow.Range[1, _cols[Lang.TransactionDate]].Value2 = newExpense.TransactionDate;
+                newRow.Range[1, _cols[Lang.TransactionCode]].Value2 = newExpense.TransactionCode.ToString();
+                newRow.Range[1, _cols[Lang.EditStatus]].Value2 = newExpense.TransactionStatusDescription;
+                newRow.Range[1, _cols[Lang.TransactionStatusDescription]].Value2 = newExpense.TransactionStatus.GetDescription();
 
                 //atualizar o índice de linhas com esta nova saída.
-                _index.Set(saida.TransactionCode, (Range)newRow.Range[1, _cols[Lang.TransactionCode]]);
+                _index.Set(newExpense.TransactionCode, (Range)newRow.Range[1, _cols[Lang.TransactionCode]]);
+
+                newRow.Range[1,1].Select();
                 
                 Protect();
             }
@@ -456,7 +456,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             public void ShowContextMenu(Excel.Range target, ref bool cancel)
             {
                 _activeRange = target;
-                _commandBar.ShowPopup();
+               // _commandBar.ShowPopup();
+                Globals.ThisWorkbook.Application.CommandBars["ExpenseContextMenu"].ShowPopup();
                 cancel = true;
             }
         }

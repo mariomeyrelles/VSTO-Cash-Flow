@@ -87,11 +87,10 @@ namespace ModernCashFlow.Excel2010
 
             var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
             commandManager.LoadAllTransactions();
-            commandManager.ConvertTodayPaymentsToPending();
-            commandManager.WriteAllTransactionsToWorsheets();
+            //commandManager.ConvertTodayPaymentsToPending();
+            //commandManager.WriteAllTransactionsToWorsheets();
             //commandManager.ShowSplashWindow();
             commandManager.ConfigureSidePanel();
-
         }
 
         private void ThisWorkbook_Shutdown(object sender, System.EventArgs e)

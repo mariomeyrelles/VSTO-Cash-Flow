@@ -94,7 +94,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         
         private void OnUpdateSingleLocalData(Income updatedData)
         {
-            Unprotect(enableEvents: false);
+            Unprotect();
 
             var range = _index[updatedData.TransactionCode];
 
@@ -263,16 +263,11 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         /// <summary>
         /// Desproteger a planilha para modificações
         /// </summary>
-        public static void Unprotect(bool enableEvents = true)
+        public static void Unprotect(bool enableEvents = false)
         {
             _sheet.Unprotect();
-            if (!enableEvents)
-            {
-                Globals.ThisWorkbook.ThisApplication.EnableEvents = false;
-            }
-
+            Globals.ThisWorkbook.ThisApplication.EnableEvents = enableEvents;
         }
-
 
 
         public class Events
@@ -375,7 +370,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 //fonte dos ícones (faceid): http://www.kebabshopblues.co.uk/2007/01/04/visual-studio-2005-tools-for-office-commandbarbutton-faceid-property/
 
                 //criar um novo command bar do tipo popup para acomodar os itens criados abaixo.
-                _commandBar = Globals.ThisWorkbook.Application.CommandBars.Add("ExpenseContextMenu", Office.MsoBarPosition.msoBarPopup, false, true);
+                _commandBar = Globals.ThisWorkbook.Application.CommandBars.Add("IncomeContextMenu", Office.MsoBarPosition.msoBarPopup, false, true);
 
                 _menuInserir = (Office.CommandBarButton)_commandBar.Controls.Add(1);
                 _menuInserir.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
@@ -405,7 +400,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 //_menuEdit.Click += MenuEditClick;
                 //_menuSalvar.Click += MenuSaveClick;
                 //_menuRemover.Click += MenuRemoveClick;
-                _menuInserir.Click += MenuCreateClick;
+                _menuInserir.Click += this.MenuCreateClick;
             }
 
             private void MenuCreateClick(CommandBarButton ctrl, ref bool canceldefault)
@@ -414,6 +409,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                 //create a new Income
                 var newIncome = new Income();
+                newIncome.Date = DateTime.Now;
                 newIncome.TransactionDate = DateTime.Now;
                 newIncome.TransactionCode = Guid.NewGuid();
                 newIncome.EditStatus = EditStatus.Created;
@@ -424,6 +420,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                 //configurar a linha nova da planilha com valores default.
                 var newRow = _tbl.ListRows.Add();
+                newRow.Range[1, _cols[Lang.Date]].Value2 = newIncome.Date;
                 newRow.Range[1, _cols[Lang.TransactionDate]].Value2 = newIncome.TransactionDate;
                 newRow.Range[1, _cols[Lang.TransactionCode]].Value2 = newIncome.TransactionCode.ToString();
                 newRow.Range[1, _cols[Lang.EditStatus]].Value2 = newIncome.TransactionStatusDescription;
@@ -450,7 +447,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             public void ShowContextMenu(Excel.Range target, ref bool cancel)
             {
                 _activeRange = target;
-                _commandBar.ShowPopup();
+                //_commandBar.ShowPopup();
+                Globals.ThisWorkbook.Application.CommandBars["IncomeContextMenu"].ShowPopup();
                 cancel = true;
             }
         }
