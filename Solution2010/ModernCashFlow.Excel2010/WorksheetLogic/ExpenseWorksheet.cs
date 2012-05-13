@@ -62,7 +62,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             var itens = Util.GetEnumDescriptions(typeof(TransactionStatus));
             var separator = Thread.CurrentThread.CurrentCulture.TextInfo.ListSeparator;
             var rawValues = string.Join(separator, itens);
-            var range = _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.TransactionStatusDescription)];
+            var range = _sheet.Range[string.Format("tblExpenses[{0}]", Lang.TransactionStatusDescription)];
             range.Validation.Delete();
             range.Validation.Add(XlDVType.xlValidateList,
                                  XlDVAlertStyle.xlValidAlertInformation, XlFormatConditionOperator.xlBetween, rawValues);
@@ -75,7 +75,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         {
             _cols = new Dictionary<string, int>();
 
-            object[,] columnData = _tbl.HeaderRowRange.Value;
+            object[,] columnData = _tbl.HeaderRowRange.Value2;
 
             //percorrer todas as colunas do array (e não linhas, pois sei que tem apenas 1 linha) e cadastrar as colunas no dicionário para uso geral.
             //o nome das colunas não pode ser alterado em hipótese nenhuma.
@@ -106,8 +106,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             WriteWorksheetRow(range,updatedData);
 
             //todo: rever se precisa fazer isso em outros campos.
-            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
-            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblExpenses[{0}]", Lang.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblExpenses[{0}]", Lang.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
             
             Protect();
             
@@ -128,8 +128,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             _tbl.Disconnect();
 
             //todo: manter a formatação dos demais campos para evitar que o usuário estrague a formatação do campo
-            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
-            _sheet.Range[string.Format("tblExpenses[{0}]", MainResources.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblExpenses[{0}]", Lang.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            _sheet.Range[string.Format("tblExpenses[{0}]", Lang.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
 
             _tbl.Range.Columns.AutoFit();
             
@@ -153,7 +153,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                     var saida = new Expense();
                     ReadListObjectRow(row, dados, saida);
 
-                    _index.Set(saida.TransactionCode, (Range)_tbl.Range[row, _cols[MainResources.TransactionCode]]);
+                    _index.Set(saida.TransactionCode, (Range)_tbl.Range[row, _cols[Lang.TransactionCode]]);
 
                     saidas.Add(saida);
                 }
@@ -172,29 +172,29 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         public static void ReadWorksheetRow(Range row, Expense s)
         {
             var r = row.EntireRow;
-            s.TransactionDate = RangeUtils.ToDateTime(r.Cells[1, _absCols[MainResources.TransactionDate]]);
-            s.Date = RangeUtils.ToDateTime(r.Cells[1, _absCols[MainResources.Date]]);
-            s.ExpectedValue = RangeUtils.ToDouble(r.Cells[1, _absCols[MainResources.ExpectedValue]]);
-            s.AccountName = RangeUtils.ToString(r.Cells[1, _absCols[MainResources.AccountName]]);
-            s.Reason = RangeUtils.ToString(r.Cells[1, _absCols[MainResources.Reason]]);
-            s.Place = RangeUtils.ToString(r.Cells[1, _absCols[MainResources.Place]]);
-            s.ResponsibleName = RangeUtils.ToString(r.Cells[1, _absCols[MainResources.ResponsibleName]]);
-            s.CategoryName = RangeUtils.ToString(r.Cells[1, _absCols[MainResources.CategoryName]]);
-            s.Tags = RangeUtils.ToString(r.Cells[1, _absCols[MainResources.Tags]]);
-            s.Quantity = RangeUtils.ToDecimal(r.Cells[1, _absCols[MainResources.Quantity]]);
-            s.ActualValue = RangeUtils.ToDouble(r.Cells[1, _absCols[MainResources.ActualValue]]);
-            s.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(RangeUtils.ToString(r.Cells[1, _absCols[MainResources.TransactionStatusDescription]]));
-            s.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(RangeUtils.ToString(r.Cells[1, _absCols[MainResources.EditStatus]]));
-            s.DueDate = RangeUtils.ToDateTime(r.Cells[1, _absCols[MainResources.DueDate]]);
-            s.IsRecurring = RangeUtils.ToBoolean(r.Cells[1, _absCols[MainResources.IsRecurring]]);
-            s.MonthlyInterval = RangeUtils.ToInt(r.Cells[1, _absCols[MainResources.MonthlyInterval]]);
-            s.RemainingInstallments = RangeUtils.ToInt(r.Cells[1, _absCols[MainResources.RemainingInstallments]]);
-            s.AccountTransferCode = RangeUtils.ToString(r.Cells[1, _absCols[MainResources.AccountTransferCode]]);
-            s.CheckNumber = RangeUtils.ToString(r.Cells[1, _absCols[MainResources.CheckNumber]]);
-            s.SupportsDrillDown = RangeUtils.ToBoolean(r.Cells[1, _absCols[MainResources.SupportsDrillDown]]);
-            s.TransactionGroup = RangeUtils.ToGuid(r.Cells[1, _absCols[MainResources.TransactionGroup]]) ;
-            s.TransactionCode = RangeUtils.ToGuid(r.Cells[1, _absCols[MainResources.TransactionCode]]) ?? Guid.NewGuid();
-            s.Remarks = RangeUtils.ToString(r.Cells[1, _absCols[MainResources.Remarks]]);
+            s.TransactionDate = RangeUtils.ToDateTime(r.Cells[1, _absCols[Lang.TransactionDate]]);
+            s.Date = RangeUtils.ToDateTime(r.Cells[1, _absCols[Lang.Date]]);
+            s.ExpectedValue = RangeUtils.ToDouble(r.Cells[1, _absCols[Lang.ExpectedValue]]);
+            s.AccountName = RangeUtils.ToString(r.Cells[1, _absCols[Lang.AccountName]]);
+            s.Reason = RangeUtils.ToString(r.Cells[1, _absCols[Lang.Reason]]);
+            s.Place = RangeUtils.ToString(r.Cells[1, _absCols[Lang.Place]]);
+            s.ResponsibleName = RangeUtils.ToString(r.Cells[1, _absCols[Lang.ResponsibleName]]);
+            s.CategoryName = RangeUtils.ToString(r.Cells[1, _absCols[Lang.CategoryName]]);
+            s.Tags = RangeUtils.ToString(r.Cells[1, _absCols[Lang.Tags]]);
+            s.Quantity = RangeUtils.ToDecimal(r.Cells[1, _absCols[Lang.Quantity]]);
+            s.ActualValue = RangeUtils.ToDouble(r.Cells[1, _absCols[Lang.ActualValue]]);
+            s.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(RangeUtils.ToString(r.Cells[1, _absCols[Lang.TransactionStatusDescription]]));
+            s.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(RangeUtils.ToString(r.Cells[1, _absCols[Lang.EditStatus]]));
+            s.DueDate = RangeUtils.ToDateTime(r.Cells[1, _absCols[Lang.DueDate]]);
+            s.IsRecurring = RangeUtils.ToBoolean(r.Cells[1, _absCols[Lang.IsRecurring]]);
+            s.MonthlyInterval = RangeUtils.ToInt(r.Cells[1, _absCols[Lang.MonthlyInterval]]);
+            s.RemainingInstallments = RangeUtils.ToInt(r.Cells[1, _absCols[Lang.RemainingInstallments]]);
+            s.AccountTransferCode = RangeUtils.ToString(r.Cells[1, _absCols[Lang.AccountTransferCode]]);
+            s.CheckNumber = RangeUtils.ToString(r.Cells[1, _absCols[Lang.CheckNumber]]);
+            s.SupportsDrillDown = RangeUtils.ToBoolean(r.Cells[1, _absCols[Lang.SupportsDrillDown]]);
+            s.TransactionGroup = RangeUtils.ToGuid(r.Cells[1, _absCols[Lang.TransactionGroup]]) ;
+            s.TransactionCode = RangeUtils.ToGuid(r.Cells[1, _absCols[Lang.TransactionCode]]) ?? Guid.NewGuid();
+            s.Remarks = RangeUtils.ToString(r.Cells[1, _absCols[Lang.Remarks]]);
         }
 
         public static void WriteWorksheetRow(Range row, Expense s)
@@ -202,58 +202,58 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             //todo: validar tipos de dados e só escrever o que tiver mudado.
             //utilizando nomes menores de variável para facilitar leitura
             var r = row.EntireRow;
-            r.Cells[1, _absCols[MainResources.TransactionDate]].Value2 = s.TransactionDate ?? r.Cells[1, _absCols[MainResources.TransactionDate]].Value2;
-            r.Cells[1, _absCols[MainResources.Date]].Value2 = s.Date ?? r.Cells[1, _absCols[MainResources.Date]].Value2;
-            r.Cells[1, _absCols[MainResources.ExpectedValue]].Value2 = s.ExpectedValue ?? r.Cells[1, _absCols[MainResources.ExpectedValue]].Value2;
-            r.Cells[1, _absCols[MainResources.AccountName]].Value = s.AccountName ?? r.Cells[1, _absCols[MainResources.AccountName]].Value;
-            r.Cells[1, _absCols[MainResources.Reason]].Value = s.Reason ?? r.Cells[1, _absCols[MainResources.Reason]].Value;
-            r.Cells[1, _absCols[MainResources.Place]].Value = s.Place ??r.Cells[1, _absCols[MainResources.Place]].Value ;
-            r.Cells[1, _absCols[MainResources.ResponsibleName]].Value = s.ResponsibleName ?? r.Cells[1, _absCols[MainResources.ResponsibleName]].Value ;
-            r.Cells[1, _absCols[MainResources.CategoryName]].Value = s.CategoryName ?? r.Cells[1, _absCols[MainResources.CategoryName]].Value;
-            r.Cells[1, _absCols[MainResources.Tags]].Value = s.Tags ?? r.Cells[1, _absCols[MainResources.Tags]].Value ;
-            r.Cells[1, _absCols[MainResources.Quantity]].Value = s.Quantity ?? r.Cells[1, _absCols[MainResources.Quantity]].Value;
-            r.Cells[1, _absCols[MainResources.ActualValue]].Value2 = s.ActualValue ?? r.Cells[1, _absCols[MainResources.ActualValue]].Value2;
-            r.Cells[1, _absCols[MainResources.TransactionStatusDescription]].Value = s.TransactionStatusDescription ?? r.Cells[1, _absCols[MainResources.TransactionStatusDescription]].Value;
-            r.Cells[1, _absCols[MainResources.EditStatus]].Value = s.EditStatus.ToString();
-            r.Cells[1, _absCols[MainResources.DueDate]].Value2 = s.DueDate ?? r.Cells[1, _absCols[MainResources.DueDate]].Value2;
-            r.Cells[1, _absCols[MainResources.IsRecurring]].Value = s.IsRecurring ?? r.Cells[1, _absCols[MainResources.IsRecurring]].Value;
-            r.Cells[1, _absCols[MainResources.MonthlyInterval]].Value = s.MonthlyInterval ?? r.Cells[1, _absCols[MainResources.MonthlyInterval]].Value;
-            r.Cells[1, _absCols[MainResources.RemainingInstallments]].Value = s.RemainingInstallments ?? r.Cells[1, _absCols[MainResources.RemainingInstallments]].Value;
-            r.Cells[1, _absCols[MainResources.AccountTransferCode]].Value = s.AccountTransferCode ?? r.Cells[1, _absCols[MainResources.AccountTransferCode]].Value;
-            r.Cells[1, _absCols[MainResources.CheckNumber]].Value = s.CheckNumber ?? r.Cells[1, _absCols[MainResources.CheckNumber]].Value;
-            r.Cells[1, _absCols[MainResources.SupportsDrillDown]].Value = s.SupportsDrillDown ?? r.Cells[1, _absCols[MainResources.SupportsDrillDown]].Value;
-            r.Cells[1, _absCols[MainResources.TransactionGroup]].Value = s.TransactionGroup ?? r.Cells[1, _absCols[MainResources.TransactionGroup]].Value;
-            r.Cells[1, _absCols[MainResources.TransactionCode]].Value = s.TransactionCode.ToString();
-            r.Cells[1, _absCols[MainResources.Remarks]].Value = s.Remarks ?? r.Cells[1, _absCols[MainResources.Remarks]].Value;
+            r.Cells[1, _absCols[Lang.TransactionDate]].Value2 = s.TransactionDate ?? r.Cells[1, _absCols[Lang.TransactionDate]].Value2;
+            r.Cells[1, _absCols[Lang.Date]].Value2 = s.Date ?? r.Cells[1, _absCols[Lang.Date]].Value2;
+            r.Cells[1, _absCols[Lang.ExpectedValue]].Value2 = s.ExpectedValue ?? r.Cells[1, _absCols[Lang.ExpectedValue]].Value2;
+            r.Cells[1, _absCols[Lang.AccountName]].Value2 = s.AccountName ?? r.Cells[1, _absCols[Lang.AccountName]].Value2;
+            r.Cells[1, _absCols[Lang.Reason]].Value2 = s.Reason ?? r.Cells[1, _absCols[Lang.Reason]].Value2;
+            r.Cells[1, _absCols[Lang.Place]].Value2 = s.Place ??r.Cells[1, _absCols[Lang.Place]].Value2 ;
+            r.Cells[1, _absCols[Lang.ResponsibleName]].Value2 = s.ResponsibleName ?? r.Cells[1, _absCols[Lang.ResponsibleName]].Value2 ;
+            r.Cells[1, _absCols[Lang.CategoryName]].Value2 = s.CategoryName ?? r.Cells[1, _absCols[Lang.CategoryName]].Value2;
+            r.Cells[1, _absCols[Lang.Tags]].Value2 = s.Tags ?? r.Cells[1, _absCols[Lang.Tags]].Value2 ;
+            r.Cells[1, _absCols[Lang.Quantity]].Value2 = s.Quantity ?? r.Cells[1, _absCols[Lang.Quantity]].Value2;
+            r.Cells[1, _absCols[Lang.ActualValue]].Value2 = s.ActualValue ?? r.Cells[1, _absCols[Lang.ActualValue]].Value2;
+            r.Cells[1, _absCols[Lang.TransactionStatusDescription]].Value2 = s.TransactionStatusDescription ?? r.Cells[1, _absCols[Lang.TransactionStatusDescription]].Value2;
+            r.Cells[1, _absCols[Lang.EditStatus]].Value2 = s.EditStatus.ToString();
+            r.Cells[1, _absCols[Lang.DueDate]].Value2 = s.DueDate ?? r.Cells[1, _absCols[Lang.DueDate]].Value2;
+            r.Cells[1, _absCols[Lang.IsRecurring]].Value2 = s.IsRecurring ?? r.Cells[1, _absCols[Lang.IsRecurring]].Value2;
+            r.Cells[1, _absCols[Lang.MonthlyInterval]].Value2 = s.MonthlyInterval ?? r.Cells[1, _absCols[Lang.MonthlyInterval]].Value2;
+            r.Cells[1, _absCols[Lang.RemainingInstallments]].Value2 = s.RemainingInstallments ?? r.Cells[1, _absCols[Lang.RemainingInstallments]].Value2;
+            r.Cells[1, _absCols[Lang.AccountTransferCode]].Value2 = s.AccountTransferCode ?? r.Cells[1, _absCols[Lang.AccountTransferCode]].Value2;
+            r.Cells[1, _absCols[Lang.CheckNumber]].Value2 = s.CheckNumber ?? r.Cells[1, _absCols[Lang.CheckNumber]].Value2;
+            r.Cells[1, _absCols[Lang.SupportsDrillDown]].Value2 = s.SupportsDrillDown ?? r.Cells[1, _absCols[Lang.SupportsDrillDown]].Value2;
+            r.Cells[1, _absCols[Lang.TransactionGroup]].Value2 = s.TransactionGroup ?? r.Cells[1, _absCols[Lang.TransactionGroup]].Value2;
+            r.Cells[1, _absCols[Lang.TransactionCode]].Value2 = s.TransactionCode.ToString();
+            r.Cells[1, _absCols[Lang.Remarks]].Value2 = s.Remarks ?? r.Cells[1, _absCols[Lang.Remarks]].Value2;
 
 
         }
         
         public static void ReadListObjectRow(int row, object[,] dados, Expense s)
         {
-            s.TransactionDate = Parse.ToDateTime(dados[row, _cols[MainResources.TransactionDate]]) ?? DateTime.Now;
-            s.Date = Parse.ToDateTime(dados[row, _cols[MainResources.Date]]);
-            s.ExpectedValue = Parse.ToDouble(dados[row, _cols[MainResources.ExpectedValue]]);
-            s.AccountName = Parse.ToString(dados[row, _cols[MainResources.AccountName]]);
-            s.Reason = Parse.ToString(dados[row, _cols[MainResources.Reason]]);
-            s.Place = Parse.ToString(dados[row, _cols[MainResources.Place]]);
-            s.ResponsibleName = Parse.ToString(dados[row, _cols[MainResources.ResponsibleName]]);
-            s.CategoryName = Parse.ToString(dados[row, _cols[MainResources.CategoryName]]);
-            s.Tags = Parse.ToString(dados[row, _cols[MainResources.Tags]]);
-            s.Quantity = Parse.ToDecimal(dados[row, _cols[MainResources.Quantity]]);
-            s.ActualValue = Parse.ToDouble(dados[row, _cols[MainResources.ActualValue]]);
-            s.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(Parse.ToString(dados[row, _cols[MainResources.TransactionStatusDescription]]));
-            s.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(Parse.ToString(dados[row, _cols[MainResources.EditStatus]]));
-            s.DueDate = Parse.ToDateTime(dados[row, _cols[MainResources.DueDate]]);
-            s.IsRecurring = Parse.ToBoolean(dados[row, _cols[MainResources.IsRecurring]]);
-            s.MonthlyInterval = Parse.ToInt(dados[row, _cols[MainResources.MonthlyInterval]]);
-            s.RemainingInstallments = Parse.ToInt(dados[row, _cols[MainResources.RemainingInstallments]]);
-            s.AccountTransferCode = Parse.ToString(dados[row, _cols[MainResources.AccountTransferCode]]);
-            s.CheckNumber = Parse.ToString(dados[row, _cols[MainResources.CheckNumber]]);
-            s.SupportsDrillDown = Parse.ToBoolean(dados[row, _cols[MainResources.SupportsDrillDown]]);
-            s.TransactionGroup = Parse.ToGuid(dados[row, _cols[MainResources.TransactionGroup]]);
-            s.TransactionCode = Parse.ToGuid(dados[row, _cols[MainResources.TransactionCode]]) ?? Guid.NewGuid(); 
-            s.Remarks = Parse.ToString(dados[row, _cols[MainResources.Remarks]]);
+            s.TransactionDate = Parse.ToDateTime(dados[row, _cols[Lang.TransactionDate]]) ?? DateTime.Now;
+            s.Date = Parse.ToDateTime(dados[row, _cols[Lang.Date]]);
+            s.ExpectedValue = Parse.ToDouble(dados[row, _cols[Lang.ExpectedValue]]);
+            s.AccountName = Parse.ToString(dados[row, _cols[Lang.AccountName]]);
+            s.Reason = Parse.ToString(dados[row, _cols[Lang.Reason]]);
+            s.Place = Parse.ToString(dados[row, _cols[Lang.Place]]);
+            s.ResponsibleName = Parse.ToString(dados[row, _cols[Lang.ResponsibleName]]);
+            s.CategoryName = Parse.ToString(dados[row, _cols[Lang.CategoryName]]);
+            s.Tags = Parse.ToString(dados[row, _cols[Lang.Tags]]);
+            s.Quantity = Parse.ToDecimal(dados[row, _cols[Lang.Quantity]]);
+            s.ActualValue = Parse.ToDouble(dados[row, _cols[Lang.ActualValue]]);
+            s.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(Parse.ToString(dados[row, _cols[Lang.TransactionStatusDescription]]));
+            s.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(Parse.ToString(dados[row, _cols[Lang.EditStatus]]));
+            s.DueDate = Parse.ToDateTime(dados[row, _cols[Lang.DueDate]]);
+            s.IsRecurring = Parse.ToBoolean(dados[row, _cols[Lang.IsRecurring]]);
+            s.MonthlyInterval = Parse.ToInt(dados[row, _cols[Lang.MonthlyInterval]]);
+            s.RemainingInstallments = Parse.ToInt(dados[row, _cols[Lang.RemainingInstallments]]);
+            s.AccountTransferCode = Parse.ToString(dados[row, _cols[Lang.AccountTransferCode]]);
+            s.CheckNumber = Parse.ToString(dados[row, _cols[Lang.CheckNumber]]);
+            s.SupportsDrillDown = Parse.ToBoolean(dados[row, _cols[Lang.SupportsDrillDown]]);
+            s.TransactionGroup = Parse.ToGuid(dados[row, _cols[Lang.TransactionGroup]]);
+            s.TransactionCode = Parse.ToGuid(dados[row, _cols[Lang.TransactionCode]]) ?? Guid.NewGuid(); 
+            s.Remarks = Parse.ToString(dados[row, _cols[Lang.Remarks]]);
         }
 
 
@@ -299,7 +299,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                     }
 
 
-                    Guid codLancamento = RangeUtils.ToGuid(targetRange.EntireRow.Cells[1, _absCols[MainResources.TransactionCode]]);
+                    Guid codLancamento = RangeUtils.ToGuid(targetRange.EntireRow.Cells[1, _absCols[Lang.TransactionCode]]);
                     var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
                     ReadWorksheetRow(targetRange, entity);
 
@@ -322,10 +322,10 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                     _activeRange = target;
 
-                    var codLancamento = RangeUtils.ToGuid(_activeRange.EntireRow.Cells[1, _absCols[MainResources.TransactionCode]]);
+                    var codLancamento = RangeUtils.ToGuid(_activeRange.EntireRow.Cells[1, _absCols[Lang.TransactionCode]]);
                     if (codLancamento == null)
                     {
-                        MessageBox.Show(MainResources.NullTransactionCode);
+                        MessageBox.Show(Lang.NullTransactionCode);
                         return;
                     }
 
@@ -430,13 +430,13 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                 //configurar a linha nova da planilha com valores default.
                 var newRow = _tbl.ListRows.Add();
-                newRow.Range[1, _cols[MainResources.TransactionDate]].Value = saida.TransactionDate;
-                newRow.Range[1, _cols[MainResources.TransactionCode]].Value = saida.TransactionCode.ToString();
-                newRow.Range[1, _cols[MainResources.EditStatus]].Value = saida.TransactionStatusDescription;
-                newRow.Range[1, _cols[MainResources.TransactionStatusDescription]].Value = saida.TransactionStatus.GetDescription();
+                newRow.Range[1, _cols[Lang.TransactionDate]].Value2 = saida.TransactionDate;
+                newRow.Range[1, _cols[Lang.TransactionCode]].Value2 = saida.TransactionCode.ToString();
+                newRow.Range[1, _cols[Lang.EditStatus]].Value2 = saida.TransactionStatusDescription;
+                newRow.Range[1, _cols[Lang.TransactionStatusDescription]].Value2 = saida.TransactionStatus.GetDescription();
 
                 //atualizar o índice de linhas com esta nova saída.
-                _index.Set(saida.TransactionCode, (Range)newRow.Range[1, _cols[MainResources.TransactionCode]]);
+                _index.Set(saida.TransactionCode, (Range)newRow.Range[1, _cols[Lang.TransactionCode]]);
                 
                 Protect();
             }
@@ -444,7 +444,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
             private void MenuEditClick(CommandBarButton ctrl, ref bool canceldefault)
             {
-                Guid codLancamento = RangeUtils.ToGuid(_activeRange.EntireRow.Cells[1, _absCols[MainResources.TransactionCode]]);
+                Guid codLancamento = RangeUtils.ToGuid(_activeRange.EntireRow.Cells[1, _absCols[Lang.TransactionCode]]);
 
                 
                 var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);

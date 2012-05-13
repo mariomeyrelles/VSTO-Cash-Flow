@@ -20,15 +20,19 @@ namespace ModernCashFlow.Tools
         /// <returns>Retorna um DateTime ou null em caso de falha.</returns>
         public static DateTime? ToDateTime(dynamic range)
         {
-            var c = CultureInfo.CurrentUICulture;
+            if (range == null) return null;
+            if (range is double)
+                return DateTime.FromOADate(range);
 
-            if (range == null || range.Value() == null) return null;
-
-            var value = range.Value().ToString();
+            var value = range.Value2();
             if (value == null) return null;
+            
+            if (value is double)
+                return DateTime.FromOADate(value);
 
+            var c = CultureInfo.CurrentUICulture;
             DateTime output;
-            return DateTime.TryParse(value, c, DateTimeStyles.None, out output) ? (DateTime?)output : null;
+            return DateTime.TryParse(value.ToString(), c, DateTimeStyles.None, out output) ? (DateTime?)output : null;
         }
 
         /// <summary>
@@ -38,9 +42,9 @@ namespace ModernCashFlow.Tools
         /// <returns>Retorna um Int32 ou null em caso de falha.</returns>
         public static int? ToInt(dynamic range)
         {
-            if (range == null || range.Value() == null) return null;
+            if (range == null || range.Value2() == null) return null;
 
-            var input = range.Value().ToString();
+            var input = range.Value2().ToString();
             if (string.IsNullOrEmpty(input)) return null;
 
             int value;
@@ -54,9 +58,9 @@ namespace ModernCashFlow.Tools
         /// <returns>Retorna um Boolean ou null em caso de falha.</returns>
         public static bool? ToBoolean(dynamic range)
         {
-            if (range == null || range.Value() == null) return null;
+            if (range == null || range.Value2() == null) return null;
 
-            var input = range.Value().ToString();
+            var input = range.Value2().ToString();
             if (string.IsNullOrEmpty(input)) return null;
 
             bool value;
@@ -70,8 +74,8 @@ namespace ModernCashFlow.Tools
         /// <returns>Retorna um Double ou null em caso de falha.</returns>
         public static double? ToDouble(dynamic range)
         {
-            if (range == null || range.Value() == null) return null;
-            var input = range.Value().ToString();
+            if (range == null || range.Value2() == null) return null;
+            var input = range.Value2().ToString();
             if (string.IsNullOrEmpty(input)) return null;
 
             double value;
@@ -85,8 +89,8 @@ namespace ModernCashFlow.Tools
         /// <returns>Retorna um DateTime ou null em caso de falha.</returns>
         public static decimal? ToDecimal(dynamic range)
         {
-            if (range == null || range.Value() == null) return null;
-            var input = range.Value().ToString();
+            if (range == null || range.Value2() == null) return null;
+            var input = range.Value2().ToString();
             if (string.IsNullOrEmpty(input)) return null;
 
             decimal value;
@@ -104,9 +108,9 @@ namespace ModernCashFlow.Tools
         {
             if (range is string) return range;
 
-            if (range == null || range.Value() == null) return null;
+            if (range == null || range.Value2() == null) return null;
 
-            return range.Value().ToString();
+            return range.Value2().ToString();
         }
 
         /// <summary>
@@ -116,52 +120,14 @@ namespace ModernCashFlow.Tools
         /// <returns>Retorna um Guid ou null em caso de falha.</returns>
         public static Guid? ToGuid(dynamic range)
         {
-            if (range == null || range.Value() == null) return null;
-            var input = range.Value().ToString();
+            if (range == null || range.Value2() == null) return null;
+            var input = range.Value2().ToString();
             if (string.IsNullOrEmpty(input)) return null;
 
             Guid value;
             return Guid.TryParse(input, out value) ? (Guid?)value : null;
         }
-
-
-
-        public static dynamic ReadColumn<T>(string nomeColuna, Range headerRow, ListRow row)
-        {
-            int tblLeftAbsoluteColumn = headerRow.Cells[1, 1].Column -1;
-            foreach (dynamic cell in headerRow.Cells)
-            {
-                string valor = cell.Value();
-                if (valor == nomeColuna)
-                {
-                    Type t = typeof (T);
-                    int colNumber = cell.Column -1;
-
-                    var rowValue = row.Range.EntireRow.Cells[1, colNumber + tblLeftAbsoluteColumn];
-                    if (t.IsAssignableFrom(typeof(DateTime)))
-                        return ToDateTime(rowValue);
-                    
-                    if (t.IsAssignableFrom(typeof(int)))
-                        return ToInt(rowValue); 
-                    
-                    if (t.IsAssignableFrom(typeof(bool)))
-                        return ToBoolean(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(double)))
-                        return ToDouble(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(decimal)))
-                        return ToDecimal(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(Guid)))
-                        return ToGuid(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(string)))
-                        return ToString(rowValue);
-                }
-            }
-
-            return default(T);
-        }
+        
+        
     }
 }

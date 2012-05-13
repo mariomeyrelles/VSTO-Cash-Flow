@@ -28,7 +28,7 @@ namespace ModernCashFlow.Tools
             get
             {
                 //todo: lançar erro quando não encontrar recurso
-                return this.DescriptionValue = MainResources.ResourceManager.GetString(_resourceKey, CultureInfo.CurrentUICulture);
+                return this.DescriptionValue = Lang.ResourceManager.GetString(_resourceKey, CultureInfo.CurrentUICulture);
             }
         }
 

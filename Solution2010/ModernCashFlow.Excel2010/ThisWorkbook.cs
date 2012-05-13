@@ -33,7 +33,7 @@ namespace ModernCashFlow.Excel2010
             var kernel = NinjectContainer.Kernel;
             if (kernel == null)
             {
-                throw new ApplicationException(MainResources.Failed_to_load_Ninject);
+                throw new ApplicationException(Lang.Failed_to_load_Ninject);
             }
 
             //todo: verificar como setar a culture de forma mais legal.

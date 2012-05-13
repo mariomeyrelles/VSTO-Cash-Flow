@@ -42,7 +42,7 @@ namespace ModernCashFlow.Tools
                          let localizedDescriptions = from x in props.Where(x => x.Description != null)
                                                      select new {
                                                                      ResourceKey = x.PropertyName,
-                                                                     LocalizedDescr = MainResources.ResourceManager.GetString(x.PropertyName),
+                                                                     LocalizedDescr = Lang.ResourceManager.GetString(x.PropertyName),
                                                                      PropertyType = x.PropertyType
                                                                 }
                          from l in localizedDescriptions

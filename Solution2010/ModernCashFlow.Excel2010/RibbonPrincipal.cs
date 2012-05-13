@@ -54,7 +54,7 @@ namespace ModernCashFlow.Excel2010
 
         private void button3_Click(object sender, RibbonControlEventArgs e)
         {
-            MessageBox.Show(MainResources.TesteGlobalizacao);
+            MessageBox.Show(Lang.TesteGlobalizacao);
         }
 
         private void toggleButton1_Click(object sender, RibbonControlEventArgs e)

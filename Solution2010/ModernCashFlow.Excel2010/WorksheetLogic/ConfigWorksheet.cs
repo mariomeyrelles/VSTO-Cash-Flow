@@ -51,7 +51,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         {
             _cols = new Dictionary<string, int>();
 
-            object[,] columnData = _tbl.HeaderRowRange.Value;
+            object[,] columnData = _tbl.HeaderRowRange.Value2;
 
             //percorrer todas as colunas do array (e não linhas, pois sei que tem apenas 1 linha) e cadastrar as colunas no dicionário para uso geral.
             //o nome das colunas não pode ser alterado em hipótese nenhuma.
@@ -94,14 +94,14 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
             try
             {
-                object[,] dados = _tbl.Range.Value;
+                object[,] dados = _tbl.Range.Value2;
 
                 for (var row = 2; row <= dados.GetLength(0); row++)
                 {
                     var entity = new Account();
                     ReadListObjectRow(row, dados, entity);
 
-                    _index.Set(entity.Id, (Range)_tbl.Range[row, _cols[MainResources.TransactionCode]]);
+                    _index.Set(entity.Id, (Range)_tbl.Range[row, _cols[Lang.TransactionCode]]);
 
                     saidas.Add(entity);
                 }

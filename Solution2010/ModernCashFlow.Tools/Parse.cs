@@ -16,6 +16,11 @@ namespace ModernCashFlow.Tools
         /// <returns>Retorna um DateTime ou null em caso de falha.</returns>
         public static DateTime? ToDateTime(dynamic data)
         {
+            if (data is double)
+            {
+                return DateTime.FromOADate(data);
+            }
+
             var c = CultureInfo.CurrentUICulture;
 
             if (data == null) return null;
@@ -23,25 +28,12 @@ namespace ModernCashFlow.Tools
             var value = data.ToString();
             if (value == null) return null;
 
-            if (data is double)
-            {
-                return DateTime.FromOADate(data);
-            }
-
             DateTime output;
 
             return DateTime.TryParse(value, c, DateTimeStyles.None, out output) ? (DateTime?)output : null;
         }
 
-        public static DateTime? ToDateTime2(dynamic data)
-        {
-
-            if (data == null) return null;
-
-            var value = data.ToString();
-            return value == null ? null : DateTime.FromOADate(data);
-        }
-
+       
         /// <summary>
         /// Tenta converter o conteúdo de um range no tipo de dados Int32. Caso a conversão não dê certo, retorna null.
         /// </summary>
@@ -134,45 +126,6 @@ namespace ModernCashFlow.Tools
             Guid value;
             return Guid.TryParse(input, out value) ? (Guid?)value : null;
         }
-
-
-
-        public static dynamic ReadColumn<T>(string nomeColuna, Range headerRow, ListRow row)
-        {
-            int tblLeftAbsoluteColumn = headerRow.Cells[1, 1].Column - 1;
-            foreach (dynamic cell in headerRow.Cells)
-            {
-                string valor = cell.Value();
-                if (valor == nomeColuna)
-                {
-                    Type t = typeof(T);
-                    int colNumber = cell.Column - 1;
-
-                    var rowValue = row.Range.EntireRow.Cells[1, colNumber + tblLeftAbsoluteColumn];
-                    if (t.IsAssignableFrom(typeof(DateTime)))
-                        return ToDateTime(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(int)))
-                        return ToInt(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(bool)))
-                        return ToBoolean(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(double)))
-                        return ToDouble(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(decimal)))
-                        return ToDecimal(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(Guid)))
-                        return ToGuid(rowValue);
-
-                    if (t.IsAssignableFrom(typeof(string)))
-                        return ToString(rowValue);
-                }
-            }
-
-            return default(T);
-        }
+       
     }
 }

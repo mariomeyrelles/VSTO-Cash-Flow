@@ -42,26 +42,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\MainResources.Designer.cs">
-      <DependentUpon>MainResources.resx</DependentUpon>
+    <Compile Include="Resources\Lang.Designer.cs">
+      <DependentUpon>Lang.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Resources\MainResources.pt-br.Designer.cs">
-      <DependentUpon>MainResources.pt-br.resx</DependentUpon>
+    <Compile Include="Resources\Lang.pt-br.Designer.cs">
+      <DependentUpon>Lang.pt-br.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\MainResources.pt-br.resx">
+    <EmbeddedResource Include="Resources\Lang.pt-br.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainResources.pt-br.Designer.cs</LastGenOutput>
+      <LastGenOutput>Lang.pt-br.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MainResources.resx">
+    <EmbeddedResource Include="Resources\Lang.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MainResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Lang.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
