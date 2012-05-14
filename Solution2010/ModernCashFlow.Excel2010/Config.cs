@@ -19,11 +19,12 @@
         /// </summary>
         private void InternalStartup()
         {
-            this.Startup += new System.EventHandler(Config_Startup);
-            this.Shutdown += new System.EventHandler(Config_Shutdown);
+            this.Startup += new System.EventHandler(this.Config_Startup);
+            this.Shutdown += new System.EventHandler(this.Config_Shutdown);
+
         }
 
         #endregion
-
+        
     }
 }

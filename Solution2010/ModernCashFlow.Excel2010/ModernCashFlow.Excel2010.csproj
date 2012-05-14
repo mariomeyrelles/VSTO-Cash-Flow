@@ -182,6 +182,7 @@
     <Compile Include="WorksheetLogic\ConfigWorksheet.cs" />
     <Compile Include="WorksheetLogic\IncomeWorksheet.cs" />
     <Compile Include="WorksheetLogic\ExpenseWorksheet.cs" />
+    <Compile Include="WorksheetLogic\WorkSheetHelperBase.cs" />
     <EmbeddedResource Include="Config.resx">
       <DependentUpon>Config.cs</DependentUpon>
     </EmbeddedResource>

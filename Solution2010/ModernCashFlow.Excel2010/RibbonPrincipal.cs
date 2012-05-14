@@ -42,7 +42,7 @@ namespace ModernCashFlow.Excel2010
         private void button2_Click(object sender, RibbonControlEventArgs e)
         {
             var wks = NinjectContainer.Kernel.Get<ExpenseWorksheet>();
-            wks.ReadColumnPositions();
+            
         }
 
         private void btnPendingPayments_Click(object sender, RibbonControlEventArgs e)

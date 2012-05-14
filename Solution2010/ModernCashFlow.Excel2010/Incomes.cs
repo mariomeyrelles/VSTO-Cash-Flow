@@ -13,10 +13,6 @@ namespace ModernCashFlow.Excel2010
             this.tblIncomes.BeforeRightClick += (tblIncomes_BeforeRightClick);
             this.tblIncomes.SelectionChange += (tblIncomes_SelectionChange);
 
-
-            var wksHelper = NinjectContainer.Kernel.Get<IncomeWorksheet>();
-            wksHelper.ReadColumnPositions();
-            wksHelper.ConfigureValidationLists();
             ThisWorkbook.NotifySheetLoaded(this);
         }
 

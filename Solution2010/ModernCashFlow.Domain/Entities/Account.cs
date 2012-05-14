@@ -16,6 +16,7 @@ namespace ModernCashFlow.Domain.Entities
         public bool AcceptsNegativeValues { get; set; }
         public bool AcceptsRecharge { get; set; }
         public bool RequiresPayment { get; set; }
+        public bool AcceptsPartialPayment { get; set; }
         public bool AcceptsInterest { get; set; }
         public bool AcceptsYield { get; set; }
         public bool AcceptsChecks { get; set; }

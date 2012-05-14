@@ -8,28 +8,25 @@ namespace ModernCashFlow.Excel2010
 {
     public partial class Expenses
     {
+        private ExpenseWorksheet _wksHelper;
+
         private void Expenses_Startup(object sender, System.EventArgs e)
         {
-
-            this.tblExpenses.Change += (this.tblExpenses_Change);
-            this.tblExpenses.BeforeRightClick += (tblExpenses_BeforeRightClick);
-            this.tblExpenses.SelectionChange += (tblExpenses_SelectionChange);
-
-
-            var wksHelper = NinjectContainer.Kernel.Get<ExpenseWorksheet>();
-            wksHelper.ReadColumnPositions();
-            wksHelper.ConfigureValidationLists();
-
+            this.tblExpenses.Change += Expenses_Change;
+            this.tblExpenses.BeforeRightClick += Expenses_BeforeRightClick;
+            this.tblExpenses.SelectionChange += Expenses_SelectionChange;
+            this.ActivateEvent += Expenses_ActivateEvent;
+          
             ThisWorkbook.NotifySheetLoaded(this);
         }
 
-        void tblExpenses_SelectionChange(Excel.Range target)
+        void Expenses_SelectionChange(Excel.Range target)
         {
             var eventHandlers = NinjectContainer.Kernel.Get<ExpenseWorksheet.Events>();
             eventHandlers.OnSelectionChange(target);
         }
 
-        void tblExpenses_BeforeRightClick(Excel.Range target, ref bool cancel)
+        void Expenses_BeforeRightClick(Excel.Range target, ref bool cancel)
         {
             Application.EnableEvents = false;
 
@@ -39,7 +36,7 @@ namespace ModernCashFlow.Excel2010
             Application.EnableEvents = true;
         }
 
-        private void tblExpenses_Change(Excel.Range target, ListRanges changedRanges)
+        private void Expenses_Change(Excel.Range target, ListRanges changedRanges)
         {
             //todo: analisar se é preciso colocar try catch para manter os eventos da app ativos mesmo em caso de erro.
             Application.EnableEvents = false;
@@ -50,6 +47,10 @@ namespace ModernCashFlow.Excel2010
             Application.EnableEvents = true;
         }
 
+        private void Expenses_ActivateEvent()
+        {
+          
+        }
 
         private void Expenses_Shutdown(object sender, System.EventArgs e)
         {
@@ -63,10 +64,12 @@ namespace ModernCashFlow.Excel2010
         /// </summary>
         private void InternalStartup()
         {
-            this.Startup += new System.EventHandler(Expenses_Startup);
-            this.Shutdown += new System.EventHandler(Expenses_Shutdown);
+            this.Startup += Expenses_Startup;
+            this.Shutdown += Expenses_Shutdown;
+            
         }
 
+        
         #endregion
 
     }

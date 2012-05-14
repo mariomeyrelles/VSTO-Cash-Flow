@@ -84,7 +84,11 @@ namespace ModernCashFlow.Excel2010
         private void ThisWorkbook_WorksheetsLoaded(object sender, EventArgs e)
         {
             //note: colocar coisas genéricas do startup da app
-
+   
+            //initiliaze worksheet helpers
+            NinjectContainer.Kernel.Get<IncomeWorksheet>().Start();
+            NinjectContainer.Kernel.Get<ExpenseWorksheet>().Start();
+            
             var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
             commandManager.LoadAllTransactions();
             //commandManager.ConvertTodayPaymentsToPending();
@@ -95,7 +99,7 @@ namespace ModernCashFlow.Excel2010
 
         private void ThisWorkbook_Shutdown(object sender, System.EventArgs e)
         {
-            //finalizar a instância do engine do WPF.
+            //todo: finalizar a instância do engine do WPF ?.
             //_wpfApp.Shutdown();
 
         }
