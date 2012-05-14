@@ -429,6 +429,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 //atualizar o índice de linhas com esta nova saída.
                 _index.Set(newIncome.TransactionCode, (Range)newRow.Range[1, _cols[Lang.TransactionCode]]);
 
+                newRow.Range[1, 1].Select();
+
                 Protect();
             }
 
