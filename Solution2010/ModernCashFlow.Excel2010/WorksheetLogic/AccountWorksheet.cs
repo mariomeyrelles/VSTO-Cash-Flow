@@ -34,13 +34,22 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             _commandManager = commandManager;
             _controller = controller;
             _controller.UpdateAllLocalData += OnUpdateAllLocalData;
-            _controller.UpdateSingleLocalData += OnUpdateSingleLocalData;
             _controller.RetrieveAllLocalData += OnRetrieveLocalData;
         }
 
         public void Start()
         {
             ReadColumnPositions();
+            PrepareColumnsForDatabinding();
+        }
+
+        protected override void PrepareColumnsForDatabinding()
+        {
+            var cols = Cols.Keys.ToList();
+            var index = cols.FindIndex(x => x == "InitialDate");
+            cols[index] = "InitialDate_OA";
+            
+            DatabindCols = cols.ToArray();
         }
 
 
@@ -51,10 +60,13 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             Unprotect();
 
             var data = updatedData.ToList();
-
+            
             Table.SetDataBinding(data, "", DatabindCols);
             Table.Disconnect();
 
+            Sheet.Range["tblAccounts[InitialBalance]"].NumberFormat = ExcelNumberFormats.Accounting;
+            Sheet.Range["tblAccounts[MonthlyCost]"].NumberFormat = ExcelNumberFormats.Accounting;
+            
             Protect();
         }
 
@@ -62,18 +74,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         {
             return ReadFromWorksheet();
         }
-        private void OnUpdateSingleLocalData(Account updatedData)
-        {
-            Unprotect();
-
-            var range = RowIndex[updatedData.Id];
-
-            WriteWorksheetRow(range, updatedData);
-
-            Protect();
-
-        }
-
+        
 
         #endregion
 
@@ -108,26 +109,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 return null;
             }
 
-
         }
         
-
-        private void ReadWorksheetRow(Range row, Account a)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void WriteWorksheetRow(Range row, Account a)
-        {
-            
-            //utilizando nomes menores de variável para facilitar leitura
-            var r = row.EntireRow;
-
-
-            
-            throw new NotImplementedException();
-
-        }
 
         private void ReadListObjectRow(int row, object[,] dados, Account a)
         {
@@ -136,11 +119,12 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             a.Name = Parse.ToString(dados[row, Cols["Name"]]);
             a.Description = Parse.ToString(dados[row, Cols["Description"]]);
             a.ResponsibleName = Parse.ToString(dados[row, Cols["ResponsibleName"]]);
-            a.InitialBalance = Parse.ToDecimal(dados[row, Cols["InitialBalance"]]);
+            a.InitialBalance = Parse.ToDouble(dados[row, Cols["InitialBalance"]]);
             a.InitialDate = Parse.ToDateTime(dados[row, Cols["InitialDate"]]); 
             a.AcceptsDeposits = Convert.ToBoolean(dados[row, Cols["AcceptsDeposits"]]);
             a.AcceptsManualAdjustment = Convert.ToBoolean(dados[row, Cols["AcceptsManualAdjustment"]]);
             a.AcceptsNegativeValues = Convert.ToBoolean(dados[row, Cols["AcceptsNegativeValues"]]);
+            a.AcceptsRecharge = Convert.ToBoolean(dados[row, Cols["AcceptsRecharge"]]);
             a.RequiresPayment = Convert.ToBoolean(dados[row, Cols["RequiresPayment"]]);
             a.AcceptsPartialPayment = Convert.ToBoolean(dados[row, Cols["AcceptsPartialPayment"]]);
             a.AcceptsLatePaymentInterest = Convert.ToBoolean(dados[row, Cols["AcceptsLatePaymentInterest"]]);
@@ -148,7 +132,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             a.AcceptsChecks = Convert.ToBoolean(dados[row, Cols["AcceptsChecks"]]);
             a.CloseDay = Parse.ToInt(dados[row, Cols["CloseDay"]]);
             a.PaymentDay = Parse.ToInt(dados[row, Cols["PaymentDay"]]);
-            a.MonthlyCost = Parse.ToDecimal(dados[row, Cols["MonthlyCost"]]);
+            a.MonthlyCost = Parse.ToDouble(dados[row, Cols["MonthlyCost"]]);
         }
 
         #endregion

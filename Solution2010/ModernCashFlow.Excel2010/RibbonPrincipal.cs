@@ -80,5 +80,11 @@ namespace ModernCashFlow.Excel2010
             controller.GetLocalDataAndSyncronizeSession();
         }
 
+        private void button7_Click(object sender, RibbonControlEventArgs e)
+        {
+            var controller = NinjectContainer.Kernel.Get<BaseController<Account>>();
+            controller.RefreshAllLocalData();
+        }
+
     }
 }

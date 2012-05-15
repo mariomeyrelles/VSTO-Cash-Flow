@@ -38,8 +38,13 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 AbsCols.Add(columnData[1, i].ToString(), leftAbsCol + i);
             }
 
+        }
+
+        protected virtual void PrepareColumnsForDatabinding()
+        {
             DatabindCols = ExcelUtil.PrepareColumnNamesForDatabinding<TEntity>(Cols.Keys.ToList());
         }
+
 
         /// <summary>
         /// Proteger o table contra modificações.

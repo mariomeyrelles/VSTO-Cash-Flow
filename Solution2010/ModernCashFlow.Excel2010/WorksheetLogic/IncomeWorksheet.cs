@@ -41,6 +41,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         public void Start()
         {
             ReadColumnPositions();
+            PrepareColumnsForDatabinding();
             ConfigureValidationLists();
         }
 

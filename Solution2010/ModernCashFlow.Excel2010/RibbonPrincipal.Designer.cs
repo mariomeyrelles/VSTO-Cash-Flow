@@ -46,6 +46,7 @@
             this.button4 = this.Factory.CreateRibbonButton();
             this.button5 = this.Factory.CreateRibbonButton();
             this.button6 = this.Factory.CreateRibbonButton();
+            this.button7 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             // 
@@ -67,6 +68,7 @@
             this.group1.Items.Add(this.button4);
             this.group1.Items.Add(this.button5);
             this.group1.Items.Add(this.button6);
+            this.group1.Items.Add(this.button7);
             this.group1.Label = "group1";
             this.group1.Name = "group1";
             // 
@@ -131,6 +133,12 @@
             this.button6.Name = "button6";
             this.button6.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button6_Click);
             // 
+            // button7
+            // 
+            this.button7.Label = "Write Accounts";
+            this.button7.Name = "button7";
+            this.button7.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button7_Click);
+            // 
             // RibbonPrincipal
             // 
             this.Name = "RibbonPrincipal";
@@ -158,6 +166,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button4;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button5;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button6;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button7;
     }
 
     partial class ThisRibbonCollection
