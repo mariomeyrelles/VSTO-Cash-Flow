@@ -28,6 +28,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         private static BaseController<Income> _controller;
         private static CommandManager _commandManager;
 
+        private BaseController<Account> _accountController;
+
         [Inject]
         public IncomeWorksheet(CommandManager commandManager, BaseController<Income> controller) : base(Globals.Incomes,Globals.Incomes.tblIncomes)
         {
@@ -36,6 +38,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             _controller.UpdateAllLocalData += OnUpdateAllLocalData;
             _controller.UpdateSingleLocalData += OnUpdateSingleLocalData;
             _controller.RetrieveAllLocalData += OnRetrieveLocalData;
+
+            _accountController = NinjectContainer.Kernel.Get<BaseController<Account>>();
         }
 
         public void Start()
@@ -48,22 +52,16 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         private void ConfigureValidationLists()
         {
             Unprotect();
+            
+            var statuses = Util.GetEnumDescriptions(typeof(TransactionStatus));
+            SetValidationForColumn(statuses, Lang.TransactionStatusDescription);
 
-            //todo: organizar melhor o código para ficar mais clara a montagem as listas de validação.
-            var itens = Util.GetEnumDescriptions(typeof(TransactionStatus));
-
-            var separator = Thread.CurrentThread.CurrentCulture.TextInfo.ListSeparator;
-            var valores = string.Join(separator, itens);
-            var range = Sheet.get_Range("tblIncomes[Status do Lançamento]");
-            range.Validation.Delete();
-            range.Validation.Add(XlDVType.xlValidateList,
-                XlDVAlertStyle.xlValidAlertInformation, XlFormatConditionOperator.xlBetween, valores);
-
-            range.Validation.InCellDropdown = true;
-            range.Validation.IgnoreBlank = true;
+            var accountNames = _accountController.CurrentSessionData.Select(x => x.Name).ToList();
+            SetValidationForColumn(accountNames, Lang.AccountName);
 
             Protect();
         }
+
 
         private void OnUpdateSingleLocalData(Income updatedData)
         {
@@ -264,10 +262,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                     var codLancamento = RangeUtils.ToGuid(_activeRange.EntireRow.Cells[1, _parent.AbsCols[Lang.TransactionCode]]);
                     if (codLancamento == null)
-                    {
-                        MessageBox.Show(Lang.NullTransactionCode);
                         return;
-                    }
 
                     var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
                     _commandManager.UpdateSidePanel(entity);

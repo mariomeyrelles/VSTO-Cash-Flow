@@ -84,13 +84,20 @@ namespace ModernCashFlow.Excel2010
         private void ThisWorkbook_WorksheetsLoaded(object sender, EventArgs e)
         {
             //note: colocar coisas genéricas do startup da app
-   
-            //initiliaze worksheet helpers
+
+            //initialize accounts
+            var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
+            NinjectContainer.Kernel.Get<AccountWorksheet>().Start();
+            commandManager.LoadAccountData();
+
+            
+            //initalize other worksheet helpers
             NinjectContainer.Kernel.Get<IncomeWorksheet>().Start();
             NinjectContainer.Kernel.Get<ExpenseWorksheet>().Start();
-            NinjectContainer.Kernel.Get<AccountWorksheet>().Start();
+           
             
-            var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
+            //business rules intialization code
+
             commandManager.LoadAllTransactions();
             //commandManager.ConvertTodayPaymentsToPending();
             //commandManager.WriteAllTransactionsToWorsheets();

@@ -27,7 +27,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
     {
         private static BaseController<Expense> _controller;
         private static CommandManager _commandManager;
-        
+        private BaseController<Account> _accountController;
 
         [Inject]
         public ExpenseWorksheet(CommandManager commandManager, BaseController<Expense> controller)
@@ -38,6 +38,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             _controller.UpdateAllLocalData += OnUpdateAllLocalData;
             _controller.UpdateSingleLocalData += OnUpdateSingleLocalData;
             _controller.RetrieveAllLocalData += OnRetrieveLocalData;
+
+            _accountController = NinjectContainer.Kernel.Get<BaseController<Account>>();
         }
 
         #region Worksheet Startup
@@ -53,24 +55,16 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         {
             Unprotect();
 
-            PrepareValidationListForTransactionStatus();
+            var statuses = Util.GetEnumDescriptions(typeof(TransactionStatus));
+            SetValidationForColumn(statuses, Lang.TransactionStatusDescription);
+
+            var accountNames = _accountController.CurrentSessionData.Select(x => x.Name).ToList();
+            SetValidationForColumn(accountNames, Lang.AccountName);
 
             Protect();
         }
 
-        private void PrepareValidationListForTransactionStatus()
-        {
-            var itens = Util.GetEnumDescriptions(typeof(TransactionStatus));
-            var separator = Thread.CurrentThread.CurrentCulture.TextInfo.ListSeparator;
-            var rawValues = string.Join(separator, itens);
-            var range = Globals.Expenses.Range[string.Format("tblExpenses[{0}]", Lang.TransactionStatusDescription)];
-            range.Validation.Delete();
-            range.Validation.Add(XlDVType.xlValidateList,
-                                 XlDVAlertStyle.xlValidAlertInformation, XlFormatConditionOperator.xlBetween, rawValues);
-
-            range.Validation.InCellDropdown = true;
-            range.Validation.IgnoreBlank = true;
-        }
+       
 
         #endregion
 
@@ -289,10 +283,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                     var codLancamento = RangeUtils.ToGuid(_activeRange.EntireRow.Cells[1, _parent.AbsCols[Lang.TransactionCode]]);
                     if (codLancamento == null)
-                    {
-                        MessageBox.Show(Lang.NullTransactionCode);
                         return;
-                    }
 
                     var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
                     _commandManager.UpdateSidePanel(entity);

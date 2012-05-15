@@ -24,6 +24,9 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         [Inject]
         public BaseController<Income> IncomeController { get; set; }
 
+        [Inject]
+        public BaseController<Account> AccountController { get; set; }
+
 
         //todo: create formal commands
     
@@ -38,6 +41,11 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         public void ShowSplashWindow()
         {
             ProcessTodayPayments();
+        }
+
+        public void LoadAccountData()
+        {
+            AccountController.GetLocalDataAndSyncronizeSession();
         }
 
         public void LoadAllTransactions()
@@ -110,6 +118,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             IncomeController.RefreshAllLocalData();
         }
 
-        
+
+       
     }
 }

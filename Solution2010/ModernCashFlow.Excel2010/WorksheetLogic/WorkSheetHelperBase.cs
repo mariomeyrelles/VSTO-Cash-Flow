@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Excel;
 using ModernCashFlow.Tools;
@@ -14,6 +15,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         protected Dictionary<string, int> Cols;
         protected Dictionary<string, int> AbsCols;
         protected Dictionary<TKey, Range> RowIndex;
+        protected string TableName;
         protected string[] DatabindCols;
 
         protected WorksheetHelperBase(WorksheetBase sheet, ListObject table)
@@ -22,6 +24,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             Table = table;
             RowIndex = new Dictionary<TKey, Range>();
 
+            TableName = table.Name;
         }
 
         protected void ReadColumnPositions()
@@ -46,6 +49,18 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         }
 
 
+        protected void SetValidationForColumn(IEnumerable<string> items, string columnName)
+        {
+            var separator = Thread.CurrentThread.CurrentCulture.TextInfo.ListSeparator;
+            var values = string.Join(separator, items);
+            var range = Sheet.Range[string.Format("{0}[{1}]", TableName, columnName)];
+
+            range.Validation.Delete();
+            range.Validation.Add(XlDVType.xlValidateList, XlDVAlertStyle.xlValidAlertInformation, XlFormatConditionOperator.xlBetween, values);
+            range.Validation.InCellDropdown = true;
+            range.Validation.IgnoreBlank = true;
+        }
+
         /// <summary>
         /// Proteger o table contra modificações.
         /// </summary>
@@ -63,5 +78,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             Sheet.Unprotect();
             Globals.ThisWorkbook.ThisApplication.EnableEvents = enableEvents;
         }
+
+        
     }
 }
