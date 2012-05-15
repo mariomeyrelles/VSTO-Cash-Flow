@@ -2,26 +2,25 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Excel;
-using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Tools;
 using ListObject = Microsoft.Office.Tools.Excel.ListObject;
 
 namespace ModernCashFlow.Excel2010.WorksheetLogic
 {
-    public abstract class WorksheetHelperBase<T>
+    public abstract class WorksheetHelperBase<TKey, TEntity>
     {
         protected ListObject Table;
         protected WorksheetBase Sheet;
         protected Dictionary<string, int> Cols;
         protected Dictionary<string, int> AbsCols;
-        protected Dictionary<T, Range> RowIndex;
+        protected Dictionary<TKey, Range> RowIndex;
         protected string[] DatabindCols;
 
         protected WorksheetHelperBase(WorksheetBase sheet, ListObject table)
         {
             Sheet = sheet;
             Table = table;
-            RowIndex = new Dictionary<T, Range>();
+            RowIndex = new Dictionary<TKey, Range>();
 
         }
 
@@ -39,7 +38,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 AbsCols.Add(columnData[1, i].ToString(), leftAbsCol + i);
             }
 
-            DatabindCols = ExcelUtil.PrepareColumnNamesForDatabinding<Account>(Cols.Keys.ToList());
+            DatabindCols = ExcelUtil.PrepareColumnNamesForDatabinding<TEntity>(Cols.Keys.ToList());
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         protected void Unprotect(bool enableEvents = false)
         {
             Sheet.Unprotect();
-            Globals.ThisWorkbook.ThisApplication.EnableEvents = false;
+            Globals.ThisWorkbook.ThisApplication.EnableEvents = enableEvents;
         }
     }
 }

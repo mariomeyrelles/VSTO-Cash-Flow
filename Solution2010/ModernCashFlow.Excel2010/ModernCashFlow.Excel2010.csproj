@@ -179,7 +179,7 @@
     <Compile Include="Transfers.Designer.cs">
       <DependentUpon>Transfers.Designer.xml</DependentUpon>
     </Compile>
-    <Compile Include="WorksheetLogic\ConfigWorksheet.cs" />
+    <Compile Include="WorksheetLogic\AccountWorksheet.cs" />
     <Compile Include="WorksheetLogic\IncomeWorksheet.cs" />
     <Compile Include="WorksheetLogic\ExpenseWorksheet.cs" />
     <Compile Include="WorksheetLogic\WorkSheetHelperBase.cs" />

@@ -23,7 +23,7 @@ using ListObject = Microsoft.Office.Tools.Excel.ListObject;
 
 namespace ModernCashFlow.Excel2010.WorksheetLogic
 {
-    public class ExpenseWorksheet : WorksheetHelperBase<Guid>
+    public class ExpenseWorksheet : WorksheetHelperBase<Guid,Income>
     {
         private static BaseController<Expense> _controller;
         private static CommandManager _commandManager;

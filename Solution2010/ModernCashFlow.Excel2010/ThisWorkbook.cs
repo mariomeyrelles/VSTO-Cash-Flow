@@ -88,6 +88,7 @@ namespace ModernCashFlow.Excel2010
             //initiliaze worksheet helpers
             NinjectContainer.Kernel.Get<IncomeWorksheet>().Start();
             NinjectContainer.Kernel.Get<ExpenseWorksheet>().Start();
+            NinjectContainer.Kernel.Get<AccountWorksheet>().Start();
             
             var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
             commandManager.LoadAllTransactions();

@@ -50,21 +50,23 @@ namespace ModernCashFlow.Excel2010
             //cria uma instância do kernel do Ninject.
             _kernel = new StandardKernel();
 
-            //peço para o kernel fazer a amarração de um repositório de produtos com a interface ISimpleRepository<T>, evitando acoplamento com as classes concretas.
             _kernel.Bind<ExpenseWorksheet>().ToSelf().InSingletonScope();
             _kernel.Bind<ExpenseWorksheet.Events>().ToSelf().InSingletonScope();
             _kernel.Bind<ExpenseWorksheet.ContextMenus>().ToSelf().InSingletonScope();
             _kernel.Bind<IncomeWorksheet>().ToSelf().InSingletonScope();
             _kernel.Bind<IncomeWorksheet.Events>().ToSelf().InSingletonScope();
             _kernel.Bind<IncomeWorksheet.ContextMenus>().ToSelf().InSingletonScope();
+            _kernel.Bind<AccountWorksheet>().ToSelf().InSingletonScope();
+
             
             _kernel.Bind<BaseController<Expense>>().To<ExpenseController>().InSingletonScope();
             _kernel.Bind<BaseController<Income>>().To<IncomeController>().InSingletonScope();
+            _kernel.Bind<BaseController<Account>>().To<AccountController>().InSingletonScope();
 
             _kernel.Bind<CommandManager>().ToSelf().InSingletonScope();
             
             //já tornar os gerenciadores de planilha disponíveis ao iniciar a aplicação.
-            _kernel.Get<ExpenseWorksheet>();
+            //_kernel.Get<ExpenseWorksheet>();
 
 
             //serviços de domínio

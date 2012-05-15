@@ -42,9 +42,10 @@
             this.button2 = this.Factory.CreateRibbonButton();
             this.btnPendingPayments = this.Factory.CreateRibbonButton();
             this.button3 = this.Factory.CreateRibbonButton();
-            this.button4 = this.Factory.CreateRibbonButton();
             this.toggleButton1 = this.Factory.CreateRibbonToggleButton();
+            this.button4 = this.Factory.CreateRibbonButton();
             this.button5 = this.Factory.CreateRibbonButton();
+            this.button6 = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             // 
@@ -65,6 +66,7 @@
             this.group1.Items.Add(this.toggleButton1);
             this.group1.Items.Add(this.button4);
             this.group1.Items.Add(this.button5);
+            this.group1.Items.Add(this.button6);
             this.group1.Label = "group1";
             this.group1.Name = "group1";
             // 
@@ -105,23 +107,29 @@
             this.button3.Name = "button3";
             this.button3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button3_Click);
             // 
-            // button4
-            // 
-            this.button4.Label = "Ler Entradas";
-            this.button4.Name = "button4";
-            this.button4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button4_Click);
-            // 
             // toggleButton1
             // 
             this.toggleButton1.Label = "Drap and Drop";
             this.toggleButton1.Name = "toggleButton1";
             this.toggleButton1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.toggleButton1_Click);
             // 
+            // button4
+            // 
+            this.button4.Label = "Ler Entradas";
+            this.button4.Name = "button4";
+            this.button4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button4_Click);
+            // 
             // button5
             // 
             this.button5.Label = "Escrever Entradas";
             this.button5.Name = "button5";
             this.button5.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Label = "Read Accounts";
+            this.button6.Name = "button6";
+            this.button6.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button6_Click);
             // 
             // RibbonPrincipal
             // 
@@ -149,6 +157,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton toggleButton1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button4;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button5;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button6;
     }
 
     partial class ThisRibbonCollection
