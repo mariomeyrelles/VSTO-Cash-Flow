@@ -82,7 +82,7 @@ namespace ModernCashFlow.Domain.Entities
 
 
 
-        private decimal? _expectedValue;
+        private double? _expectedValue;
 
         /// <summary>
         /// Campo obrigatório que indica o valor que se espera que seja esta saída, sem juros e sem descontos. 
@@ -90,7 +90,7 @@ namespace ModernCashFlow.Domain.Entities
         /// Esta propriedade dispara INPC.
         /// </summary>
         [LocalizableColumnName]
-        public decimal? ExpectedValue
+        public double? ExpectedValue
         {
             get { return _expectedValue; }
             set { SetField(ref _expectedValue, value, () => ExpectedValue); }
@@ -157,7 +157,7 @@ namespace ModernCashFlow.Domain.Entities
         /// Campo opcional que indica o valor pago após juros e/ou descontos.
         /// </summary>
         [LocalizableColumnName]
-        public decimal? ActualValue { get; set; }
+        public double? ActualValue { get; set; }
 
         /// <summary>
         /// Indica, de modo geral, se a saída pode ser usada ou não no cálculo de fluxo de caixa.

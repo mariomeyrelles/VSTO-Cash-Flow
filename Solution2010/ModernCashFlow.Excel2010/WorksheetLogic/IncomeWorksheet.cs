@@ -87,16 +87,20 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         {
             Unprotect();
 
+            Globals.ThisWorkbook.ThisApplication.ErrorCheckingOptions.NumberAsText = false;
             var data = updatedData.ToList();
 
             Table.SetDataBinding(data, "", DatabindCols);
             Table.Disconnect();
+            
 
             //todo: manter a formatação dos demais campos para evitar que o usuário estrague a formatação do campo
             Sheet.Range[string.Format("tblIncomes[{0}]", Lang.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
             Sheet.Range[string.Format("tblIncomes[{0}]", Lang.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
             
             Table.Range.Columns.AutoFit();
+
+            Globals.ThisWorkbook.ThisApplication.ErrorCheckingOptions.NumberAsText = true;
 
             Protect();
         }
@@ -162,7 +166,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         {
             e.TransactionDate = Parse.ToDateTime(dados[row, Cols[Lang.TransactionDate]]) ?? DateTime.Now;
             e.Date = Parse.ToDateTime(dados[row, Cols[Lang.Date]]);
-            e.ExpectedValue = Parse.ToDecimal(dados[row, Cols[Lang.ExpectedValue]]);
+            e.ExpectedValue = Parse.ToDouble(dados[row, Cols[Lang.ExpectedValue]]);
             e.AccountName = Parse.ToString(dados[row, Cols[Lang.AccountName]]);
             e.Reason = Parse.ToString(dados[row, Cols[Lang.Reason]]);
             e.Place = Parse.ToString(dados[row, Cols[Lang.Place]]);
@@ -170,7 +174,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             e.CategoryName = Parse.ToString(dados[row, Cols[Lang.CategoryName]]);
             e.Tags = Parse.ToString(dados[row, Cols[Lang.Tags]]);
             e.Quantity = Parse.ToDecimal(dados[row, Cols[Lang.Quantity]]);
-            e.ActualValue = Parse.ToDecimal(dados[row, Cols[Lang.ActualValue]]);
+            e.ActualValue = Parse.ToDouble(dados[row, Cols[Lang.ActualValue]]);
             e.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(Parse.ToString(dados[row, Cols[Lang.TransactionStatusDescription]]));
             e.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(Parse.ToString(dados[row, Cols[Lang.EditStatus]]));
             e.DueDate = Parse.ToDateTime(dados[row, Cols[Lang.DueDate]]);
