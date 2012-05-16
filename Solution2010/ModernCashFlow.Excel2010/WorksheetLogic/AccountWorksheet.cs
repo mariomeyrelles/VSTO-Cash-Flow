@@ -60,10 +60,36 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             Unprotect();
 
             var data = updatedData.ToList();
-            
-            Table.SetDataBinding(data, "", DatabindCols);
-            Table.Disconnect();
+         
+            var databindingArray = new object[data.Count,Cols.Count];
 
+            for (var i = 0; i < data.Count; i++)
+            {
+                databindingArray[i, Cols["Id"] - 1] = data[i].Id;
+                databindingArray[i, Cols["Name"] - 1] = data[i].Name;
+                databindingArray[i, Cols["Description"] - 1] = data[i].Description;
+                databindingArray[i, Cols["ResponsibleName"] - 1] = data[i].ResponsibleName;
+                databindingArray[i, Cols["InitialBalance"] - 1] = data[i].InitialBalance;
+                databindingArray[i, Cols["InitialDate"] - 1] = data[i].InitialDate;
+                databindingArray[i, Cols["AcceptsDeposits"] - 1] = data[i].AcceptsDeposits;
+                databindingArray[i, Cols["AcceptsManualAdjustment"] - 1] = data[i].AcceptsManualAdjustment;
+                databindingArray[i, Cols["AcceptsNegativeValues"] - 1] = data[i].AcceptsNegativeValues;
+                databindingArray[i, Cols["AcceptsRecharge"] - 1] = data[i].AcceptsRecharge;
+                databindingArray[i, Cols["RequiresPayment"] - 1] = data[i].RequiresPayment;
+                databindingArray[i, Cols["AcceptsPartialPayment"] - 1] = data[i].AcceptsPartialPayment;
+                databindingArray[i, Cols["AcceptsLatePaymentInterest"] - 1] = data[i].AcceptsLatePaymentInterest;
+                databindingArray[i, Cols["AcceptsYield"] - 1] = data[i].AcceptsYield;
+                databindingArray[i, Cols["AcceptsChecks"] - 1] = data[i].AcceptsChecks;
+                databindingArray[i, Cols["CloseDay"] - 1] = data[i].CloseDay;
+                databindingArray[i, Cols["PaymentDay"] - 1] = data[i].PaymentDay;
+                databindingArray[i, Cols["MonthlyCost"] - 1] = data[i].MonthlyCost;
+            }
+
+
+            //adjust the range of listobject to accomodate the new rows - remember that range arrays are not zero-based.
+            Table.Resize(Table.Range.Resize[data.Count + 1]);
+            Table.DataBodyRange.Value2 = databindingArray;
+            
             Sheet.Range["tblAccounts[InitialBalance]"].NumberFormat = ExcelNumberFormats.Accounting;
             Sheet.Range["tblAccounts[MonthlyCost]"].NumberFormat = ExcelNumberFormats.Accounting;
             
@@ -118,7 +144,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             a.Name = Parse.ToString(dados[row, Cols["Name"]]);
             a.Description = Parse.ToString(dados[row, Cols["Description"]]);
             a.ResponsibleName = Parse.ToString(dados[row, Cols["ResponsibleName"]]);
-            a.InitialBalance = Parse.ToDouble(dados[row, Cols["InitialBalance"]]);
+            a.InitialBalance = Parse.ToDecimal(dados[row, Cols["InitialBalance"]]);
             a.InitialDate = Parse.ToDateTime(dados[row, Cols["InitialDate"]]); 
             a.AcceptsDeposits = Convert.ToBoolean(dados[row, Cols["AcceptsDeposits"]]);
             a.AcceptsManualAdjustment = Convert.ToBoolean(dados[row, Cols["AcceptsManualAdjustment"]]);
@@ -131,7 +157,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             a.AcceptsChecks = Convert.ToBoolean(dados[row, Cols["AcceptsChecks"]]);
             a.CloseDay = Parse.ToInt(dados[row, Cols["CloseDay"]]);
             a.PaymentDay = Parse.ToInt(dados[row, Cols["PaymentDay"]]);
-            a.MonthlyCost = Parse.ToDouble(dados[row, Cols["MonthlyCost"]]);
+            a.MonthlyCost = Parse.ToDecimal(dados[row, Cols["MonthlyCost"]]);
         }
 
         #endregion

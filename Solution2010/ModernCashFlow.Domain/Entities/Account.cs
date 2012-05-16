@@ -9,7 +9,7 @@ namespace ModernCashFlow.Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string ResponsibleName { get; set; }
-        public double? InitialBalance { get; set; }
+        public decimal? InitialBalance { get; set; }
         public DateTime? InitialDate { get; set; }
         public bool AcceptsDeposits { get; set; }
         public bool AcceptsManualAdjustment { get; set; }
@@ -22,7 +22,7 @@ namespace ModernCashFlow.Domain.Entities
         public bool AcceptsChecks { get; set; }
         public int? CloseDay { get; set; }
         public int? PaymentDay { get; set; }
-        public double? MonthlyCost { get; set; }
+        public decimal? MonthlyCost { get; set; }
 
         public double? InitialDate_OA
         {
