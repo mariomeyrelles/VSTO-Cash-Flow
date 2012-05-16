@@ -87,20 +87,44 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         {
             Unprotect();
 
-            Globals.ThisWorkbook.ThisApplication.ErrorCheckingOptions.NumberAsText = false;
             var data = updatedData.ToList();
 
-            Table.SetDataBinding(data, "", DatabindCols);
-            Table.Disconnect();
-            
+            var databindingArray = new object[data.Count, Cols.Count];
 
-            //todo: manter a formatação dos demais campos para evitar que o usuário estrague a formatação do campo
-            Sheet.Range[string.Format("tblIncomes[{0}]", Lang.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
-            Sheet.Range[string.Format("tblIncomes[{0}]", Lang.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
-            
+            for (var i = 0; i < data.Count; i++)
+            {
+                databindingArray[i, Cols[Lang.TransactionDate] - 1] = data[i].TransactionDate_OA;
+                databindingArray[i, Cols[Lang.Date] - 1] = data[i].Date_OA;
+                databindingArray[i, Cols[Lang.ExpectedValue] - 1] = data[i].ExpectedValue;
+                databindingArray[i, Cols[Lang.AccountName] - 1] = data[i].AccountName;
+                databindingArray[i, Cols[Lang.Reason] - 1] = data[i].Reason;
+                databindingArray[i, Cols[Lang.Place] - 1] = data[i].Place;
+                databindingArray[i, Cols[Lang.ResponsibleName] - 1] = data[i].ResponsibleName;
+                databindingArray[i, Cols[Lang.CategoryName] - 1] = data[i].CategoryName;
+                databindingArray[i, Cols[Lang.Tags] - 1] = data[i].Tags;
+                databindingArray[i, Cols[Lang.Quantity] - 1] = data[i].Quantity;
+                databindingArray[i, Cols[Lang.ActualValue] - 1] = data[i].ActualValue;
+                databindingArray[i, Cols[Lang.TransactionStatusDescription] - 1] = data[i].TransactionStatusDescription;
+                databindingArray[i, Cols[Lang.EditStatus] - 1] = data[i].EditStatus.ToString();
+                databindingArray[i, Cols[Lang.DueDate] - 1] = data[i].DueDate_OA;
+                databindingArray[i, Cols[Lang.IsRecurring] - 1] = data[i].IsRecurring;
+                databindingArray[i, Cols[Lang.MonthlyInterval] - 1] = data[i].MonthlyInterval;
+                databindingArray[i, Cols[Lang.RemainingInstallments] - 1] = data[i].RemainingInstallments;
+                databindingArray[i, Cols[Lang.AccountTransferCode] - 1] = data[i].AccountTransferCode;
+                databindingArray[i, Cols[Lang.CheckNumber] - 1] = data[i].CheckNumber;
+                databindingArray[i, Cols[Lang.SupportsDrillDown] - 1] = data[i].SupportsDrillDown;
+                databindingArray[i, Cols[Lang.TransactionGroup] - 1] = data[i].TransactionGroup.ToString();
+                databindingArray[i, Cols[Lang.TransactionCode] - 1] = data[i].TransactionCode.ToString();
+                databindingArray[i, Cols[Lang.Remarks] - 1] = data[i].Remarks;
+
+            }
+
+            Table.Resize(Table.Range.Resize[data.Count + 1]);
+            Table.DataBodyRange.Value2 = databindingArray;
             Table.Range.Columns.AutoFit();
 
-            Globals.ThisWorkbook.ThisApplication.ErrorCheckingOptions.NumberAsText = true;
+            Sheet.Range[string.Format("tblIncomes[{0}]", Lang.ExpectedValue)].NumberFormat = ExcelNumberFormats.Accounting;
+            Sheet.Range[string.Format("tblIncomes[{0}]", Lang.ActualValue)].NumberFormat = ExcelNumberFormats.Accounting;
 
             Protect();
         }
@@ -166,7 +190,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         {
             e.TransactionDate = Parse.ToDateTime(dados[row, Cols[Lang.TransactionDate]]) ?? DateTime.Now;
             e.Date = Parse.ToDateTime(dados[row, Cols[Lang.Date]]);
-            e.ExpectedValue = Parse.ToDouble(dados[row, Cols[Lang.ExpectedValue]]);
+            e.ExpectedValue = Parse.ToDecimal(dados[row, Cols[Lang.ExpectedValue]]);
             e.AccountName = Parse.ToString(dados[row, Cols[Lang.AccountName]]);
             e.Reason = Parse.ToString(dados[row, Cols[Lang.Reason]]);
             e.Place = Parse.ToString(dados[row, Cols[Lang.Place]]);
@@ -174,7 +198,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             e.CategoryName = Parse.ToString(dados[row, Cols[Lang.CategoryName]]);
             e.Tags = Parse.ToString(dados[row, Cols[Lang.Tags]]);
             e.Quantity = Parse.ToDecimal(dados[row, Cols[Lang.Quantity]]);
-            e.ActualValue = Parse.ToDouble(dados[row, Cols[Lang.ActualValue]]);
+            e.ActualValue = Parse.ToDecimal(dados[row, Cols[Lang.ActualValue]]);
             e.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(Parse.ToString(dados[row, Cols[Lang.TransactionStatusDescription]]));
             e.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(Parse.ToString(dados[row, Cols[Lang.EditStatus]]));
             e.DueDate = Parse.ToDateTime(dados[row, Cols[Lang.DueDate]]);
