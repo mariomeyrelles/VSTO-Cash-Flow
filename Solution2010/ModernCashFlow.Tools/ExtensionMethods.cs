@@ -6,6 +6,8 @@ namespace ModernCashFlow.Tools
 {
     public static class RangeExtensionMethods
     {
+
+        //todo: review where these methods should be placed
         public static DateTime Today(this DateTime data)
         {
             return new DateTime(data.Year, data.Month, data.Day);
@@ -16,14 +18,15 @@ namespace ModernCashFlow.Tools
             return DateTime.FromOADate(data);
         }
 
-        public static DateTime Today(this DateTime? data)
+        public static DateTime? Today(this DateTime? data)
         {
             if (data.HasValue)
             {
                 return new DateTime(data.Value.Year, data.Value.Month, data.Value.Day);
             }
 
-            throw new InvalidOperationException("A data recebida está com valor nulo.");
+            return null;
+         
         }
 
 
