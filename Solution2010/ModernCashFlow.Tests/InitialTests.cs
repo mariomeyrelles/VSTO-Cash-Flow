@@ -160,13 +160,37 @@ namespace ModernCashFlow.Tests
             Assert.IsTrue(balance == 1.20m);
         }
 
-
+        [Test]
         public void Can_calculate_balance_with_initial_balance()
         {
+            var initialBalance = 1.19m;
+
+            var incomes = new List<Income>();
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 10.00m, ActualValue = 10.10m });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 10.01m, ActualValue = 10.11m });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 10.02m, ActualValue = 10.12m });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = null, ActualValue = 10.13m });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 10.04m, ActualValue = 10.14m });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 10.05m, ActualValue = null });
+
+            var expenses = new List<Expense>();
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 10.00m, ActualValue = 10.20m });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 10.01m, ActualValue = 10.21m });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 10.02m, ActualValue = 10.22m });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 10.03m, ActualValue = 10.23m });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 10.04m, ActualValue = 10.24m });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = null, ActualValue = null });
+
+            var balanceService = new BalanceCalculatorService();
+            var balance = balanceService.CalculateBalance(1, incomes, expenses, initialBalance);
+
+            Console.WriteLine("balance: " + balance);
+            Assert.IsTrue(balance == 10.74m);
         }
 
-        public void Can_calcultate_balance_from_given_date()
+        public void Can_calcultate_balance_at_given_date()
         {
+           
         } 
         
         public void Can_calcultate_balance_as_of_given_date()

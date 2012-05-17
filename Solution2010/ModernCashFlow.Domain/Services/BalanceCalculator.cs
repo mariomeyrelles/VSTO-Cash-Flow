@@ -7,7 +7,7 @@ namespace ModernCashFlow.Domain.Services
 {
     public class BalanceCalculatorService
     {
-        public decimal CalculateBalance(int accountID, IEnumerable<Income> incomes, IEnumerable<Expense> expenses)
+        public decimal CalculateBalance(int accountID, IEnumerable<Income> incomes, IEnumerable<Expense> expenses, decimal initialBalance = 0.0m)
         {
             //first try to calculate the balance.
             var incomeSum = 0.0m;
@@ -28,9 +28,9 @@ namespace ModernCashFlow.Domain.Services
                     expenseSum += expense.ExpectedValue ?? 0.0m;
             }
 
-            var balance = incomeSum - expenseSum;
+            var balance = incomeSum - expenseSum + initialBalance;
 
-            
+        
             return balance;
         }
     }
