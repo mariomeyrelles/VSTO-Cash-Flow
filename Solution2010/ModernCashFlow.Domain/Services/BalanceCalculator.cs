@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Tools;
@@ -8,58 +7,36 @@ namespace ModernCashFlow.Domain.Services
 {
     public class BalanceCalculatorService
     {
-        public decimal CalculateBalance(int accountId, IEnumerable<Income> incomes, IEnumerable<Expense> expenses, decimal initialBalance = 0.0m)
+        public decimal CalculateBalance(BalanceCalculationArgs args)
         {
-            var incomesForAccount = incomes.Where(x => x.AccountID == accountId);
-            var expensesForAccount = expenses.Where(x => x.AccountID == accountId);
+            var incomes = args.Incomes;
+            var expenses = args.Expenses;
 
-            //first try to calculate the balance.
+            if (args.StartingDate.HasValue)
+            {
+                incomes = incomes.Where(x => x.Date.Today() >= args.StartingDate.Today());
+                expenses =  expenses.Where(x => x.Date.Today() >= args.StartingDate.Today());
+            }
+
+            if (args.EndingDate.HasValue)
+            {
+                incomes = incomes.Where(x => x.Date.Today() <= args.EndingDate.Today());
+                expenses = expenses.Where(x => x.Date.Today() <= args.EndingDate.Today());
+            }
+            
             var incomeSum = 0.0m;
             var expenseSum = 0.0m;
-            incomeSum = IncomeSum(incomeSum, incomesForAccount);
+            incomeSum = IncomeSum(incomeSum, incomes);
 
-            expenseSum = ExpenseSum(expenseSum, expensesForAccount);
+            expenseSum = ExpenseSum(expenseSum, expenses);
 
-            var balance = incomeSum - expenseSum + initialBalance;
+            var balance = incomeSum - expenseSum + args.InitialBalance;
             
             return balance;
         }
 
-        public decimal CalculateBalanceUptoGivenDate(int accountId,IEnumerable<Income> incomes, IEnumerable<Expense> expenses, DateTime maxDate)
-        {
-            var incomesForAccount = incomes.Where(x => x.AccountID == accountId && x.Date.Today() <= maxDate.Today());
-            var expensesForAccount = expenses.Where(x => x.AccountID == accountId && x.Date.Today() <= maxDate.Today());
 
-            //first try to calculate the balance.
-            var incomeSum = 0.0m;
-            var expenseSum = 0.0m;
-            incomeSum = IncomeSum(incomeSum, incomesForAccount);
-
-            expenseSum = ExpenseSum(expenseSum, expensesForAccount);
-
-            var balance = incomeSum - expenseSum ;
-
-            return balance;
-        }
-
-        public decimal CalculateBalanceAsOfGivenDate(int accountId, IEnumerable<Income> incomes, IEnumerable<Expense> expenses, DateTime minDate)
-        {
-            var incomesForAccount = incomes.Where(x => x.AccountID == accountId && x.Date.Today() >= minDate.Today());
-            var expensesForAccount = expenses.Where(x => x.AccountID == accountId && x.Date.Today() >= minDate.Today());
-
-            //first try to calculate the balance.
-            var incomeSum = 0.0m;
-            var expenseSum = 0.0m;
-            incomeSum = IncomeSum(incomeSum, incomesForAccount);
-
-            expenseSum = ExpenseSum(expenseSum, expensesForAccount);
-
-            var balance = incomeSum - expenseSum;
-
-            return balance;
-        }
-
-        private static decimal ExpenseSum(decimal expenseSum, IEnumerable<Expense> expensesForAccount)
+        private decimal ExpenseSum(decimal expenseSum, IEnumerable<Expense> expensesForAccount)
         {
             foreach (var expense in expensesForAccount)
             {
@@ -71,7 +48,7 @@ namespace ModernCashFlow.Domain.Services
             return expenseSum;
         }
 
-        private static decimal IncomeSum(decimal incomeSum, IEnumerable<Income> incomesForAccount)
+        private decimal IncomeSum(decimal incomeSum, IEnumerable<Income> incomesForAccount)
         {
             foreach (var income in incomesForAccount)
             {

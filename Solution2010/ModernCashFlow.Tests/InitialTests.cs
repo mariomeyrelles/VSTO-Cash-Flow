@@ -28,8 +28,8 @@ namespace ModernCashFlow.Tests
             expenses.Add(new Expense {AccountID = 1, ActualValue = 10.04m});
             expenses.Add(new Expense {AccountID = 1, ActualValue = 10.05m});
 
-
-            decimal balance = balanceService.CalculateBalance(1, incomes, expenses);
+            var calculationArgs = new BalanceCalculationArgs(1, incomes, expenses);
+            decimal balance = balanceService.CalculateBalance(calculationArgs);
 
             Console.WriteLine("balance: " + balance);
             Assert.IsTrue(balance == 0.0m);
@@ -54,8 +54,8 @@ namespace ModernCashFlow.Tests
             expenses.Add(new Expense {AccountID = 1, ActualValue = 10.04m});
             expenses.Add(new Expense {AccountID = 1, ActualValue = null});
 
-
-            var balance = balanceService.CalculateBalance(1, incomes, expenses);
+            var calculationArgs = new BalanceCalculationArgs(1, incomes, expenses);
+            var balance = balanceService.CalculateBalance(calculationArgs);
 
             Console.WriteLine("balance: " + balance);
             Assert.IsTrue(balance == 0.02m);
@@ -75,7 +75,8 @@ namespace ModernCashFlow.Tests
             expenses.Add(new Expense {AccountID = 1, ActualValue = null});
 
 
-            var balance = balanceService.CalculateBalance(1, incomes, expenses);
+            var calculationArgs = new BalanceCalculationArgs(1, incomes, expenses);
+            var balance = balanceService.CalculateBalance(calculationArgs);
 
             Console.WriteLine("balance: " + balance);
             Assert.IsTrue(balance == 0.0m);
@@ -101,7 +102,9 @@ namespace ModernCashFlow.Tests
             expenses.Add(new Expense {AccountID = 1, ExpectedValue = 10.05m, ActualValue = 10.15m});
 
             var balanceService = new BalanceCalculatorService();
-            decimal balance = balanceService.CalculateBalance(1, incomes, expenses);
+
+            var calculationArgs = new BalanceCalculationArgs(1, incomes, expenses);
+            decimal balance = balanceService.CalculateBalance(calculationArgs);
 
             Console.WriteLine("balance: " + balance);
             Assert.IsTrue(balance == 0.60m);
@@ -128,7 +131,8 @@ namespace ModernCashFlow.Tests
             expenses.Add(new Expense {AccountID = 1, ExpectedValue = 10.05m, ActualValue = null});
 
             var balanceService = new BalanceCalculatorService();
-            var balance = balanceService.CalculateBalance(1, incomes, expenses);
+            var calculationArgs = new BalanceCalculationArgs(1, incomes, expenses);
+            var balance = balanceService.CalculateBalance(calculationArgs);
 
             Console.WriteLine("balance: " + balance);
             Assert.IsTrue(balance == -9.83m);
@@ -154,7 +158,8 @@ namespace ModernCashFlow.Tests
             expenses.Add(new Expense {AccountID = 1, ExpectedValue = 10.05m, ActualValue = null});
 
             var balanceService = new BalanceCalculatorService();
-            var balance = balanceService.CalculateBalance(1, incomes, expenses);
+            var calculationArgs = new BalanceCalculationArgs(1, incomes, expenses);
+            var balance = balanceService.CalculateBalance(calculationArgs);
 
             Console.WriteLine("balance: " + balance);
             Assert.IsTrue(balance == 1.20m);
@@ -182,14 +187,15 @@ namespace ModernCashFlow.Tests
             expenses.Add(new Expense { AccountID = 1, ExpectedValue = null, ActualValue = null });
 
             var balanceService = new BalanceCalculatorService();
-            var balance = balanceService.CalculateBalance(1, incomes, expenses, initialBalance);
+            var calculationArgs = new BalanceCalculationArgs(1, incomes, expenses){InitialBalance = initialBalance};
+            var balance = balanceService.CalculateBalance(calculationArgs);
 
             Console.WriteLine("balance: " + balance);
             Assert.IsTrue(balance == 10.74m);
         }
 
         [Test]
-        public void Can_calcultate_balance_at_given_date()
+        public void Can_calcultate_balance_up_to_given_date()
         {
             var incomes = new List<Income>();
             incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.10m, Date = new DateTime(2012,01,01)});
@@ -210,31 +216,31 @@ namespace ModernCashFlow.Tests
             
             var balanceService = new BalanceCalculatorService();
 
-            var balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2011, 01, 31));
+            var balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1,incomes,expenses){EndingDate = new DateTime(2011, 01, 31)});
             Console.WriteLine("balance (before january): " + balance);
             Assert.IsTrue(balance == 0);
-            
-            balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2012, 01, 31));
+
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2012, 01, 31) });
             Console.WriteLine("balance (end of january): " + balance);
             Assert.IsTrue(balance == -99.9m);
-            balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2012, 02, 28));
+            
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2012, 02, 28) });
             Console.WriteLine("balance (end of february): " + balance);
             Assert.IsTrue(balance == -300.00m);
 
-
-            balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2012, 03, 1));
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2012, 03, 01) });
             Console.WriteLine("balance (begining of march): " + balance);
             Assert.IsTrue(balance == 1200.00m);
-
-            balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2012, 03, 15));
+            
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2012, 03, 15) });
             Console.WriteLine("balance (middle of march): " + balance);
             Assert.IsTrue(balance == 69.79m);
             
-            balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2012, 05, 15));
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2012, 05, 15) });
             Console.WriteLine("balance (middle of may): " + balance);
             Assert.IsTrue(balance == 669.64m);
-
-            balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2013, 01, 1));
+            
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2013, 01, 01) });
             Console.WriteLine("balance (jan 2013): " + balance);
             Assert.IsTrue(balance == 949.42m);
 
@@ -242,7 +248,7 @@ namespace ModernCashFlow.Tests
         
 
         [Test]
-        public void Can_calcultate_balance_at_given_date_and_time_ignoring_times()
+        public void Can_calcultate_balance_up_to_given_date_and_time_ignoring_times()
         {
             var incomes = new List<Income>();
             incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.10m, Date = new DateTime(2012,05,01,8,0,0)});
@@ -255,24 +261,27 @@ namespace ModernCashFlow.Tests
             
             var balanceService = new BalanceCalculatorService();
 
-            var balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2011, 01, 01));
+
+            var balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2011, 01, 01) });
             Console.WriteLine("balance (at 00:00): " + balance);
-            Assert.IsTrue(balance == 0); 
-            
-            balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2011, 01, 01,08,1,0));
-            Console.WriteLine("balance (at 08:01): " + balance);
             Assert.IsTrue(balance == 0);
 
 
-            balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2011, 01, 01,09,0,0));
-            Console.WriteLine("balance (at 09:00): " + balance);
-            Assert.IsTrue(balance == 0);  
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2011, 01, 01, 08, 01, 0) });
+            Console.WriteLine("balance (at 08:01): " + balance);
+            Assert.IsTrue(balance == 0);
             
-            balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2011, 01, 01,12,0,0));
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2013, 01, 01, 09, 0, 0) });
+            Console.WriteLine("balance (at 09:00): " + balance);
+            Assert.IsTrue(balance == 0);
+
+
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { EndingDate = new DateTime(2013, 01, 01, 12, 0, 0) });
             Console.WriteLine("balance (at 12:00): " + balance);
             Assert.IsTrue(balance == 0);
         } 
 
+        [Test]
         public void Can_calcultate_balance_as_of_given_date()
         {
             var incomes = new List<Income>();
@@ -294,35 +303,50 @@ namespace ModernCashFlow.Tests
 
             var balanceService = new BalanceCalculatorService();
 
-            var balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2011, 01, 31));
+            var balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses) { StartingDate = new DateTime(2013, 01, 31) });
             Console.WriteLine("balance (starting april): " + balance);
             Assert.IsTrue(balance == 0);
         }
 
-        public void Can_calcultate_balance_as_of_given_date_interval()
+        [Test]
+        public void Can_calcultate_balance_of_a_given_date_interval()
         {
-            //var incomes = new List<Income>();
-            //incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.10m, Date = new DateTime(2012, 01, 01) });
-            //incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.11m, Date = new DateTime(2012, 02, 01) });
-            //incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = null, Date = new DateTime(2012, 03, 01) });
-            //incomes.Add(new Income { AccountID = 1, ExpectedValue = null, ActualValue = 1500.13m, Date = new DateTime(2012, 04, 01) });
-            //incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.14m, Date = new DateTime(2012, 05, 01) });
-            //incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1430.00m, Date = new DateTime(2012, 06, 04) });
+            var incomes = new List<Income>();
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.10m, Date = new DateTime(2012, 01, 01) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.11m, Date = new DateTime(2012, 02, 01) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = null, Date = new DateTime(2012, 03, 01) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = null, ActualValue = 1500.13m, Date = new DateTime(2012, 04, 01) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.14m, Date = new DateTime(2012, 05, 01) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1430.00m, Date = new DateTime(2012, 06, 04) });
 
 
-            //var expenses = new List<Expense>();
-            //expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1600.00m, Date = new DateTime(2012, 01, 02) });
-            //expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1700.21m, Date = new DateTime(2012, 02, 03) });
-            //expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1130.21m, Date = new DateTime(2012, 03, 03) });
-            //expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1200.21m, Date = new DateTime(2012, 04, 03) });
-            //expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1200.21m, Date = new DateTime(2012, 05, 03) });
-            //expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.02m, ActualValue = 1150.22m, Date = new DateTime(2012, 06, 05) });
+            var expenses = new List<Expense>();
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1600.00m, Date = new DateTime(2012, 01, 02) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1700.21m, Date = new DateTime(2012, 02, 03) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1130.21m, Date = new DateTime(2012, 03, 03) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1200.21m, Date = new DateTime(2012, 04, 03) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1200.21m, Date = new DateTime(2012, 05, 03) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.02m, ActualValue = 1150.22m, Date = new DateTime(2012, 06, 05) });
 
-            //var balanceService = new BalanceCalculatorService();
+            var balanceService = new BalanceCalculatorService();
 
-            //var balance = balanceService.CalculateBalanceUptoGivenDate(1, incomes, expenses, new DateTime(2011, 01, 31));
-            //Console.WriteLine("balance (from may): " + balance);
-            //Assert.IsTrue(balance == 0);
+            var balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses)
+                                                                    {
+                                                                        StartingDate = new DateTime(2012, 03, 1),
+                                                                        EndingDate = new DateTime(2012, 03, 31)
+                                                                    });
+            Console.WriteLine("balance (only march): " + balance);
+            Assert.IsTrue(balance == 369.79m);
+
+
+            balance = balanceService.CalculateBalance(new BalanceCalculationArgs(1, incomes, expenses)
+            {
+                StartingDate = new DateTime(2012, 03, 1),
+                EndingDate = new DateTime(2012, 04, 30)
+            });
+            Console.WriteLine("balance (only march and april): " + balance);
+            Assert.IsTrue(balance == 669.71m);
+
         }
         
 
