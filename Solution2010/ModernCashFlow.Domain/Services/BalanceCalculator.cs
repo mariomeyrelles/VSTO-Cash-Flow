@@ -7,27 +7,27 @@ namespace ModernCashFlow.Domain.Services
 {
     public class BalanceCalculatorService
     {
-        public decimal CalculateBalance(BalanceCalculationArgs args)
+        public decimal CalculateBalance(BalanceCalcArgs args)
         {
             var incomes = args.Incomes;
             var expenses = args.Expenses;
 
             if (args.StartingDate.HasValue)
             {
-                incomes = incomes.Where(x => x.Date.Today() >= args.StartingDate.Today());
-                expenses =  expenses.Where(x => x.Date.Today() >= args.StartingDate.Today());
+                incomes = incomes.Where(x => x.Date >= args.StartingDate);
+                expenses =  expenses.Where(x => x.Date >= args.StartingDate);
             }
 
             if (args.EndingDate.HasValue)
             {
-                incomes = incomes.Where(x => x.Date.Today() <= args.EndingDate.Today());
-                expenses = expenses.Where(x => x.Date.Today() <= args.EndingDate.Today());
+                incomes = incomes.Where(x => x.Date.Today() <= args.EndingDate);
+                expenses = expenses.Where(x => x.Date.Today() <= args.EndingDate);
             }
             
             var incomeSum = 0.0m;
             var expenseSum = 0.0m;
-            incomeSum = IncomeSum(incomeSum, incomes);
 
+            incomeSum = IncomeSum(incomeSum, incomes);
             expenseSum = ExpenseSum(expenseSum, expenses);
 
             var balance = incomeSum - expenseSum + args.InitialBalance;

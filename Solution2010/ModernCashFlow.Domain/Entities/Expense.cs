@@ -70,7 +70,7 @@ namespace ModernCashFlow.Domain.Entities
         [LocalizableColumnName]
         public DateTime? Date
         {
-            get { return _date; }
+            get { return _date.Today(); }
             set { SetField(ref _date, value, () => Date); }
         }
 
