@@ -438,6 +438,27 @@ namespace ModernCashFlow.Tests
             Assert.IsTrue(balance == 717.12m + 1500);
         }
 
+        [Test]
+        public void Can_calculate_cashflow_simple()
+        {
+            var incomes = new List<Income>();
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.10m, Date = new DateTime(2012, 04, 01) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.11m, Date = new DateTime(2012, 04, 02) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = null, Date = new DateTime(2012, 04, 03) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = null, ActualValue = 1500.13m, Date = new DateTime(2012, 04, 04) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.14m, Date = new DateTime(2012, 04, 05) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1430.00m, Date = new DateTime(2012, 04, 06) });
+            incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1250.00m, Date = new DateTime(2012, 04, 07) });
+
+
+            var expenses = new List<Expense>();
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1600.00m, Date = new DateTime(2012, 03, 31) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1700.21m, Date = new DateTime(2012, 04, 01) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1130.21m, Date = new DateTime(2012, 04, 02) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1200.21m, Date = new DateTime(2012, 04, 03) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.01m, ActualValue = 1200.21m, Date = new DateTime(2012, 04, 04) });
+            expenses.Add(new Expense { AccountID = 1, ExpectedValue = 1500.02m, ActualValue = 1150.22m, Date = new DateTime(2012, 04, 05) });
+        }
 
     }
 }
