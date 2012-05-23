@@ -5,9 +5,9 @@ using ModernCashFlow.Tools;
 
 namespace ModernCashFlow.Domain.Services
 {
-    public class BalanceCalculatorService
+    public class BalanceCalculationService
     {
-        public decimal CalculateBalance(BalanceCalcArgs args)
+        public decimal CalculateSimpleBalance(BalanceCalcArgs args)
         {
             var incomes = args.Incomes;
             var expenses = args.Expenses;
