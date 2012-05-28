@@ -5,7 +5,7 @@ using ModernCashFlow.Tools;
 
 namespace ModernCashFlow.Domain.Entities
 {
-    public class Income : DomainBase
+    public class Income : DomainBase, IMoneyTransaction
     {
         public Income()
         {
@@ -43,16 +43,17 @@ namespace ModernCashFlow.Domain.Entities
         public DateTime? TransactionDate { get; set; }
 
 
-        public double? Date_OA
+        public double? TransactionDate_OA
         {
             get
             {
-                var dateTime = this.Date;
+                var dateTime = this.TransactionDate;
                 if (dateTime != null) return dateTime.Value.ToOADate();
                 return null;
             }
         }
 
+       
 
         private DateTime? _date;
 
@@ -70,17 +71,17 @@ namespace ModernCashFlow.Domain.Entities
             set { SetField(ref _date, value, () => Date); }
         }
 
-        public double? TransactionDate_OA
+        public double? Date_OA
         {
             get
             {
-                var dateTime = this.TransactionDate;
+                var dateTime = this.Date;
                 if (dateTime != null) return dateTime.Value.ToOADate();
                 return null;
             }
         }
 
-
+        
 
         private decimal? _expectedValue;
 
@@ -94,6 +95,27 @@ namespace ModernCashFlow.Domain.Entities
         {
             get { return _expectedValue; }
             set { SetField(ref _expectedValue, value, () => ExpectedValue); }
+        }
+
+
+        /// <summary>
+        /// Campo opcional que indica o valor pago após juros e/ou descontos.
+        /// </summary>
+        [LocalizableColumnName]
+        public decimal? ActualValue { get; set; }
+
+
+
+        public decimal Value
+        {
+            get
+            {
+                if (this.ActualValue.HasValue)
+                {
+                    return this.ActualValue.Value;
+                }
+                return this.ExpectedValue ?? 0.0m;
+            }
         }
 
         /// <summary>
@@ -153,11 +175,7 @@ namespace ModernCashFlow.Domain.Entities
         [LocalizableColumnName]
         public decimal? Quantity { get; set; }
 
-        /// <summary>
-        /// Campo opcional que indica o valor pago após juros e/ou descontos.
-        /// </summary>
-        [LocalizableColumnName]
-        public decimal? ActualValue { get; set; }
+      
 
         /// <summary>
         /// Indica, de modo geral, se a saída pode ser usada ou não no cálculo de fluxo de caixa.

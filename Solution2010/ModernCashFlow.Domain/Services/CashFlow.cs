@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ModernCashFlow.Domain.Services
 {
@@ -8,13 +7,5 @@ namespace ModernCashFlow.Domain.Services
     public class CashFlow
     {
         public List<CashFlowEntry> Entries { get; set; }
-    }
-
-    public class CashFlowEntry
-    {
-        public int AccountId { get; set; }
-        public decimal Value { get; set; }
-        public DateTime Date { get; set; }
-
     }
 }

@@ -7,7 +7,7 @@ namespace ModernCashFlow.Domain.Services
 {
     public class BalanceCalculationService
     {
-        public decimal CalculateSimpleBalance(BalanceCalcArgs args)
+        public decimal CalculateSimpleBalance(CalculationArgs args)
         {
             var incomes = args.Incomes;
             var expenses = args.Expenses;
@@ -59,5 +59,14 @@ namespace ModernCashFlow.Domain.Services
             }
             return incomeSum;
         }
+
+
+        public CashFlow CalculateCashflow(CalculationArgs args)
+        {
+
+            return null;
+        }
     }
+
+    
 }

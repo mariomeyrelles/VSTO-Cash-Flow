@@ -44,6 +44,7 @@
     <Compile Include="BaseInterfaces\IDomainObject.cs" />
     <Compile Include="Dtos\EditPendingPaymentDto.cs" />
     <Compile Include="Entities\Account.cs" />
+    <Compile Include="Entities\IMoneyTransaction.cs" />
     <Compile Include="Entities\Income.cs" />
     <Compile Include="Entities\EditStatus.cs" />
     <Compile Include="Entities\TransactionStatus.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Services\BalanceCalculationArgs.cs" />
     <Compile Include="Services\BalanceCalculationService.cs" />
     <Compile Include="Services\CashFlow.cs" />
+    <Compile Include="Services\CashFlowEntry.cs" />
     <Compile Include="Services\ExpenseStatusService.cs" />
   </ItemGroup>
   <ItemGroup />

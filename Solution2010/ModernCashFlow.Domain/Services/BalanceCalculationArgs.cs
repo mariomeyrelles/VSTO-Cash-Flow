@@ -6,9 +6,21 @@ using ModernCashFlow.Tools;
 
 namespace ModernCashFlow.Domain.Services
 {
-    public class BalanceCalcArgs
+    public class CalculationArgs
     {
-        public BalanceCalcArgs(int accountId, IEnumerable<Income> incomes, IEnumerable<Expense> expenses)
+
+        public CalculationArgs(IEnumerable<Income> incomes, IEnumerable<Expense> expenses)
+        {
+            Incomes = new List<Income>();
+            Expenses = new List<Expense>();
+
+            if (incomes != null) Incomes = incomes.ToList();
+
+            if (expenses != null) Expenses = expenses.ToList();
+        }
+
+
+        public CalculationArgs(int accountId, IEnumerable<Income> incomes, IEnumerable<Expense> expenses)
         {
             Incomes = new List<Income>();
             Expenses = new List<Expense>();
@@ -38,4 +50,6 @@ namespace ModernCashFlow.Domain.Services
         public decimal InitialBalance { get; set; }
         
     }
+
+   
 }

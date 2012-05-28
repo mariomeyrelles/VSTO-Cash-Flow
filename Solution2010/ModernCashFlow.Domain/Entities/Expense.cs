@@ -9,7 +9,7 @@ namespace ModernCashFlow.Domain.Entities
     /// <summary>
     /// The Expense domain entity, which refers to money getting out.
     /// </summary>
-    public class Expense : DomainBase
+    public class Expense : DomainBase, IMoneyTransaction
     {
         public Expense()
         {
@@ -98,6 +98,20 @@ namespace ModernCashFlow.Domain.Entities
             get { return _expectedValue; }
             set { SetField(ref _expectedValue, value, () => ExpectedValue); }
         }
+
+        public decimal Value
+        {
+            get
+            {
+                if (this.ActualValue.HasValue)
+                {
+                    return this.ActualValue.Value*-1.0m;
+                }
+                return this.ExpectedValue * -1.0m ?? 0.0m;
+            }
+        }
+
+
 
         /// <summary>
         /// Campo obrigatório que indica o ID da conta que deverá a ser debitada este valor. Pode ser opcional caso só se tenha uma 
