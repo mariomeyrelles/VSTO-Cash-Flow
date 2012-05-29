@@ -8,6 +8,8 @@ namespace ModernCashFlow.Domain.Services
 {
     public class CalculationArgs
     {
+        private DateTime? _endingDate;
+        private DateTime? _startingDate;
 
         public CalculationArgs(IEnumerable<Income> incomes, IEnumerable<Expense> expenses)
         {
@@ -15,7 +17,6 @@ namespace ModernCashFlow.Domain.Services
             Expenses = new List<Expense>();
 
             if (incomes != null) Incomes = incomes.ToList();
-
             if (expenses != null) Expenses = expenses.ToList();
         }
 
@@ -25,22 +26,19 @@ namespace ModernCashFlow.Domain.Services
             Incomes = new List<Income>();
             Expenses = new List<Expense>();
 
-            if (incomes != null) Incomes = incomes.Where(x=>x.AccountID == accountId).ToList();
-            
+            if (incomes != null) Incomes = incomes.Where(x => x.AccountID == accountId).ToList();
             if (expenses != null) Expenses = expenses.Where(x => x.AccountID == accountId).ToList();
         }
 
         public IEnumerable<Income> Incomes { get; private set; }
         public IEnumerable<Expense> Expenses { get; private set; }
 
-        private DateTime? _startingDate;
         public DateTime? StartingDate
         {
             get { return _startingDate.Today(); }
             set { _startingDate = value; }
         }
 
-        private DateTime? _endingDate;
         public DateTime? EndingDate
         {
             get { return _endingDate.Today(); }
@@ -48,8 +46,5 @@ namespace ModernCashFlow.Domain.Services
         }
 
         public decimal InitialBalance { get; set; }
-        
     }
-
-   
 }

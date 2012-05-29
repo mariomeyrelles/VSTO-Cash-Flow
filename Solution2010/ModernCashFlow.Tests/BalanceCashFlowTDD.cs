@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ModernCashFlow.Tests
 {
-    public class InitialTests
+    public class BalanceCashFlowTDD
     {
         // ReSharper disable InconsistentNaming
         [Test]
@@ -440,7 +440,7 @@ namespace ModernCashFlow.Tests
         }
 
         [Test]
-        public void Can_calculate_simples_cashflow_for_one_account()
+        public void Can_calculate_simple_cashflow_for_one_account()
         {
             var incomes = new List<Income>();
             incomes.Add(new Income { AccountID = 1, ExpectedValue = 1500.00m, ActualValue = 1500.10m, Date = new DateTime(2012, 04, 01) });
@@ -470,16 +470,14 @@ namespace ModernCashFlow.Tests
                 EndingDate = new DateTime(2012, 04, 08)
             });
 
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,03,30)).Value==0m);
             Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,03,31)).Value==-1600.0m);
             Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,01)).Value==-1800.11m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,02)).Value==-1330.31m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,03)).Value==-830.42m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,04)).Value==-1000.89m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,05)).Value==458.91m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,06)).Value==-2750.20m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,07)).Value==1250m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,08)).Value==1250m);
+            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,02)).Value==-1430.21m);
+            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,03)).Value==-1130.42m);
+            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,04)).Value==-931.10m);
+            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,05)).Value==-451.18m);
+            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,06)).Value==-1601.40m);
+            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,07)).Value==-351.40m);
 
             var finalBalance = service.CalculateSimpleBalance(new CalculationArgs(1,incomes, expenses)
             {
@@ -487,8 +485,16 @@ namespace ModernCashFlow.Tests
                 EndingDate = new DateTime(2012, 04, 08)
             });
 
-            Assert.IsTrue(finalBalance == -7603.02m);
+            Assert.IsTrue(finalBalance == -351.40m);
             
+        }
+
+        public void Can_calculate_simple_balance_with_more_than_one_account()
+        {
+        }
+
+        public void Can_calculate_simple_cashflow_with_more_than_one_account()
+        {
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Tools;
@@ -30,7 +31,7 @@ namespace ModernCashFlow.Domain.Services
             incomeSum = IncomeSum(incomeSum, incomes);
             expenseSum = ExpenseSum(expenseSum, expenses);
 
-            var balance = incomeSum - expenseSum + args.InitialBalance;
+            var balance = incomeSum + expenseSum + args.InitialBalance;
             
             return balance;
         }
@@ -40,10 +41,7 @@ namespace ModernCashFlow.Domain.Services
         {
             foreach (var expense in expensesForAccount)
             {
-                if (expense.ActualValue.HasValue)
-                    expenseSum += expense.ActualValue.Value;
-                else
-                    expenseSum += expense.ExpectedValue ?? 0.0m;
+                expenseSum += expense.Value;
             }
             return expenseSum;
         }
@@ -52,10 +50,7 @@ namespace ModernCashFlow.Domain.Services
         {
             foreach (var income in incomesForAccount)
             {
-                if (income.ActualValue.HasValue)
-                    incomeSum += income.ActualValue.Value;
-                else
-                    incomeSum += income.ExpectedValue ?? 0.0m;
+                incomeSum += income.Value;
             }
             return incomeSum;
         }
@@ -63,8 +58,42 @@ namespace ModernCashFlow.Domain.Services
 
         public CashFlow CalculateCashflow(CalculationArgs args)
         {
+            var transactions = new List<IMoneyTransaction>();
+            transactions.AddRange(args.Incomes.Where(x => x.Date.HasValue));
+            transactions.AddRange(args.Expenses.Where(x => x.Date.HasValue));
 
-            return null;
+            //sort by date ascending to organize transactions.
+// ReSharper disable PossibleInvalidOperationException
+            transactions.Sort((t1, t2) => t1.Date.Value.CompareTo(t2.Date.Value));
+// ReSharper restore PossibleInvalidOperationException
+
+
+            decimal runningSum = 0;
+
+            var dailySums = (from x in transactions
+                             group x by new { x.Date, x.AccountID}
+                             into g
+                             select new {Date = g.Key.Date, AccountId = g.Key.AccountID, DailyAmount = g.Sum(x => x.Value)}).ToList();
+
+         
+            var query = dailySums
+                .OrderBy(x => x.Date)
+                .Select(x =>
+                            {
+                                runningSum += x.DailyAmount;
+                                return new CashFlowEntry
+                                           {
+                                               Date = x.Date.Value,
+                                               AccountId = x.AccountId,
+                                               Value = runningSum
+                                           };
+                            }
+                );
+
+
+            var cashFlow = new CashFlow {Entries = query.ToList()};
+            return cashFlow;
+
         }
     }
 
