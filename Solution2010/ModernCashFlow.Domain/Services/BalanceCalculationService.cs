@@ -15,20 +15,8 @@ namespace ModernCashFlow.Domain.Services
             foreach (var accountId in accounts)
             {
                 var id = accountId;
-                var incomes = args.Incomes.Where(x => x.AccountId == id);
-                var expenses = args.Expenses.Where(x => x.AccountId == id);
-
-                if (args.StartingDate.HasValue)
-                {
-                    incomes = incomes.Where(x => x.Date >= args.StartingDate);
-                    expenses = expenses.Where(x => x.Date >= args.StartingDate);
-                }
-
-                if (args.EndingDate.HasValue)
-                {
-                    incomes = incomes.Where(x => x.Date.Today() <= args.EndingDate);
-                    expenses = expenses.Where(x => x.Date.Today() <= args.EndingDate);
-                }
+                var incomes = args.Incomes.Where(x => x.AccountId == id).Where(x => (x.Date == null) || (x.Date >= args.StartingDate && x.Date <= args.EndingDate));
+                var expenses = args.Expenses.Where(x => x.AccountId == id).Where(x => (x.Date == null) || (x.Date >= args.StartingDate && x.Date <= args.EndingDate));
 
                 var incomeSum = 0.0m;
                 var expenseSum = 0.0m;
@@ -71,14 +59,18 @@ namespace ModernCashFlow.Domain.Services
                              group x by new { x.Date, AccountID = x.AccountId}
                              into g
                              select new {Date = g.Key.Date, AccountId = g.Key.AccountID, DailyAmount = g.Sum(x => x.Value)}).ToList();
-         
-            var cashFlowCalc = dailySums
-                .OrderBy(x => x.Date)
-                .Select(x =>{
-                                runningSum += x.DailyAmount;
-                                return new CashFlowEntry { Date = x.Date.Value, AccountId = x.AccountId, Value = runningSum};
-                            }
-                        );
+
+            var cashFlowCalc = dailySums.Select(x =>
+                                                    {
+                                                        runningSum += x.DailyAmount;
+                                                        return new CashFlowEntry
+                                                                   {
+                                                                       Date = x.Date.Value,
+                                                                       AccountId = x.AccountId,
+                                                                       Value = runningSum
+                                                                   };
+                                                    }
+                );
 
             var cashFlow = new CashFlowCalculationResult(cashFlowCalc.ToList());
             return cashFlow;

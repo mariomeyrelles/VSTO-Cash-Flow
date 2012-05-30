@@ -29,6 +29,11 @@ namespace ModernCashFlow.Tools
          
         }
 
+        public static DateTime Today(this DateTime? data, DateTime defaultDateTime)
+        {
+            return data.HasValue ? new DateTime(data.Value.Year, data.Value.Month, data.Value.Day) : defaultDateTime;
+        }
+
 
         public static dynamic ToInt(this string input)
         {

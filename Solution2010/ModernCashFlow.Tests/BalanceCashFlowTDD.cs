@@ -32,7 +32,7 @@ namespace ModernCashFlow.Tests
             var calculationArgs = new CalculationArgs(incomes, expenses);
             var balance = balanceService.CalculateBalance(calculationArgs);
 
-            Console.WriteLine("balance: " + balance);
+            Console.WriteLine("balance: " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0.0m);
         }
 
@@ -58,7 +58,7 @@ namespace ModernCashFlow.Tests
             var calculationArgs = new CalculationArgs(incomes, expenses);
             var balance = balanceService.CalculateBalance(calculationArgs);
 
-            Console.WriteLine("balance: " + balance);
+            Console.WriteLine("balance: " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0.02m);
         }
 
@@ -79,7 +79,7 @@ namespace ModernCashFlow.Tests
             var calculationArgs = new CalculationArgs(incomes, expenses);
             var balance = balanceService.CalculateBalance(calculationArgs);
 
-            Console.WriteLine("balance: " + balance);
+            Console.WriteLine("balance: " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0.0m);
         }
 
@@ -107,7 +107,7 @@ namespace ModernCashFlow.Tests
             var calculationArgs = new CalculationArgs(incomes, expenses);
             var balance = balanceService.CalculateBalance(calculationArgs);
 
-            Console.WriteLine("balance: " + balance);
+            Console.WriteLine("balance: " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0.60m);
         }
 
@@ -135,7 +135,7 @@ namespace ModernCashFlow.Tests
             var calculationArgs = new CalculationArgs(incomes, expenses);
             var balance = balanceService.CalculateBalance(calculationArgs);
 
-            Console.WriteLine("balance: " + balance);
+            Console.WriteLine("balance: " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == -9.83m);
         }
 
@@ -162,7 +162,7 @@ namespace ModernCashFlow.Tests
             var calculationArgs = new CalculationArgs(incomes, expenses);
             var balance = balanceService.CalculateBalance(calculationArgs);
 
-            Console.WriteLine("balance: " + balance);
+            Console.WriteLine("balance: " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 1.20m);
         }
 
@@ -191,7 +191,7 @@ namespace ModernCashFlow.Tests
             var calculationArgs = new CalculationArgs(incomes, expenses){InitialBalance = initialBalance};
             var balance = balanceService.CalculateBalance(calculationArgs);
 
-            Console.WriteLine("balance: " + balance);
+            Console.WriteLine("balance: " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 10.74m);
         }
 
@@ -218,31 +218,31 @@ namespace ModernCashFlow.Tests
             var balanceService = new BalanceCalculationService();
 
             var balance = balanceService.CalculateBalance(new CalculationArgs(incomes,expenses){EndingDate = new DateTime(2011, 01, 31)});
-            Console.WriteLine("balance (before january): " + balance);
+            Console.WriteLine("balance (before january): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0);
 
             balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2012, 01, 31) });
-            Console.WriteLine("balance (end of january): " + balance);
+            Console.WriteLine("balance (end of january): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == -99.9m);
             
             balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2012, 02, 28) });
-            Console.WriteLine("balance (end of february): " + balance);
+            Console.WriteLine("balance (end of february): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == -300.00m);
 
             balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2012, 03, 01) });
-            Console.WriteLine("balance (begining of march): " + balance);
+            Console.WriteLine("balance (begining of march): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 1200.00m);
             
             balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2012, 03, 15) });
-            Console.WriteLine("balance (middle of march): " + balance);
+            Console.WriteLine("balance (middle of march): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 69.79m);
             
             balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2012, 05, 15) });
-            Console.WriteLine("balance (middle of may): " + balance);
+            Console.WriteLine("balance (middle of may): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 669.64m);
             
             balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2013, 01, 01) });
-            Console.WriteLine("balance (jan 2013): " + balance);
+            Console.WriteLine("balance (jan 2013): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 949.42m);
 
         } 
@@ -264,21 +264,21 @@ namespace ModernCashFlow.Tests
 
 
             var balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2011, 01, 01) });
-            Console.WriteLine("balance (at 00:00): " + balance);
+            Console.WriteLine("balance (at 00:00): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0);
 
 
             balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2011, 01, 01, 08, 01, 0) });
-            Console.WriteLine("balance (at 08:01): " + balance);
+            Console.WriteLine("balance (at 08:01): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0);
             
             balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2013, 01, 01, 09, 0, 0) });
-            Console.WriteLine("balance (at 09:00): " + balance);
+            Console.WriteLine("balance (at 09:00): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0);
 
 
             balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { EndingDate = new DateTime(2013, 01, 01, 12, 0, 0) });
-            Console.WriteLine("balance (at 12:00): " + balance);
+            Console.WriteLine("balance (at 12:00): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0);
         } 
 
@@ -305,7 +305,7 @@ namespace ModernCashFlow.Tests
             var balanceService = new BalanceCalculationService();
 
             var balance = balanceService.CalculateBalance(new CalculationArgs(incomes, expenses) { StartingDate = new DateTime(2013, 01, 31) });
-            Console.WriteLine("balance (starting april): " + balance);
+            Console.WriteLine("balance (starting april): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 0);
         }
 
@@ -336,7 +336,7 @@ namespace ModernCashFlow.Tests
                                                                         StartingDate = new DateTime(2012, 03, 1),
                                                                         EndingDate = new DateTime(2012, 03, 31)
                                                                     });
-            Console.WriteLine("balance (only march): " + balance);
+            Console.WriteLine("balance (only march): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 369.79m);
 
 
@@ -345,7 +345,7 @@ namespace ModernCashFlow.Tests
                 StartingDate = new DateTime(2012, 03, 1),
                 EndingDate = new DateTime(2012, 04, 30)
             });
-            Console.WriteLine("balance (only march and april): " + balance);
+            Console.WriteLine("balance (only march and april): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 669.71m);
 
 
@@ -354,7 +354,7 @@ namespace ModernCashFlow.Tests
                 StartingDate = new DateTime(2012, 01, 1),
                 EndingDate = new DateTime(2012, 07, 1)
             });
-            Console.WriteLine("balance (jan to jun): " + balance);
+            Console.WriteLine("balance (jan to jun): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 8930.48m - 7981.06m);
 
 
@@ -390,7 +390,7 @@ namespace ModernCashFlow.Tests
                 EndingDate = new DateTime(2012, 03, 31),
                 InitialBalance = 717.12m
             });
-            Console.WriteLine("balance (only march): " + balance);
+            Console.WriteLine("balance (only march): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 369.79m + 717.12m);
 
 
@@ -400,7 +400,7 @@ namespace ModernCashFlow.Tests
                 EndingDate = new DateTime(2012, 04, 30),
                 InitialBalance = -12.23m
             });
-            Console.WriteLine("balance (only march and april): " + balance);
+            Console.WriteLine("balance (only march and april): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == -12.23m + 669.71m);
 
 
@@ -410,7 +410,7 @@ namespace ModernCashFlow.Tests
                 EndingDate = new DateTime(2012, 07, 1),
                 InitialBalance = 814.35m
             });
-            Console.WriteLine("balance (jan to jun): " + balance);
+            Console.WriteLine("balance (jan to jun): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 814.35m + 8930.48m - 7981.06m);
             
         }
@@ -435,7 +435,7 @@ namespace ModernCashFlow.Tests
                 EndingDate = new DateTime(2012, 03, 31),
                 InitialBalance = 717.12m
             });
-            Console.WriteLine("balance (only march): " + balance);
+            Console.WriteLine("balance (only march): " + balance.ForAccountId(1));
             Assert.IsTrue(balance.ForAccountId(1) == 717.12m + 1500);
         }
 
@@ -444,24 +444,23 @@ namespace ModernCashFlow.Tests
         {
             var incomes = new List<Income>();
             incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = 1500.10m, Date = new DateTime(2012, 04, 01) });
-            incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = 1500.11m, Date = new DateTime(2012, 04, 02) });
-            incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = null,     Date = new DateTime(2012, 04, 03) });
-            incomes.Add(new Income { AccountId = 1, ExpectedValue = null,     ActualValue = 1500.13m, Date = new DateTime(2012, 04, 04) });
             incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = 1500.14m, Date = new DateTime(2012, 04, 05) });
             incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = 1430.00m, Date = new DateTime(2012, 04, 05) });
             incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = 1250.00m, Date = new DateTime(2012, 04, 07) });
-
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = 1500.11m, Date = new DateTime(2012, 04, 02) });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = null, Date = new DateTime(2012, 04, 03) });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = null, ActualValue = 1500.13m, Date = new DateTime(2012, 04, 04) });
+            
 
             var expenses = new List<Expense>();
             expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1450.00m, ActualValue = 1600.00m, Date = new DateTime(2012, 03, 31) });
             expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1450.00m, ActualValue = 1700.21m, Date = new DateTime(2012, 04, 01) });
+            expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1300.00m, ActualValue = null,     Date = new DateTime(2012, 04, 05) });
+            expenses.Add(new Expense { AccountId = 1, ExpectedValue = null,     ActualValue = 1150.22m, Date = new DateTime(2012, 04, 06) });
             expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1450.00m, ActualValue = 1130.21m, Date = new DateTime(2012, 04, 02) });
             expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1450.00m, ActualValue = 1200.21m, Date = new DateTime(2012, 04, 03) });
             expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1450.00m, ActualValue = 1300.81m, Date = new DateTime(2012, 04, 04) });
             expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1450.00m, ActualValue = 1150.22m, Date = new DateTime(2012, 04, 05) });
-            expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1300.00m, ActualValue = null,     Date = new DateTime(2012, 04, 05) });
-            expenses.Add(new Expense { AccountId = 1, ExpectedValue = null,     ActualValue = 1150.22m, Date = new DateTime(2012, 04, 06) });
-
             var service = new BalanceCalculationService();
 
             var cashflow = service.CalculateCashflow(new CalculationArgs(incomes, expenses)
@@ -489,8 +488,36 @@ namespace ModernCashFlow.Tests
             
         }
 
-        public void Can_calculate_simple_balance_with_more_than_one_account()
+        [Test]
+        public void Can_calculate_simple_balance_with_more_than_one_account_and_some_nulls()
         {
+
+            var incomes = new List<Income>();
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = null, ActualValue = 10.20m });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = null, ActualValue = 10.21m });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = null, ActualValue = 10.22m });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = null, ActualValue = 10.23m });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = null, ActualValue = 10.24m });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = null, ActualValue = 10.25m });
+
+            var expenses = new List<Expense>();
+            expenses.Add(new Expense { AccountId = 4, ExpectedValue = 10.00m, ActualValue = null });
+            expenses.Add(new Expense { AccountId = 4, ExpectedValue = 10.01m, ActualValue = null });
+            expenses.Add(new Expense { AccountId = 4, ExpectedValue = 10.02m, ActualValue = null });
+            expenses.Add(new Expense { AccountId = 4, ExpectedValue = 10.03m, ActualValue = null });
+            expenses.Add(new Expense { AccountId = 4, ExpectedValue = 10.04m, ActualValue = null });
+            expenses.Add(new Expense { AccountId = 4, ExpectedValue = 10.05m, ActualValue = null });
+
+            var balanceService = new BalanceCalculationService();
+            var calculationArgs = new CalculationArgs(incomes, expenses);
+            var balance = balanceService.CalculateBalance(calculationArgs);
+
+            Console.WriteLine("balance: " + balance.ForAccountId(1));
+            Console.WriteLine("balance: " + balance.ForAccountId(4));
+            Assert.IsTrue(balance.ForAccountId(1) == 61.35m);
+            Assert.IsTrue(balance.ForAccountId(2) == 0);
+            Assert.IsTrue(balance.ForAccountId(3) == 0);
+            Assert.IsTrue(balance.ForAccountId(4) == -60.15m);
         }
 
         public void Can_calculate_simple_cashflow_with_more_than_one_account()

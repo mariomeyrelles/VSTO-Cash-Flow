@@ -23,15 +23,15 @@ namespace ModernCashFlow.Domain.Services
         public IEnumerable<Income> Incomes { get; private set; }
         public IEnumerable<Expense> Expenses { get; private set; }
 
-        public DateTime? StartingDate
+        public DateTime StartingDate
         {
-            get { return _startingDate.Today(); }
+            get { return _startingDate.Today(DateTime.MinValue); }
             set { _startingDate = value; }
         }
 
-        public DateTime? EndingDate
+        public DateTime EndingDate
         {
-            get { return _endingDate.Today(); }
+            get { return _endingDate.Today(DateTime.MaxValue); }
             set { _endingDate = value; }
         }
 
