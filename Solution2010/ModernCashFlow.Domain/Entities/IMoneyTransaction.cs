@@ -5,7 +5,7 @@ namespace ModernCashFlow.Domain.Entities
     public interface IMoneyTransaction
     {
         
-        int AccountID { get; set; }
+        int AccountId { get; set; }
 
         DateTime? Date { get; set; }
 

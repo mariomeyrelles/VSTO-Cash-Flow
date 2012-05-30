@@ -117,7 +117,7 @@ namespace ModernCashFlow.Domain.Entities
         /// Campo obrigatório que indica o ID da conta que deverá a ser debitada este valor. Pode ser opcional caso só se tenha uma 
         /// única conta.
         /// </summary>
-        public int AccountID { get; set; }
+        public int AccountId { get; set; }
 
        
 

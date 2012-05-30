@@ -20,16 +20,6 @@ namespace ModernCashFlow.Domain.Services
             if (expenses != null) Expenses = expenses.ToList();
         }
 
-
-        public CalculationArgs(int accountId, IEnumerable<Income> incomes, IEnumerable<Expense> expenses)
-        {
-            Incomes = new List<Income>();
-            Expenses = new List<Expense>();
-
-            if (incomes != null) Incomes = incomes.Where(x => x.AccountID == accountId).ToList();
-            if (expenses != null) Expenses = expenses.Where(x => x.AccountID == accountId).ToList();
-        }
-
         public IEnumerable<Income> Incomes { get; private set; }
         public IEnumerable<Expense> Expenses { get; private set; }
 
@@ -46,5 +36,13 @@ namespace ModernCashFlow.Domain.Services
         }
 
         public decimal InitialBalance { get; set; }
+
+
+        public int[] GetDistinctAccountIds()
+        {
+            var result = Incomes.Select(x => x.AccountId).Union(Expenses.Select(x=>x.AccountId));
+            return result.ToArray();
+
+        }
     }
 }

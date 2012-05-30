@@ -50,9 +50,11 @@
     <Compile Include="Entities\TransactionStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Expense.cs" />
-    <Compile Include="Services\BalanceCalculationArgs.cs" />
+    <Compile Include="Services\Balance.cs" />
+    <Compile Include="Services\BalanceCalculationResult.cs" />
+    <Compile Include="Services\CalculationArgs.cs" />
     <Compile Include="Services\BalanceCalculationService.cs" />
-    <Compile Include="Services\CashFlow.cs" />
+    <Compile Include="Services\CashFlowCalculationResult.cs" />
     <Compile Include="Services\CashFlowEntry.cs" />
     <Compile Include="Services\ExpenseStatusService.cs" />
   </ItemGroup>
