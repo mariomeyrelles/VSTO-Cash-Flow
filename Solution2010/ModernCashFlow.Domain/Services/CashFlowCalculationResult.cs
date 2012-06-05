@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ModernCashFlow.Tools;
 
 namespace ModernCashFlow.Domain.Services
 {
@@ -26,5 +27,27 @@ namespace ModernCashFlow.Domain.Services
             var entry = new CashFlowEntry() {AccountId = accountId, Date = date, Value = value};
             Entries.Add(entry);
         }
+
+
+        public CashFlowEntry At(DateTime date, int accountId)
+        {
+            var result = this.Entries.SingleOrDefault(x=>x.Date == date.Today() && x.AccountId == accountId);
+            if (result == default(CashFlowEntry))
+            {
+                result = this.Entries.Where(x => x.AccountId == accountId).OrderByDescending(x => x.Date).FirstOrDefault();
+
+                if (date.Today() >= result.Date)
+                {
+                    return result;
+                }
+            }
+
+            return result;
+
+        }
+
+        
     }
+
+   
 }

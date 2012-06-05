@@ -478,13 +478,37 @@ namespace ModernCashFlow.Tests
             Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,06)).Value==-1601.40m);
             Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,07)).Value==-351.40m);
 
-            var finalBalance = service.CalculateBalance(new CalculationArgs(incomes, expenses)
+
+            var balance1 = service.CalculateBalance(new CalculationArgs(incomes, expenses)
             {
                 StartingDate = new DateTime(2012, 03, 30),
                 EndingDate = new DateTime(2012, 04, 08)
             });
 
-            Assert.IsTrue(finalBalance.ForAccountId(1) == -351.40m);
+            Assert.IsTrue(balance1.ForAccountId(1) == -351.40m);
+            
+           
+            //test smaller period
+            cashflow = service.CalculateCashflow(new CalculationArgs(incomes, expenses)
+            {
+                StartingDate = new DateTime(2012, 04, 02),
+                EndingDate = new DateTime(2012, 04, 04)
+            });
+
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 02), 1).Value == 369.90m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 03), 1).Value == 669.69m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 04), 1).Value == 869.01m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 05), 1).Value == 869.01m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 05, 05), 1).Value == 869.01m);
+            
+            var balance2 = service.CalculateBalance(new CalculationArgs(incomes, expenses)
+            {
+                StartingDate = new DateTime(2012, 04, 02),
+                EndingDate = new DateTime(2012, 04, 04)
+            });
+
+            Assert.IsTrue(balance2.ForAccountId(1) == 869.01m);
+
             
         }
 

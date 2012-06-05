@@ -10,6 +10,9 @@ namespace ModernCashFlow.Domain.Services
     {
         public BalanceCalculationResult CalculateBalance(CalculationArgs args)
         {
+            if (args.StartingDate > args.EndingDate)
+                throw new InvalidOperationException("The starting date must be earlier than ending date.");
+            
             var balanceResult = new BalanceCalculationResult();
             var accounts = args.GetDistinctAccountIds();
             foreach (var accountId in accounts)
@@ -50,8 +53,8 @@ namespace ModernCashFlow.Domain.Services
         public CashFlowCalculationResult CalculateCashflow(CalculationArgs args)
         {
             var transactions = new List<IMoneyTransaction>();
-            transactions.AddRange(args.Incomes.Where(x => x.Date.HasValue));
-            transactions.AddRange(args.Expenses.Where(x => x.Date.HasValue));
+            transactions.AddRange(args.Incomes.Where(x => x.Date.HasValue && (x.Date >= args.StartingDate && x.Date <= args.EndingDate)));
+            transactions.AddRange(args.Expenses.Where(x => x.Date.HasValue && (x.Date >= args.StartingDate && x.Date <= args.EndingDate)));
 
             decimal runningSum = 0;
 
