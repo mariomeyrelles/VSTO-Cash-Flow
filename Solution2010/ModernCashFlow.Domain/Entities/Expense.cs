@@ -393,5 +393,9 @@ namespace ModernCashFlow.Domain.Entities
         
         #endregion
 
+        public override string ToString()
+        {
+            return string.Format("AccountId:{0}; Date: {1}, Value: {2}", this.AccountId, this.Date, this.Value);
+        }
     }
 }

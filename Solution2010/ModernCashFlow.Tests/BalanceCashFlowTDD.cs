@@ -469,14 +469,14 @@ namespace ModernCashFlow.Tests
                 EndingDate = new DateTime(2012, 04, 08)
             });
 
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,03,31)).Value==-1600.0m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,01)).Value==-1800.11m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,02)).Value==-1430.21m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,03)).Value==-1130.42m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,04)).Value==-931.10m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,05)).Value==-451.18m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,06)).Value==-1601.40m);
-            Assert.IsTrue(cashflow.Entries.FirstOrDefault(x=>x.Date==new DateTime(2012,04,07)).Value==-351.40m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012,03,31),1).Value==-1600.0m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012,04,01),1).Value==-1800.11m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012,04,02),1).Value==-1430.21m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012,04,03),1).Value==-1130.42m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012,04,04),1).Value==-931.10m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012,04,05),1).Value==-451.18m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012,04,06),1).Value==-1601.40m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012,04,07),1).Value==-351.40m);
 
 
             var balance1 = service.CalculateBalance(new CalculationArgs(incomes, expenses)
@@ -544,8 +544,57 @@ namespace ModernCashFlow.Tests
             Assert.IsTrue(balance.ForAccountId(4) == -60.15m);
         }
 
+        [Test]
         public void Can_calculate_simple_cashflow_with_more_than_one_account()
         {
+            #region Scenario
+
+            var incomes = new List<Income>();
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = 1500.10m, Date = new DateTime(2012, 04, 01) });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = 1500.14m, Date = new DateTime(2012, 04, 05) });
+            incomes.Add(new Income { AccountId = 4, ExpectedValue = 1500.00m, ActualValue = 1430.00m, Date = new DateTime(2012, 04, 05) });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = 1500.00m, ActualValue = 1250.00m, Date = new DateTime(2012, 04, 07) });
+            incomes.Add(new Income { AccountId = 4, ExpectedValue = 1500.00m, ActualValue = 1500.11m, Date = new DateTime(2012, 04, 02) });
+            incomes.Add(new Income { AccountId = 3, ExpectedValue = 1500.00m, ActualValue = null, Date = new DateTime(2012, 04, 03) });
+            incomes.Add(new Income { AccountId = 1, ExpectedValue = null, ActualValue = 1500.13m, Date = new DateTime(2012, 04, 04) });
+
+
+            var expenses = new List<Expense>();
+            expenses.Add(new Expense { AccountId = 3, ExpectedValue = 1450.00m, ActualValue = 1600.00m, Date = new DateTime(2012, 03, 31) });
+            expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1450.00m, ActualValue = 1700.21m, Date = new DateTime(2012, 04, 01) });
+            expenses.Add(new Expense { AccountId = 3, ExpectedValue = 1300.00m, ActualValue = null, Date = new DateTime(2012, 04, 05) });
+            expenses.Add(new Expense { AccountId = 1, ExpectedValue = null, ActualValue = 1150.22m, Date = new DateTime(2012, 04, 06) });
+            expenses.Add(new Expense { AccountId = 4, ExpectedValue = 1450.00m, ActualValue = 1130.21m, Date = new DateTime(2012, 04, 02) });
+            expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1450.00m, ActualValue = 1200.21m, Date = new DateTime(2012, 04, 03) });
+            expenses.Add(new Expense { AccountId = 4, ExpectedValue = 1450.00m, ActualValue = 1300.81m, Date = new DateTime(2012, 04, 04) });
+            expenses.Add(new Expense { AccountId = 1, ExpectedValue = 1450.00m, ActualValue = 1150.22m, Date = new DateTime(2012, 04, 05) });
+
+            #endregion
+
+            var service = new BalanceCalculationService();
+
+            var cashflow = service.CalculateCashflow(new CalculationArgs(incomes, expenses)
+            {
+                StartingDate = new DateTime(2012, 03, 30),
+                EndingDate = new DateTime(2012, 04, 08)
+            });
+
+           var balance1 = service.CalculateBalance(new CalculationArgs(incomes, expenses)
+            {
+                StartingDate = new DateTime(2012, 03, 30),
+                EndingDate = new DateTime(2012, 04, 08)
+            });
+
+            Assert.IsTrue(balance1.ForAccountId(1) == 549.51m);
+            Assert.IsTrue(balance1.ForAccountId(3) == -1400m);
+            Assert.IsTrue(balance1.ForAccountId(4) == 499.09m);
+
+
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 03), 1).Value == -1400.32m);
+
+
+          
+
         }
 
     }

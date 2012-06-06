@@ -62,7 +62,7 @@ namespace ModernCashFlow.Domain.Services
                              group x by new { x.Date, AccountID = x.AccountId}
                              into g
                              select new {Date = g.Key.Date, AccountId = g.Key.AccountID, DailyAmount = g.Sum(x => x.Value)}).ToList();
-
+            //todo: must support this calculation for multiple accounts simultaneously.
             var cashFlowCalc = dailySums.Select(x =>
                                                     {
                                                         runningSum += x.DailyAmount;
