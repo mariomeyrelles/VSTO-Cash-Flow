@@ -62,6 +62,7 @@ namespace ModernCashFlow.Domain.Services
                              group x by new { x.Date, AccountID = x.AccountId}
                              into g
                              select new {Date = g.Key.Date, AccountId = g.Key.AccountID, DailyAmount = g.Sum(x => x.Value)}).ToList();
+<<<<<<< HEAD
 
 
 
@@ -77,7 +78,12 @@ namespace ModernCashFlow.Domain.Services
                 var cashFlowCalc = dailySums.Where(a => a.AccountId == accountId).Select(x =>
                                                         {
                                                             runningSum += x.DailyAmount;
-                                                        return new CashFlowEntry(x.AccountId, x.Date.Value, runningSum);
+                                                            return new CashFlowEntry
+                                                                       {
+                                                                           Date = x.Date.Value,
+                                                                           AccountId = x.AccountId,
+                                                                           Value = runningSum
+                                                                       };
                                                         }
                     );
 
@@ -85,6 +91,17 @@ namespace ModernCashFlow.Domain.Services
             }
 
             
+=======
+            //todo: must support this calculation for multiple accounts simultaneously.
+            var cashFlowCalc = dailySums.Select(x =>
+                                                    {
+                                                        runningSum += x.DailyAmount;
+                                                        return new CashFlowEntry(x.AccountId, x.Date.Value, runningSum);
+                                                    }
+                );
+
+            var cashFlow = new CashFlowCalculationResult(cashFlowCalc.ToList());
+>>>>>>> 6bdc391c7f8084a78bb4c61e31b00c52786b292b
             return cashFlow;
 
         }

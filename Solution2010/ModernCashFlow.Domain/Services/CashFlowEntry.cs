@@ -4,9 +4,16 @@ namespace ModernCashFlow.Domain.Services
 {
     public struct CashFlowEntry : IEquatable<CashFlowEntry>
     {
-        public int AccountId { get; set; }
-        public decimal Value { get; set; }
-        public DateTime Date { get; set; }
+        public CashFlowEntry(int accountId,  DateTime date, decimal value) : this()
+        {
+            AccountId = accountId;
+            Value = value;
+            Date = date;
+        }
+
+        public int AccountId { get; private set; }
+        public decimal Value { get; private set; }
+        public DateTime Date { get; private set; }
 
         public bool Equals(CashFlowEntry other)
         {
@@ -44,7 +51,7 @@ namespace ModernCashFlow.Domain.Services
 
         public override string ToString()
         {
-            return string.Format("AccountId:{0}; Date: {1}, Value: {2}", this.AccountId, this.Date, this.Value);
+            return string.Format("AccountId:{0}; Date: {1}, Value: {2}", AccountId, Date, Value);
         }
     }
 }

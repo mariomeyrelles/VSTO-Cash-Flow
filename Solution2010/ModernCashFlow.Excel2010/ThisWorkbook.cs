@@ -109,7 +109,6 @@ namespace ModernCashFlow.Excel2010
         {
             //todo: finalizar a instância do engine do WPF ?.
             //_wpfApp.Shutdown();
-
         }
 
         private void ThisWorkbook_BeforeSave(bool SaveAsUI, ref bool Cancel)
