@@ -589,11 +589,39 @@ namespace ModernCashFlow.Tests
             Assert.IsTrue(balance1.ForAccountId(3) == -1400m);
             Assert.IsTrue(balance1.ForAccountId(4) == 499.09m);
 
-
+            //cash flows per date and accountID = 1
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 03, 31), 1).Value == 0.0m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 01), 1).Value == -200.11m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 02), 1).Value == -200.11m);
             Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 03), 1).Value == -1400.32m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 04), 1).Value == 99.81m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 05), 1).Value == 449.73m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 06), 1).Value == -700.49m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 07), 1).Value == 549.51m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 08), 1).Value == 549.51m);
+            
+            //cash flows per date and accountID = 3
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 03, 31), 3).Value == -1600m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 01), 3).Value == -1600m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 02), 3).Value == -1600m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 03), 3).Value == -100.00m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 04), 3).Value == -100.00000000m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 05), 3).Value == -1400m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 06), 3).Value == -1400m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 07), 3).Value == -1400m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 08), 3).Value == -1400m);
 
+            //cash flows per date and accountID = 4
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 03, 31), 4).Value == 00000m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 01), 4).Value == 0m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 02), 4).Value == 369.90m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 03), 4).Value == 369.9m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 04), 4).Value == -930.91m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 05), 4).Value == 499.09m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 06), 4).Value == 499.09m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 07), 4).Value == 499.09m);
+            Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 08), 4).Value == 499.09m);
 
-          
 
         }
 

@@ -24,29 +24,31 @@ namespace ModernCashFlow.Domain.Services
 
         public void AddEntry(int accountId, DateTime date, decimal  value)
         {
-            var entry = new CashFlowEntry() {AccountId = accountId, Date = date, Value = value};
+            var entry = new CashFlowEntry {AccountId = accountId, Date = date, Value = value};
             Entries.Add(entry);
+        }
+
+        public void AddEntry(CashFlowEntry entry)
+        {
+            Entries.Add(entry);
+        }
+
+        public void AddEntries(IEnumerable<CashFlowEntry> cashFlowEntries)
+        {
+            Entries.AddRange(cashFlowEntries);
         }
 
 
         public CashFlowEntry At(DateTime date, int accountId)
         {
-            var result = this.Entries.SingleOrDefault(x=>x.Date == date.Today() && x.AccountId == accountId);
-            if (result == default(CashFlowEntry))
-            {
-                result = this.Entries.Where(x => x.AccountId == accountId).OrderByDescending(x => x.Date).FirstOrDefault();
-
-                if (date.Today() >= result.Date)
-                {
-                    return result;
-                }
-            }
+            var result = this.Entries.Where(x=>x.AccountId == accountId && x.Date.Today() <= date.Today()).LastOrDefault();
 
             return result;
 
         }
 
-        
+
+       
     }
 
    
