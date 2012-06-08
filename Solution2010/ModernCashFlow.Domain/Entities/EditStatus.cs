@@ -8,7 +8,7 @@ namespace ModernCashFlow.Domain.Entities
     public enum EditStatus
     {
         /// <summary>
-        /// When tje transaction is not saved yet.
+        /// When the transaction is not saved yet.
         /// </summary>
         Created,
         /// <summary>

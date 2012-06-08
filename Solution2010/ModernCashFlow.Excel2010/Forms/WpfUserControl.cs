@@ -10,7 +10,6 @@ namespace ModernCashFlow.Excel2010.Forms
             InitializeComponent();
         }
 
-        //todo: tirar esse user control
         public dynamic Model
         {
             set

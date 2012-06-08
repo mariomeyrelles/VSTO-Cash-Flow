@@ -24,7 +24,7 @@ namespace ModernCashFlow.Domain.Services
 
         public void AddEntry(int accountId, DateTime date, decimal  value)
         {
-            var entry = new CashFlowEntry() {AccountId = accountId, Date = date, Value = value};
+            var entry = new CashFlowEntry(accountId, date, value);
             Entries.Add(entry);
         }
 

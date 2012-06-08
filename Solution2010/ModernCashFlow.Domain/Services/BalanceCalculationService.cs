@@ -66,12 +66,7 @@ namespace ModernCashFlow.Domain.Services
             var cashFlowCalc = dailySums.Select(x =>
                                                     {
                                                         runningSum += x.DailyAmount;
-                                                        return new CashFlowEntry
-                                                                   {
-                                                                       Date = x.Date.Value,
-                                                                       AccountId = x.AccountId,
-                                                                       Value = runningSum
-                                                                   };
+                                                        return new CashFlowEntry(x.AccountId, x.Date.Value, runningSum);
                                                     }
                 );
 
