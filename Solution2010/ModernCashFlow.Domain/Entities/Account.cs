@@ -24,7 +24,7 @@ namespace ModernCashFlow.Domain.Entities
         public int? PaymentDay { get; set; }
         public decimal? MonthlyCost { get; set; }
 
-        public double? InitialDate_OA
+        public double? InitialDateOA
         {
             get
             {

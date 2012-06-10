@@ -2,7 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Data;
 
-namespace ModernCashFlow.WpfTests
+namespace ModernCashFlow.WpfControls
 {
 
     [ValueConversion(typeof(bool), typeof(Visibility))]
@@ -12,7 +12,7 @@ namespace ModernCashFlow.WpfTests
 
         object IValueConverter.Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            bool hasError = (bool)value;
+            var hasError = (bool)value;
             return hasError ? Visibility.Visible : Visibility.Collapsed;
         }
 

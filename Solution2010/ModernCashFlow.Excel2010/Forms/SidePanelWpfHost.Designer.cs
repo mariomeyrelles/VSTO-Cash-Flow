@@ -1,6 +1,6 @@
 ﻿namespace ModernCashFlow.Excel2010.Forms
 {
-    partial class WpfUserControl
+    partial class SidePanelWpfHost
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.saidaInspector1 = new ModernCashFlow.WpfTests.SaidaInspector();
             this.SuspendLayout();
             // 
             // elementHost1
@@ -40,14 +39,13 @@
             this.elementHost1.Size = new System.Drawing.Size(293, 480);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.saidaInspector1;
             // 
             // WpfUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.elementHost1);
-            this.Name = "WpfUserControl";
+            this.Name = "SidePanelWpfHost";
             this.Size = new System.Drawing.Size(293, 480);
             this.ResumeLayout(false);
 
@@ -56,6 +54,6 @@
         #endregion
 
         private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private WpfTests.SaidaInspector saidaInspector1;
+        
     }
 }

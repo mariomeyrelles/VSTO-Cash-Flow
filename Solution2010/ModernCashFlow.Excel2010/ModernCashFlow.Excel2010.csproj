@@ -65,6 +65,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -147,11 +149,11 @@
     <Compile Include="Forms\FormPendingPaymentsViewModel.Designer.cs">
       <DependentUpon>FormPendingPaymentsViewModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\WpfUserControl.cs">
+    <Compile Include="Forms\SidePanelWpfHost.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\WpfUserControl.Designer.cs">
-      <DependentUpon>WpfUserControl.cs</DependentUpon>
+    <Compile Include="Forms\SidePanelWpfHost.Designer.cs">
+      <DependentUpon>SidePanelWpfHost.cs</DependentUpon>
     </Compile>
     <Compile Include="Incomes.cs">
       <DependentUpon>CashFlow.xlsm</DependentUpon>
@@ -193,8 +195,8 @@
       <DependentUpon>FormPendingPaymentsViewModel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WpfUserControl.resx">
-      <DependentUpon>WpfUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\SidePanelWpfHost.resx">
+      <DependentUpon>SidePanelWpfHost.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Incomes.resx">
@@ -237,11 +239,9 @@
       <Project>{160012E8-3337-473B-9EA0-0EFBEBC5422B}</Project>
       <Name>ModernCashFlow.Tools</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ModernCashFlow.WpfTests\ModernCashFlow.WpfTests.csproj">
+    <ProjectReference Include="..\ModernCashFlow.WpfControls\ModernCashFlow.WpfControls.csproj">
       <Project>{8718A2EF-4C47-487A-BB4B-E9A430F90B60}</Project>
-      <Name>ModernCashFlow.WpfTests</Name>
-      <Private>True</Private>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Name>ModernCashFlow.WpfControls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

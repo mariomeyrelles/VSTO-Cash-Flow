@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using ModernCashFlow.Domain.Dtos;
 
-namespace ModernCashFlow.WpfTests
+namespace ModernCashFlow.WpfControls
 {
     //todo: atualizar nomes das propriedades pra inglês.
 

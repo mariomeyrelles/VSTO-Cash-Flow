@@ -1,6 +1,6 @@
-﻿<Window x:Class="ModernCashFlow.WpfTests.MainWindow"
+﻿<Window x:Class="ModernCashFlow.WpfControls.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:WpfTests="clr-namespace:ModernCashFlow.WpfTests" Title="MainWindow" Height="470" Width="712">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:WpfTests="clr-namespace:ModernCashFlow.WpfControls" Title="MainWindow" Height="470" Width="712">
     <Grid>
         <!--<WpfTests:UserControl1>
             

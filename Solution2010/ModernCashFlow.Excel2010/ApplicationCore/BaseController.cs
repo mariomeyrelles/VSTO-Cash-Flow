@@ -61,7 +61,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         /// Event handler for RetrieveAllRemoteData.
         /// </summary>
         /// <returns>The data received from the remote storage.</returns>
-        public IEnumerable<T> OnRetrieveRemoteData()
+        protected IEnumerable<T> OnRetrieveRemoteData()
         {
             if (RetrieveAllRemoteData != null)
             {
@@ -75,7 +75,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         /// Event handler for UpdateRemoteData event.
         /// </summary>
         /// <param name="newData">The new data set to be sent to remote storage.</param>
-        public void OnUpdateRemoteData(IEnumerable<T> newData)
+        protected void OnUpdateRemoteData(IEnumerable<T> newData)
         {
             if (UpdateRemoteData != null)
                 UpdateRemoteData(newData);
@@ -85,7 +85,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         /// Event handler for the RetrieveLocalData event.
         /// </summary>
         /// <returns>This is the data received from the worksheet, which is then used by the controller to update session data.</returns>
-        public virtual IEnumerable<T> OnRetrieveLocalData()
+        protected virtual IEnumerable<T> OnRetrieveLocalData()
         {
             if (RetrieveAllLocalData != null)
             {
@@ -99,7 +99,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         /// Event handler for UpdateAllLocalData event.
         /// </summary>
         /// <param name="newData">The whole data which will be sent to the worksheet.</param>
-        public virtual void OnUpdateAllLocalData(IEnumerable<T> newData)
+        protected virtual void OnUpdateAllLocalData(IEnumerable<T> newData)
         {
             if (UpdateAllLocalData != null)
                 UpdateAllLocalData(newData);
@@ -111,7 +111,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         /// Event handler for the UpdateSingleLocalData event. 
         /// </summary>
         /// <param name="newData">The single entity to be sent to the worksheet.</param>
-        public virtual void OnUpdateSingleLocalData(T newData)
+        protected virtual void OnUpdateSingleLocalData(T newData)
         {
             if (UpdateSingleLocalData != null)
                 UpdateSingleLocalData(newData);

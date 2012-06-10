@@ -1,4 +1,6 @@
-﻿namespace ModernCashFlow.Excel2010.Forms
+﻿using ModernCashFlow.WpfControls;
+
+namespace ModernCashFlow.Excel2010.Forms
 {
     partial class FormPendingExpensesViewModel
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.pendingPayments1 = new ModernCashFlow.WpfTests.PendingPayments();
+            this.pendingPayments1 = new PendingPayments();
             this.SuspendLayout();
             // 
             // elementHost1
@@ -58,6 +60,6 @@
         #endregion
 
         private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private WpfTests.PendingPayments pendingPayments1;
+        private WpfControls.PendingPayments pendingPayments1;
     }
 }

@@ -12,26 +12,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ModernCashFlow.WpfTests
+namespace ModernCashFlow.WpfControls
 {
     /// <summary>
-    /// Interaction logic for SaidaInspector.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class SaidaInspector : UserControl
+    public partial class MainWindow : Window
     {
-        public SaidaInspector()
+        public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public dynamic ModelData
-        {
-            set
-            {
-                this.DataContext = null;
-                this.DataContext = value;
-            }
-            get { return this.DataContext; }
         }
     }
 }

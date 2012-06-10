@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows;
@@ -18,16 +19,17 @@ using Excel = Microsoft.Office.Interop.Excel;
 using MessageBox = System.Windows.MessageBox;
 using Office = Microsoft.Office.Core;
 using ModernCashFlow.Excel2010.ApplicationCore;
+using Action = Microsoft.Office.Interop.Excel.Action;
 
 namespace ModernCashFlow.Excel2010
 {
     public partial class ThisWorkbook
     {
-        private Application _wpfApp;
+        //private Application _wpfApp;
         private static int _sheeetCount;
         public static event EventHandler WorksheetsLoaded;
 
-        private void ThisWorkbook_Startup(object sender, System.EventArgs e)
+        private void ThisWorkbookStartup(object sender, System.EventArgs e)
         {
             _sheeetCount = this.Sheets.Count;
             var kernel = NinjectContainer.Kernel;
@@ -48,10 +50,10 @@ namespace ModernCashFlow.Excel2010
             // Create a WPF application 
             //_wpfApp = new System.Windows.Application();
 
-
+            
             // Load the ressources
             //var resources = System.Windows.Application.LoadComponent(
-            //    new Uri("ModernCashFlow.WpfTests;component/Resources/CustomResources.xaml", UriKind.RelativeOrAbsolute))
+            //    new Uri("ModernCashFlow.WpfControls;component/Resources/CustomResources.xaml", UriKind.RelativeOrAbsolute))
             //                as System.Windows.ResourceDictionary;
 
             //// Recursos visuais do Reuxables
@@ -70,7 +72,7 @@ namespace ModernCashFlow.Excel2010
                                             XmlLanguage.GetLanguage(
                                             CultureInfo.CurrentCulture.IetfLanguageTag)));
 
-            WorksheetsLoaded += new EventHandler(ThisWorkbook_WorksheetsLoaded);
+            WorksheetsLoaded += ThisWorkbookWorksheetsLoaded;
         }
 
         private static void OnWorksheetsLoaded()
@@ -81,7 +83,7 @@ namespace ModernCashFlow.Excel2010
             }
         }
 
-        private void ThisWorkbook_WorksheetsLoaded(object sender, EventArgs e)
+        private void ThisWorkbookWorksheetsLoaded(object sender, EventArgs e)
         {
             //note: colocar coisas genéricas do startup da app
 
@@ -103,22 +105,24 @@ namespace ModernCashFlow.Excel2010
             //commandManager.WriteAllTransactionsToWorsheets();
             //commandManager.ShowSplashWindow();
             commandManager.ConfigureSidePanel();
+           
         }
 
-        private void ThisWorkbook_Shutdown(object sender, System.EventArgs e)
+
+        private void ThisWorkbookShutdown(object sender, System.EventArgs e)
         {
             //todo: finalizar a instância do engine do WPF ?.
             //_wpfApp.Shutdown();
         }
 
-        private void ThisWorkbook_BeforeSave(bool SaveAsUI, ref bool Cancel)
+        private void ThisWorkbookBeforeSave(bool saveAsUi, ref bool cancel)
         {
             //todo: rever processos do before save.
             var eventHandlers = NinjectContainer.Kernel.Get<ExpenseWorksheet.Events>();
-            eventHandlers.BeforeSave(SaveAsUI,ref Cancel);
+            eventHandlers.BeforeSave(saveAsUi,ref cancel);
         }
 
-        private void ThisWorkbook_BeforeClose(ref bool cancel)
+        private void ThisWorkbookBeforeClose(ref bool cancel)
         {
               ThisApplication.CellDragAndDrop = true;
         }
@@ -146,10 +150,10 @@ namespace ModernCashFlow.Excel2010
         /// </summary>
         private void InternalStartup()
         {
-            this.Startup += (ThisWorkbook_Startup);
-            this.Shutdown += (ThisWorkbook_Shutdown);
-            this.BeforeSave += (ThisWorkbook_BeforeSave);
-            this.BeforeClose += (ThisWorkbook_BeforeClose);
+            this.Startup += (ThisWorkbookStartup);
+            this.Shutdown += (ThisWorkbookShutdown);
+            this.BeforeSave += (ThisWorkbookBeforeSave);
+            this.BeforeClose += (ThisWorkbookBeforeClose);
 
         }
 

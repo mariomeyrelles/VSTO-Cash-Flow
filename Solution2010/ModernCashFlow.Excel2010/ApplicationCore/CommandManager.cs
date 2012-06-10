@@ -5,6 +5,7 @@ using ModernCashFlow.Domain.BaseInterfaces;
 using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Domain.Services;
 using ModernCashFlow.Excel2010.Forms;
+using ModernCashFlow.WpfControls;
 using Ninject;
 using ModernCashFlow.Domain.Dtos;
 
@@ -15,7 +16,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
     /// </summary>
     public class CommandManager
     {
-        private WpfUserControl _sideInspectorPane;
+        private SidePanelWpfHost _sidePanelHost;
 
 
         [Inject]       
@@ -33,9 +34,9 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
 
         public void UpdateSidePanel(dynamic entity)
         {
-            if (_sideInspectorPane == null) return;
-            _sideInspectorPane.Model = entity;
-            _sideInspectorPane.Refresh();
+            if (_sidePanelHost == null) return;
+            _sidePanelHost.Model = entity;
+            _sidePanelHost.Refresh();
         }
 
         public void ShowSplashWindow()
@@ -84,11 +85,13 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
 
         public void ConfigureSidePanel()
         {
-            _sideInspectorPane = new WpfUserControl();
-            Globals.ThisWorkbook.ActionsPane.Controls.Add(_sideInspectorPane);
+            _sidePanelHost = new SidePanelWpfHost();
+            _sidePanelHost.CurrentControl = new SaidaInspector();
+            Globals.ThisWorkbook.ActionsPane.Controls.Add(_sidePanelHost);
+
             //solicitar o refresh do host do wpf sempre que o panel mudar de tamanho ou acontecer algum scroll.
-            Globals.ThisWorkbook.ActionsPane.Resize += delegate { _sideInspectorPane.Refresh(); };
-            Globals.ThisWorkbook.ActionsPane.Scroll += delegate { _sideInspectorPane.Refresh(); };
+            Globals.ThisWorkbook.ActionsPane.Resize += delegate { _sidePanelHost.Refresh(); };
+            Globals.ThisWorkbook.ActionsPane.Scroll += delegate { _sidePanelHost.Refresh(); };
         }
 
 
@@ -117,8 +120,6 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             ExpenseController.RefreshAllLocalData();
             IncomeController.RefreshAllLocalData();
         }
-
-
        
     }
 }

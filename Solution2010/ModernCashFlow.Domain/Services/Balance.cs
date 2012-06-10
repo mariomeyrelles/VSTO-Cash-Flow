@@ -6,7 +6,8 @@ namespace ModernCashFlow.Domain.Services
 {
     public struct BalanceEntry : IEquatable<BalanceEntry>
     {
-        public BalanceEntry(int accountId, decimal value) : this()
+        public BalanceEntry(int accountId, decimal value)
+            : this()
         {
             Value = value;
             AccountId = accountId;
@@ -18,8 +19,8 @@ namespace ModernCashFlow.Domain.Services
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            if (obj.GetType() != typeof (BalanceEntry)) return false;
-            return Equals((BalanceEntry) obj);
+            if (obj.GetType() != typeof(BalanceEntry)) return false;
+            return Equals((BalanceEntry)obj);
         }
 
         public bool Equals(BalanceEntry other)
@@ -31,8 +32,18 @@ namespace ModernCashFlow.Domain.Services
         {
             unchecked
             {
-                return (AccountId*397) ^ Value.GetHashCode();
+                return (AccountId * 397) ^ Value.GetHashCode();
             }
+        }
+
+        public static bool operator ==(BalanceEntry left, BalanceEntry right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(BalanceEntry left, BalanceEntry right)
+        {
+            return !left.Equals(right);
         }
     }
 }

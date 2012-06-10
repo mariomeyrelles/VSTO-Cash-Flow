@@ -623,6 +623,22 @@ namespace ModernCashFlow.Tests
             Assert.IsTrue(cashflow.At(new DateTime(2012, 04, 08), 4).Value == 499.09m);
 
 
+            //test with different intervals
+            var cashflow2 = service.CalculateCashflow(new CalculationArgs(incomes, expenses)
+            {
+                StartingDate = new DateTime(2012, 04, 02),
+                EndingDate = new DateTime(2012, 04, 05)
+            });
+            
+
+            Assert.IsTrue(cashflow2.At(new DateTime(2012, 04, 01), 1).Value == 0);
+            Assert.IsTrue(cashflow2.At(new DateTime(2012, 04, 02), 1).Value == 0);
+            Assert.IsTrue(cashflow2.At(new DateTime(2012, 04, 03), 1).Value == -1200.21m);
+            Assert.IsTrue(cashflow2.At(new DateTime(2012, 04, 04), 1).Value == 299.92m);
+            Assert.IsTrue(cashflow2.At(new DateTime(2012, 04, 05), 1).Value == 649.84m);
+            Assert.IsTrue(cashflow2.At(new DateTime(2012, 04, 06), 1).Value == 649.84m);
+
+
         }
 
     }

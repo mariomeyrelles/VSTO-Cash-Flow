@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace ModernCashFlow.WpfTests.Util
+namespace ModernCashFlow.WpfControls.Util
 {
     public class ConfirmBehavior : Behavior<UIElement>
     {

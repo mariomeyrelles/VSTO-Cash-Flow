@@ -345,8 +345,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         public class ContextMenus
         {
             private Office.CommandBar _commandBar;
-            private Office.CommandBarButton _menuEdit;
-            private Office.CommandBarButton _menuSalvar;
+            //private Office.CommandBarButton _menuEdit;
+           // private Office.CommandBarButton _menuSalvar;
             private Office.CommandBarButton _menuRemover;
             private Office.CommandBarButton _menuInserir;
             private Excel.Range _activeRange;
