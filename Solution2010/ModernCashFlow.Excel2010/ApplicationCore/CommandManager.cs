@@ -39,50 +39,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             _sidePanelHost.Refresh();
         }
 
-        public void ShowSplashWindow()
-        {
-            ProcessTodayPayments();
-        }
-
-        public void LoadAccountData()
-        {
-            AccountController.GetLocalDataAndSyncronizeSession();
-        }
-
-        public void LoadAllTransactions()
-        {
-            ExpenseController.GetLocalDataAndSyncronizeSession();
-            IncomeController.GetLocalDataAndSyncronizeSession(); 
-        }
-
-        public void ConvertTodayPaymentsToPending()
-        {
-            var paymentSvc = NinjectContainer.Kernel.Get<ExpenseStatusService>();
-            var todayPayments = paymentSvc.GetTodayPayments(ExpenseController.CurrentSessionData).ToList();
-            todayPayments.ForEach(x => x.Expense.TransactionStatus = TransactionStatus.Pending);
-        }
-
-        public void ProcessTodayPayments()
-        {
-            var paymentSvc = NinjectContainer.Kernel.Get<ExpenseStatusService>();
-            var todayPayments = paymentSvc.GetTodayPayments(ExpenseController.CurrentSessionData).ToList();
-            var comingPayments = paymentSvc.GetComingPayments(ExpenseController.CurrentSessionData).ToList();
-            var latePayments = paymentSvc.GetLatePayments(ExpenseController.CurrentSessionData).ToList();
-
-            var form = new FormPendingExpensesViewModel { TodayPayments = todayPayments, ComingPayments = comingPayments, LatePayments = latePayments };
-            form.ShowDialog();
-
-            //when the form is closed, read the modified data and notify the worksheet.
-            var processedPayments = new List<Expense>();
-            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.TodayPayments, w => w.IsPaid == true));
-            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.LatePayments, w => w.IsPaid == true));
-            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.ComingPayments, w => w.IsPaid == true));
-
-            ExpenseController.AcceptDataCollection(processedPayments, true);
-
-        }
-
-
+        
         public void ConfigureSidePanel()
         {
             _sidePanelHost = new SidePanelWpfHost();
@@ -115,11 +72,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         }
 
 
-        public void WriteAllTransactionsToWorsheets()
-        {
-            ExpenseController.RefreshAllLocalData();
-            IncomeController.RefreshAllLocalData();
-        }
+        
        
     }
 }

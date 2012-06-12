@@ -11,6 +11,7 @@ using System.Windows.Markup;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Excel;
 using Microsoft.VisualStudio.Tools.Applications.Runtime;
+using ModernCashFlow.Excel2010.Commands;
 using ModernCashFlow.Excel2010.WorksheetLogic;
 using ModernCashFlow.Globalization.Resources;
 using Ninject;
@@ -86,25 +87,14 @@ namespace ModernCashFlow.Excel2010
         private void ThisWorkbookWorksheetsLoaded(object sender, EventArgs e)
         {
             //note: colocar coisas genéricas do startup da app
-
-            //initialize accounts
-            var commandManager = NinjectContainer.Kernel.Get<CommandManager>();
-            NinjectContainer.Kernel.Get<AccountWorksheet>().Start();
-            commandManager.LoadAccountData();
-
+            new InitializeBasicDependenciesCommand().Execute(null);
             
-            //initalize other worksheet helpers
-            NinjectContainer.Kernel.Get<IncomeWorksheet>().Start();
-            NinjectContainer.Kernel.Get<ExpenseWorksheet>().Start();
-           
+            new InitializeMainWorkooksCommand().Execute(null);
             
             //business rules intialization code
-
-            commandManager.LoadAllTransactions();
-            //commandManager.ConvertTodayPaymentsToPending();
-            //commandManager.WriteAllTransactionsToWorsheets();
-            //commandManager.ShowSplashWindow();
-            commandManager.ConfigureSidePanel();
+            new BusinessRulesStartupCommand().Execute(null);
+           
+            //commandManager.ConfigureSidePanel();
            
         }
 
