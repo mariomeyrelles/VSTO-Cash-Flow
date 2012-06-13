@@ -14,6 +14,7 @@ using Microsoft.VisualStudio.Tools.Applications.Runtime;
 using ModernCashFlow.Excel2010.Commands;
 using ModernCashFlow.Excel2010.WorksheetLogic;
 using ModernCashFlow.Globalization.Resources;
+using ModernCashFlow.WpfControls;
 using Ninject;
 using Application = System.Windows.Application;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -86,16 +87,10 @@ namespace ModernCashFlow.Excel2010
 
         private void ThisWorkbookWorksheetsLoaded(object sender, EventArgs e)
         {
-            //note: colocar coisas genéricas do startup da app
-            new InitializeBasicDependenciesCommand().Execute(null);
-            
-            new InitializeMainWorkooksCommand().Execute(null);
-            
-            //business rules intialization code
-            new BusinessRulesStartupCommand().Execute(null);
-           
-            //commandManager.ConfigureSidePanel();
-           
+            CommandHandler.Send<InitializeBasicDependenciesCommand>(new CommandArgs());
+            CommandHandler.Send<InitializeMainWorkooksCommand>(new CommandArgs());
+            CommandHandler.Send<InitializeBusinessRulesCommand>(new CommandArgs());
+            CommandHandler.Send<ConfigureSidePanelCommand>(new SidePanelCommandArgs {WpfControl = new SaidaInspector()});
         }
 
 

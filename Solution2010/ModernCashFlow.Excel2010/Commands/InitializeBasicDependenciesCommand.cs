@@ -5,7 +5,7 @@ using Ninject;
 
 namespace ModernCashFlow.Excel2010.Commands
 {
-    public class InitializeBasicDependenciesCommand
+    public class InitializeBasicDependenciesCommand : ICommand
     {
         [Inject]
         public BaseController<Account> AccountController { get; set; }

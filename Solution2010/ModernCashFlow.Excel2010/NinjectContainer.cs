@@ -3,6 +3,7 @@ using System.IO;
 using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Domain.Services;
 using ModernCashFlow.Excel2010.ApplicationCore;
+using ModernCashFlow.Excel2010.Commands;
 using ModernCashFlow.Excel2010.WorksheetLogic;
 using Ninject;
 
@@ -37,7 +38,9 @@ namespace ModernCashFlow.Excel2010
         /// </summary>
         private static void Start()
         {
-            ////ler o arquivo de configuração em busca do endereço do modelo de dados e conexão com o banco.
+            #region After deploy code
+
+////ler o arquivo de configuração em busca do endereço do modelo de dados e conexão com o banco.
             //var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App.Config");
 
             ////ler o xml do app.config e colocá-lo em um XElement.
@@ -47,9 +50,13 @@ namespace ModernCashFlow.Excel2010
             //                        Element("add").
             //                        Attribute("connectionString").Value;
 
+            #endregion
+
+
             //cria uma instância do kernel do Ninject.
             _kernel = new StandardKernel();
 
+            //worksheet related stuff - seems to be ok to be singleton
             _kernel.Bind<ExpenseWorksheet>().ToSelf().InSingletonScope();
             _kernel.Bind<ExpenseWorksheet.Events>().ToSelf().InSingletonScope();
             _kernel.Bind<ExpenseWorksheet.ContextMenus>().ToSelf().InSingletonScope();
@@ -58,21 +65,25 @@ namespace ModernCashFlow.Excel2010
             _kernel.Bind<IncomeWorksheet.ContextMenus>().ToSelf().InSingletonScope();
             _kernel.Bind<AccountWorksheet>().ToSelf().InSingletonScope();
 
-            
+            //the controllers, for instance, maintain state and should be singleton.
             _kernel.Bind<BaseController<Expense>>().To<ExpenseController>().InSingletonScope();
             _kernel.Bind<BaseController<Income>>().To<IncomeController>().InSingletonScope();
             _kernel.Bind<BaseController<Account>>().To<AccountController>().InSingletonScope();
 
             _kernel.Bind<CommandManager>().ToSelf().InSingletonScope();
-            
-            //já tornar os gerenciadores de planilha disponíveis ao iniciar a aplicação.
-            //_kernel.Get<ExpenseWorksheet>();
 
 
             //serviços de domínio
             _kernel.Bind<ExpenseStatusService>().ToSelf().InSingletonScope();
 
-        }
+            //singleton commands
+            _kernel.Bind<ConfigureSidePanelCommand>().ToSelf().InSingletonScope();
 
+
+            //non-singleton commands
+            _kernel.Bind<ICommand>().To<InitializeBasicDependenciesCommand>();
+            _kernel.Bind<ICommand>().To<InitializeMainWorkooksCommand>();
+            _kernel.Bind<ICommand>().To<InitializeBusinessRulesCommand>();
+        }
     }
 }

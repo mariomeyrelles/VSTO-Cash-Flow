@@ -9,7 +9,7 @@ using Ninject;
 
 namespace ModernCashFlow.Excel2010.Commands
 {
-    public class BusinessRulesStartupCommand
+    public class InitializeBusinessRulesCommand : ICommand
     {
 
 
@@ -28,8 +28,6 @@ namespace ModernCashFlow.Excel2010.Commands
             //ConvertTodayPaymentsToPending();
             //WriteAllTransactionsToWorsheets();
             //ShowSplashWindow();
-           
-
         }
 
         private void LoadAllTransactions()
@@ -37,7 +35,6 @@ namespace ModernCashFlow.Excel2010.Commands
             ExpenseController.GetLocalDataAndSyncronizeSession();
             IncomeController.GetLocalDataAndSyncronizeSession();
         }
-
 
 
         private void ConvertTodayPaymentsToPending()

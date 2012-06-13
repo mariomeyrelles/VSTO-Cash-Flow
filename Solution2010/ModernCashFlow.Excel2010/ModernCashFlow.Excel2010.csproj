@@ -127,16 +127,19 @@
   <ItemGroup>
     <Compile Include="ApplicationCore\AccountController.cs" />
     <Compile Include="ApplicationCore\BaseController.cs" />
+    <Compile Include="ApplicationCore\CommandHandler.cs" />
     <Compile Include="ApplicationCore\CommandManager.cs" />
     <Compile Include="ApplicationCore\DataManager.cs" />
     <Compile Include="ApplicationCore\IncomeController.cs" />
     <Compile Include="ApplicationCore\ExpenseController.cs" />
     <Compile Include="Commands\ConfigureSidePanelCommand.cs" />
-    <Compile Include="Commands\ConfigureSidePanelCommandArgs.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\SidePanelCommandArgs.cs" />
     <Compile Include="Commands\InitializeMainWorkooksCommand.cs" />
-    <Compile Include="Commands\BusinessRulesStartupCommand.cs" />
+    <Compile Include="Commands\InitializeBusinessRulesCommand.cs" />
     <Compile Include="Commands\CommandArgs.cs" />
     <Compile Include="Commands\InitializeBasicDependenciesCommand.cs" />
+    <Compile Include="Commands\UpdateSidePanelCommand.cs" />
     <Compile Include="Config.cs">
       <DependentUpon>CashFlow.xlsm</DependentUpon>
     </Compile>

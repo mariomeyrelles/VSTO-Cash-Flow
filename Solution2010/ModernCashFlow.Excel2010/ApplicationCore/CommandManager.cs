@@ -4,6 +4,7 @@ using System.Linq;
 using ModernCashFlow.Domain.BaseInterfaces;
 using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Domain.Services;
+using ModernCashFlow.Excel2010.Commands;
 using ModernCashFlow.Excel2010.Forms;
 using ModernCashFlow.WpfControls;
 using Ninject;
@@ -16,8 +17,6 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
     /// </summary>
     public class CommandManager
     {
-        private SidePanelWpfHost _sidePanelHost;
-
 
         [Inject]       
         public BaseController<Expense> ExpenseController { get; set; }
@@ -25,33 +24,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         [Inject]
         public BaseController<Income> IncomeController { get; set; }
 
-        [Inject]
-        public BaseController<Account> AccountController { get; set; }
-
-
-        //todo: create formal commands
-    
-
-        public void UpdateSidePanel(dynamic entity)
-        {
-            if (_sidePanelHost == null) return;
-            _sidePanelHost.Model = entity;
-            _sidePanelHost.Refresh();
-        }
-
-        
-        public void ConfigureSidePanel()
-        {
-            _sidePanelHost = new SidePanelWpfHost();
-            _sidePanelHost.CurrentControl = new SaidaInspector();
-            Globals.ThisWorkbook.ActionsPane.Controls.Add(_sidePanelHost);
-
-            //solicitar o refresh do host do wpf sempre que o panel mudar de tamanho ou acontecer algum scroll.
-            Globals.ThisWorkbook.ActionsPane.Resize += delegate { _sidePanelHost.Refresh(); };
-            Globals.ThisWorkbook.ActionsPane.Scroll += delegate { _sidePanelHost.Refresh(); };
-        }
-
-
+       
         public void IncludeNewExpenseTransactions()
         {
             
