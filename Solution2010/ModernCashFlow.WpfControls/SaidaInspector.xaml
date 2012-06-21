@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource" x:Class="ModernCashFlow.WpfControls.SaidaInspector" 
              mc:Ignorable="d"  
-             d:DesignHeight="440" d:DesignWidth="300" Height="700">
+             d:DesignHeight="440" d:DesignWidth="300">
 	<UserControl.Resources>
 		<SampleData:SampleDataSource x:Key="SampleDataSource" d:IsDataSource="True"/>
 	</UserControl.Resources>
@@ -20,10 +20,7 @@
         			<GradientStop Color="White"/>
         		</LinearGradientBrush>
         	</Grid.Background>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="300" />
-			</Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
+			<Grid.RowDefinitions>
             	<RowDefinition Height="60" x:Name="Header" />
             	<RowDefinition Height="*" x:Name="MainContent" />
             </Grid.RowDefinitions>

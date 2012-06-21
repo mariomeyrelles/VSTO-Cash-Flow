@@ -11,6 +11,15 @@ namespace ModernCashFlow.Excel2010.Forms
         public SidePanelWpfHost()
         {
             InitializeComponent();
+            this.SizeChanged += new EventHandler(SidePanelWpfHost_SizeChanged);
+        }
+
+        void SidePanelWpfHost_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.CurrentControl != null)
+            {
+                CurrentControl.Height = this.Height;
+            }
         }
 
         public dynamic Model

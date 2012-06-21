@@ -1,19 +1,25 @@
-﻿using ModernCashFlow.Excel2010.Forms;
+﻿using Microsoft.Office.Tools;
+using ModernCashFlow.Excel2010.Forms;
 
 namespace ModernCashFlow.Excel2010.Commands
 {
     public class ConfigureSidePanelCommand : ICommand
     {
         private readonly SidePanelWpfHost _host;
+        private readonly ActionsPane _sidePane;
 
         public ConfigureSidePanelCommand()
         {
             _host = new SidePanelWpfHost();
-            Globals.ThisWorkbook.ActionsPane.Controls.Add(_host);
+            _sidePane = Globals.ThisWorkbook.ActionsPane;
+            _sidePane.Controls.Add(_host);
 
             //solicitar o refresh do host do wpf sempre que o panel mudar de tamanho ou acontecer algum scroll.
-            Globals.ThisWorkbook.ActionsPane.Resize += delegate { _host.Refresh(); };
-            Globals.ThisWorkbook.ActionsPane.Scroll += delegate { _host.Refresh(); };
+            _sidePane.Resize += delegate { _host.Refresh();
+                                           _host.Height = _sidePane.Height;
+            };
+
+            _sidePane.Scroll += delegate { _host.Refresh(); };
 
         }
         public void Execute(CommandArgs args)
