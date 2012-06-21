@@ -1,34 +1,54 @@
-﻿<UserControl x:Class="ModernCashFlow.WpfControls.SaidaInspector"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="508" d:DesignWidth="300">
-    <Grid>
+             xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource" x:Class="ModernCashFlow.WpfControls.SaidaInspector" 
+             mc:Ignorable="d"  
+             d:DesignHeight="440" d:DesignWidth="300" Height="700">
+	<UserControl.Resources>
+		<SampleData:SampleDataSource x:Key="SampleDataSource" d:IsDataSource="True"/>
+	</UserControl.Resources>
+    <Grid >
         <!--<Grid.Resources>
             <ResourceDictionary Source="/ReuxablesLegacy;component/edge.xaml" />
         </Grid.Resources>-->
-        <Grid Margin="10,10,10,10">
+        <Grid>
+        	<Grid.Background>
+        		<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+        			<GradientStop Color="#FFFFEBD9" Offset="1"/>
+        			<GradientStop Color="White"/>
+        		</LinearGradientBrush>
+        	</Grid.Background>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="300" />
+			</Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="52*" Name="Header" />
-                <RowDefinition Height="456*" Name="MainContent" />
+            	<RowDefinition Height="60" x:Name="Header" />
+            	<RowDefinition Height="*" x:Name="MainContent" />
             </Grid.RowDefinitions>
             <!--Montagem do cabeçalho-->
-            <StackPanel>
-                <TextBlock Margin="0,10,0,0" Text="Lançamento de Saídas" FontWeight="Bold" Foreground="#FF7A7A7A" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="16" />
-                <Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,10 0,15" />
-            </StackPanel>
+            <Canvas>
+            	<Canvas.Background>
+            		<LinearGradientBrush EndPoint="0.953,1.16" StartPoint="0.818,-0.616">
+            			<GradientStop Color="#FFFB7606"/>
+            			<GradientStop Color="#FFB85501" Offset="1"/>
+            		</LinearGradientBrush>
+            	</Canvas.Background>
+                <TextBlock Text="Saídas" Foreground="Black" HorizontalAlignment="Center" FontSize="32" FontFamily="Segoe UI Semibold" FontWeight="Bold" Canvas.Left="47" Canvas.Top="7.389" VerticalAlignment="Center" />
+                <Image Height="33.952" Canvas.Left="8" Source="Images/down_circular.png" Stretch="Fill" Canvas.Top="14" Width="34" HorizontalAlignment="Center"/>
+               
+            </Canvas>
             
             <!--Montagem do painel de informações sobre a saída.-->
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="1" Margin="10,10,10,10">
                 
-                <TextBlock Margin="0,10,0,0" Text="Valor do Lançamento:" Foreground="#FF7A7A7A" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="12" />
-                <TextBlock Text="{Binding ExpectedValue, StringFormat={} {0:C}}"/>
-                <TextBlock Margin="0,10,0,0" Text="Data:" Foreground="#FF7A7A7A" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="12" />
-                <TextBlock Text="{Binding Date, StringFormat=D}" TextWrapping="WrapWithOverflow"/>
-                <TextBlock Margin="0,10,0,0" Text="Detalhes:" Foreground="#FF7A7A7A" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="12" />
-                <TextBlock Text="{Binding PanelMessage}" TextWrapping="WrapWithOverflow" />
+                <TextBlock Margin="0,10,0,0" Text="valor" Foreground="Black" HorizontalAlignment="Left" FontSize="24" FontWeight="Bold" />
+                <TextBlock Text="{Binding ExpectedValue, StringFormat=' \{0:C\}'}" FontSize="16" Foreground="#FF625858" />
+                <TextBlock Margin="0,10,0,0" Text="data" Foreground="Black" HorizontalAlignment="Left" FontSize="24" FontWeight="Bold" />
+                <TextBlock Text="{Binding Date, StringFormat=D}" TextWrapping="WrapWithOverflow" FontSize="16" Foreground="#FF625858" />
+                <TextBlock Margin="0,10,0,0" Text="detalhes" Foreground="Black" HorizontalAlignment="Left" FontSize="24" FontWeight="Bold" />
+                <TextBlock Text="{Binding PanelMessage}" TextWrapping="WrapWithOverflow" FontSize="16" Foreground="#FF625858" />
             </StackPanel>
         </Grid>
         

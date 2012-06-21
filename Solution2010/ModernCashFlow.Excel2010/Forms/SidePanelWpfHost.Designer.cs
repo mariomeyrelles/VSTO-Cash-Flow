@@ -33,21 +33,24 @@
             // 
             // elementHost1
             // 
-            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost1.AutoSize = true;
             this.elementHost1.Location = new System.Drawing.Point(0, 0);
             this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(293, 480);
+            this.elementHost1.Size = new System.Drawing.Size(1, 1);
             this.elementHost1.TabIndex = 0;
             this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = null;
             // 
-            // WpfUserControl
+            // SidePanelWpfHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.elementHost1);
             this.Name = "SidePanelWpfHost";
-            this.Size = new System.Drawing.Size(293, 480);
+            this.Size = new System.Drawing.Size(231, 446);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
