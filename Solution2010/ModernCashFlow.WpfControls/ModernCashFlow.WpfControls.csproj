@@ -72,8 +72,8 @@
     <Compile Include="PendingPayments.xaml.cs">
       <DependentUpon>PendingPayments.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SaidaInspector.xaml.cs">
-      <DependentUpon>SaidaInspector.xaml</DependentUpon>
+    <Compile Include="ExpenseSidePanel.xaml.cs">
+      <DependentUpon>ExpenseSidePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs">
       <DependentUpon>SampleDataSource.xaml</DependentUpon>
@@ -102,7 +102,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SaidaInspector.xaml">
+    <Page Include="ExpenseSidePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,6 +147,7 @@
       <AutoFill>True</AutoFill>
     </BlendEmbeddedFont>
     <Resource Include="Images\Document.png" />
+    <Resource Include="Images\Money.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Document1.png" />

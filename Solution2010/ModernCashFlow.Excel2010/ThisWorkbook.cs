@@ -90,7 +90,7 @@ namespace ModernCashFlow.Excel2010
             CommandHandler.Send<InitializeBasicDependenciesCommand>(new CommandArgs());
             CommandHandler.Send<InitializeMainWorkooksCommand>(new CommandArgs());
             CommandHandler.Send<InitializeBusinessRulesCommand>(new CommandArgs());
-            CommandHandler.Send<ConfigureSidePanelCommand>(new SidePanelCommandArgs {WpfControl = new SaidaInspector()});
+            CommandHandler.Send<ConfigureSidePanelCommand>(new SidePanelCommandArgs {WpfControl = new ExpenseSidePanel()});
         }
 
 

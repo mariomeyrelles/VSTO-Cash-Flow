@@ -5,8 +5,8 @@
         <!--<WpfTests:UserControl1>
             
         </WpfTests:UserControl1>-->
-        <WpfTests:SaidaInspector>
+        <WpfTests:ExpenseSidePanel>
             
-        </WpfTests:SaidaInspector>
+        </WpfTests:ExpenseSidePanel>
     </Grid>
 </Window>

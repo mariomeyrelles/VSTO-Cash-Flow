@@ -38,9 +38,9 @@ namespace Expression.Blend.SampleData.SampleDataSource
 			}
 		}
 
-		private double _ExpectedValue = 0;
+		private string _ExpectedValue = string.Empty;
 
-		public double ExpectedValue
+		public string ExpectedValue
 		{
 			get
 			{

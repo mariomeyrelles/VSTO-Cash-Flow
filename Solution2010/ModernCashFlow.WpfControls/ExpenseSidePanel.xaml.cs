@@ -17,9 +17,9 @@ namespace ModernCashFlow.WpfControls
     /// <summary>
     /// Interaction logic for SaidaInspector.xaml
     /// </summary>
-    public partial class SaidaInspector : UserControl
+    public partial class ExpenseSidePanel : UserControl
     {
-        public SaidaInspector()
+        public ExpenseSidePanel()
         {
             InitializeComponent();
         }
