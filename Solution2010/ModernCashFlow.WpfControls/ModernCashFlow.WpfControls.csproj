@@ -75,11 +75,20 @@
     <Compile Include="ExpenseSidePanel.xaml.cs">
       <DependentUpon>ExpenseSidePanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\CalendarIcon.xaml.cs">
+      <DependentUpon>CalendarIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MoneyIcon.xaml.cs">
+      <DependentUpon>MoneyIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs">
       <DependentUpon>SampleDataSource.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl2.xaml.cs">
+      <DependentUpon>UserControl2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\ConfirmBehavior.cs" />
     <Page Include="MainWindow.xaml">
@@ -98,6 +107,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\calendar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\CalendarIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\CustomResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,7 +127,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignTimeOnly>
+    <Page Include="Resources\MoneyIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControl1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -146,18 +171,9 @@
       <All>True</All>
       <AutoFill>True</AutoFill>
     </BlendEmbeddedFont>
-    <Resource Include="Images\Document.png" />
-    <Resource Include="Images\Money.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Document1.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\down_circular.png" />
-    <Resource Include="Images\My Document.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\page.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\Fonts\" />

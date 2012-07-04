@@ -1,0 +1,16 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="ModernCashFlow.WpfControls.MoneyIcon"
+	x:Name="UserControl"
+	d:DesignWidth="67.827" d:DesignHeight="99.893">
+
+	<Grid x:Name="LayoutRoot">
+		<Viewbox Stretch="Fill" >
+		<Path Fill="#ff000000" Data="F1 M 46.070,67.666 C 46.070,70.855 43.195,72.798 37.893,72.965 L 37.893,61.289 C 44.282,63.145 46.070,64.818 46.070,67.443 L 46.070,67.666 Z M 25.421,33.594 L 25.421,33.364 C 25.421,30.731 27.761,28.613 32.472,28.415 L 32.472,39.503 C 26.991,37.838 25.421,36.295 25.421,33.594 Z M 38.852,41.137 C 38.499,41.062 38.230,40.986 37.893,40.911 L 37.893,28.788 C 43.497,29.692 49.420,32.147 54.946,36.034 L 65.717,20.825 C 58.186,14.782 49.139,11.323 37.893,10.641 L 37.893,0.000 L 32.472,0.000 L 32.472,10.545 C 14.590,11.021 3.660,21.273 3.660,35.363 L 3.660,35.589 C 3.660,51.408 16.176,56.134 32.472,59.895 L 32.472,72.664 C 25.210,71.736 18.294,68.698 11.989,63.678 L 0.000,77.993 C 8.629,85.719 20.170,89.962 32.472,90.708 L 32.472,99.893 L 37.893,99.893 L 37.893,90.818 C 55.924,90.336 67.827,81.008 67.827,65.564 L 67.827,65.336 C 67.827,50.798 56.726,45.024 38.852,41.137 Z" d:LayoutOverrides="Width, Height"/>
+		</Viewbox>
+	</Grid>
+</UserControl>
