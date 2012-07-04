@@ -78,8 +78,14 @@
     <Compile Include="Resources\CalendarIcon.xaml.cs">
       <DependentUpon>CalendarIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ClockIcon.xaml.cs">
+      <DependentUpon>ClockIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\MoneyIcon.xaml.cs">
       <DependentUpon>MoneyIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\OkayIcon.xaml.cs">
+      <DependentUpon>OkayIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs">
       <DependentUpon>SampleDataSource.xaml</DependentUpon>
@@ -107,11 +113,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\calendar.xaml">
+    <Page Include="Resources\CalendarIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\CalendarIcon.xaml">
+    <Page Include="Resources\ClockIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -128,6 +134,10 @@
       <SubType>Designer</SubType>
     </DesignTimeOnly>
     <Page Include="Resources\MoneyIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\OkayIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
