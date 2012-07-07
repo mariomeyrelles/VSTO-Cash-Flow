@@ -4,4 +4,4 @@
       changes to this file can cause errors.
 -->
 <SampleData:SampleDataSource xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
-ExpectedValue="74" Date="Nov 5, 2003" PanelMessage="Aliquam class cras nam curae maecenas integer aenean donec mauris" />
+	ExpectedValue="565" Date="Nov 5, 2003" PanelMessage="Aliquam class cras nam curae maecenas integer aenean donec mauris" />

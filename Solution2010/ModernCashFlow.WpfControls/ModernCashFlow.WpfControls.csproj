@@ -69,23 +69,29 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="HasErrorToVisibilityConverter.cs" />
+    <Compile Include="Controls\IconTextUserControl.xaml.cs">
+      <DependentUpon>IconTextUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PendingPayments.xaml.cs">
       <DependentUpon>PendingPayments.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpenseSidePanel.xaml.cs">
       <DependentUpon>ExpenseSidePanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\CalendarIcon.xaml.cs">
+    <Compile Include="Resources\XamlIcons\CalendarIcon.xaml.cs">
       <DependentUpon>CalendarIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\ClockIcon.xaml.cs">
+    <Compile Include="Resources\XamlIcons\ClockIcon.xaml.cs">
       <DependentUpon>ClockIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\MoneyIcon.xaml.cs">
+    <Compile Include="Resources\XamlIcons\MoneyIcon.xaml.cs">
       <DependentUpon>MoneyIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\OkayIcon.xaml.cs">
+    <Compile Include="Resources\XamlIcons\OkayIcon.xaml.cs">
       <DependentUpon>OkayIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SampleData\SampleDataSource1\SampleDataSource1.xaml.cs">
+      <DependentUpon>SampleDataSource1.xaml</DependentUpon>
     </Compile>
     <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs">
       <DependentUpon>SampleDataSource.xaml</DependentUpon>
@@ -109,15 +115,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Controls\IconTextUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PendingPayments.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\CalendarIcon.xaml">
+    <Page Include="Resources\XamlIcons\CalendarIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\ClockIcon.xaml">
+    <Page Include="Resources\XamlIcons\ClockIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -133,14 +143,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignTimeOnly>
-    <Page Include="Resources\MoneyIcon.xaml">
+    <Page Include="Resources\XamlIcons\MoneyIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\OkayIcon.xaml">
+    <Page Include="Resources\XamlIcons\OkayIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <DesignTimeOnly Include="SampleData\SampleDataSource1\SampleDataSource1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignTimeOnly>
     <Page Include="UserControl1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -174,6 +188,7 @@
     </None>
     <AppDesigner Include="Properties\" />
     <DesignTimeOnly Include="SampleData\SampleDataSource\SampleDataSource.xsd" />
+    <DesignTimeOnly Include="SampleData\SampleDataSource1\SampleDataSource1.xsd" />
   </ItemGroup>
   <ItemGroup>
     <BlendEmbeddedFont Include="Fonts\seguisym.ttf">

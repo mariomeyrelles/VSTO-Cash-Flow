@@ -4,6 +4,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:ModernCashFlow.WpfControls"
+	xmlns:Controls="clr-namespace:ModernCashFlow.WpfControls.Controls"
 	mc:Ignorable="d"
 	x:Class="ModernCashFlow.WpfControls.UserControl2"
 	x:Name="UserControl"
@@ -14,6 +15,38 @@
 		
 		<local:CalendarIcon Margin="0,0,101.867,264" VerticalAlignment="Bottom" Height="136" HorizontalAlignment="Right" Width="154.133"/>
 		
+	
+                    <Controls:IconTextUserControl Height="48" 
+					Text ="140.00" Background="#FF164047" Margin="128,149,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    	<Controls:IconTextUserControl.Icon>
+                    		<local:MoneyIcon/>
+						</Controls:IconTextUserControl.Icon>               
+					</Controls:IconTextUserControl>
+					<Controls:IconTextUserControl Height="48" 
+					Text ="10.00" Background="#FF164047" Margin="128,85,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" >
+                    	<Controls:IconTextUserControl.Icon>
+                    		<local:MoneyIcon/>
+						</Controls:IconTextUserControl.Icon>               
+					</Controls:IconTextUserControl>
+					
+					<Controls:IconTextUserControl Height="48" 
+					Text ="1.234,00" Background="#FF164047" Margin="128,213,0,219" HorizontalAlignment="Left" >
+                    	<Controls:IconTextUserControl.Icon>
+                    		<local:MoneyIcon/>
+						</Controls:IconTextUserControl.Icon>               
+					</Controls:IconTextUserControl>
+					<Controls:IconTextUserControl Height="48" 
+						Text ="1.234,00" Background="#FF164047" Margin="128,0,0,155" HorizontalAlignment="Left"  VerticalAlignment="Bottom" d:LayoutOverrides="Height">
+						<Controls:IconTextUserControl.Icon>
+							<local:MoneyIcon/>
+						</Controls:IconTextUserControl.Icon>               
+					</Controls:IconTextUserControl>
+					<Controls:IconTextUserControl Height="48" 
+						Text ="1111.234,00" Background="#FF164047" Margin="128,0,0,91" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:LayoutOverrides="Height">
+						<Controls:IconTextUserControl.Icon>
+							<local:MoneyIcon/>
+						</Controls:IconTextUserControl.Icon>               
+					</Controls:IconTextUserControl>
 		
 	</Grid>
 	

@@ -7,7 +7,7 @@
 <xs:schema xmlns:tns="Expression.Blend.SampleData.SampleDataSource" xmlns:blend="http://schemas.microsoft.com/expression/blend/2008" targetNamespace="Expression.Blend.SampleData.SampleDataSource" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="SampleDataSource" type="tns:SampleDataSource" />
   <xs:complexType name="SampleDataSource">
-    <xs:attribute blend:FormatParameters="2" name="ExpectedValue" type="xs:double" />
+    <xs:attribute blend:FormatParameters="3" name="ExpectedValue" type="xs:double" />
     <xs:attribute blend:Format="Date" name="Date" type="xs:string" />
     <xs:attribute blend:FormatParameters="10,8" name="PanelMessage" type="xs:string" />
   </xs:complexType>

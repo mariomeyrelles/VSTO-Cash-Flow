@@ -3,26 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource" xmlns:local="clr-namespace:ModernCashFlow.WpfControls" x:Class="ModernCashFlow.WpfControls.ExpenseSidePanel" 
+             xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
+             xmlns:local="clr-namespace:ModernCashFlow.WpfControls" 
+             xmlns:Controls="clr-namespace:ModernCashFlow.WpfControls.Controls" 
+             x:Class="ModernCashFlow.WpfControls.ExpenseSidePanel" 
              mc:Ignorable="d"  
 			 d:DesignHeight="700" d:DesignWidth="250">
     <UserControl.Resources>
         <SampleData:SampleDataSource x:Key="SampleDataSource" d:IsDataSource="True"/>
     </UserControl.Resources>
     <Grid d:DataContext="{Binding Source={StaticResource SampleDataSource}}" >
-        <Grid>
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="#FFFFEBD9" Offset="1"/>
-                    <GradientStop Color="White"/>
-                </LinearGradientBrush>
-            </Grid.Background>
+        <Grid Background="#FFF9F5F5">
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="0.832*"/>
+        		<ColumnDefinition Width="0.168*"/>
+        	</Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" x:Name="Header" />
                 <RowDefinition Height="*" x:Name="MainContent" />
             </Grid.RowDefinitions>
             <!--Montagem do cabeçalho-->
-            <Canvas>
+            <Canvas Grid.ColumnSpan="2">
                 <Canvas.Background>
                     <LinearGradientBrush EndPoint="0.504,1.575" StartPoint="0.5,-0.729">
                         <GradientStop Color="#FFFB7606" Offset="1"/>
@@ -34,20 +35,23 @@
             </Canvas>
 
             <!--Montagem do painel de informações sobre a saída.-->
-            <StackPanel Grid.Row="1" Margin="10,10,10,10">
+            <StackPanel Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="2">
                 <WrapPanel x:Name="valorData" >
-            		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,10,10">
-            			<local:MoneyIcon HorizontalAlignment="Left"  Margin="0,0,4,0" />
-            			<TextBlock Text="{Binding ExpectedValue, StringFormat=\{0:N2\}}" FontSize="20" Foreground="#FF625858" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" />
-            		</StackPanel>
 
-                    <StackPanel Orientation="Horizontal" >
-            			<local:CalendarIcon HorizontalAlignment="Left" Margin="0,0,4,10"/>
-                        <StackPanel VerticalAlignment="Center">
-            				<TextBlock Text="{Binding Date, StringFormat=\{0:MMM dd\, yyyy\}}" TextWrapping="WrapWithOverflow" FontSize="14" Foreground="#FF625858" HorizontalAlignment="Left" FontWeight="Black" Height="18" />
-            				<TextBlock Text="{Binding Date, StringFormat=\{0:dddd\}}" TextWrapping="WrapWithOverflow" FontSize="10" Foreground="#FF625858" HorizontalAlignment="Left" FontWeight="Black" Height="18" />
-            			</StackPanel>
-            		</StackPanel>
+                    <Controls:IconTextUserControl Width="145"
+					Text ="{Binding ExpectedValue, StringFormat=N2}" Background="#FF164047" Margin="2,2,2,4">
+                    	<Controls:IconTextUserControl.Icon>
+                    		<local:MoneyIcon/>
+						</Controls:IconTextUserControl.Icon>               
+					</Controls:IconTextUserControl>
+
+                	<StackPanel Orientation="Horizontal" >
+                		<local:CalendarIcon HorizontalAlignment="Left" Margin="0,0,4,10"/>
+                		<StackPanel VerticalAlignment="Center">
+                			<TextBlock Text="{Binding Date, StringFormat=\{0:MMM dd\, yyyy\}}" TextWrapping="WrapWithOverflow" FontSize="14" Foreground="#FF625858" HorizontalAlignment="Left" FontWeight="Black" Height="18" />
+                			<TextBlock Text="{Binding Date, StringFormat=\{0:dddd\}}" TextWrapping="WrapWithOverflow" FontSize="10" Foreground="#FF625858" HorizontalAlignment="Left" FontWeight="Black" Height="18" />
+                		</StackPanel>
+                	</StackPanel>
             	</WrapPanel>
                 <WrapPanel x:Name="status">
                     <StackPanel Orientation="Horizontal" Margin="0,0,10,10" VerticalAlignment="Center">
@@ -59,7 +63,7 @@
                 	</StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,0,10,10" VerticalAlignment="Center">
-                		<local:ClockIcon HorizontalAlignment="Left" Margin="0,0,4,0"/>
+                		<local:ClockIcon HorizontalAlignment="Left" Margin="0,0,4,0" Width="62"/>
                         <StackPanel VerticalAlignment="Center">
                 			<TextBlock Margin="0,0,0,0" Text="faltam" Foreground="#FF625858" HorizontalAlignment="Left" FontSize="14"  />
                 			<TextBlock Margin="0,0,0,0" Text="14 dias" FontSize="14" Foreground="Black" HorizontalAlignment="Left" FontWeight="Bold"  />
