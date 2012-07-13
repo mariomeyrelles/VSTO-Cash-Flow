@@ -7,9 +7,9 @@ namespace ModernCashFlow.WpfControls.Controls
     /// <summary>
     /// Interaction logic for MoneyValueControl.xaml
     /// </summary>
-    public partial class IconTextUserControl : UserControl
+    public partial class IconText : UserControl
     {
-        public IconTextUserControl()
+        public IconText()
         {
             this.InitializeComponent();
         }
@@ -18,12 +18,12 @@ namespace ModernCashFlow.WpfControls.Controls
 
         #region Text Dependency Property
         
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(IconTextUserControl),
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(IconText),
                                         new FrameworkPropertyMetadata("-",FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ChangeText));
 
         private static void ChangeText(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as IconTextUserControl).textContent.Text = e.NewValue.ToString();
+            (d as IconText).textContent.Text = e.NewValue.ToString();
         }
 
         public string Text
@@ -74,11 +74,11 @@ namespace ModernCashFlow.WpfControls.Controls
 
 
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(object), typeof(IconTextUserControl), new FrameworkPropertyMetadata(null, ChangeIcon));
+            DependencyProperty.Register("Icon", typeof(object), typeof(IconText), new FrameworkPropertyMetadata(null, ChangeIcon));
 
         private static void ChangeIcon(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as IconTextUserControl).iconControl.Content = e.NewValue;
+            (d as IconText).iconControl.Content = e.NewValue;
         }
 
 

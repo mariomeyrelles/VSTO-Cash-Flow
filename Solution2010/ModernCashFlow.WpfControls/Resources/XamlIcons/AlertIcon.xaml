@@ -4,16 +4,18 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
-	x:Class="ModernCashFlow.WpfControls.OkayIcon"
-	x:Name="UserControl">
+	x:Class="ModernCashFlow.WpfControls.AlertIcon"
+	x:Name="UserControl"
+	d:DesignWidth="48" d:DesignHeight="48">
 
 	<Grid x:Name="LayoutRoot">
-		<Viewbox>
+		
+		<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
   <Grid>
     <Grid Name="backgroundGrid" Width="48" Height="48" Visibility="Visible">
       <Rectangle Fill="#FF17BDD7" Name="Rect" Visibility="Visible" />
     </Grid>
-    <Path Data="F1 M 36.437,16.681 L 23.752,35.385 C 23.371,35.944 22.776,36.315 22.186,36.315 C 21.597,36.315 20.940,35.993 20.523,35.578 L 13.080,28.132 C 12.573,27.624 12.573,26.800 13.080,26.293 L 14.919,24.451 C 15.427,23.947 16.251,23.947 16.757,24.451 L 21.598,29.293 L 32.131,13.760 C 32.531,13.168 33.345,13.015 33.938,13.415 L 36.090,14.876 C 36.682,15.277 36.837,16.089 36.437,16.681 Z M 24.000,0.346 C 10.937,0.346 0.346,10.937 0.346,24.000 C 0.346,37.063 10.937,47.654 24.000,47.654 C 37.063,47.654 47.654,37.063 47.654,24.000 C 47.654,10.937 37.063,0.346 24.000,0.346 Z" Stretch="Uniform" Fill="#FFFFFFFF" Width="32" Height="32" Margin="0,0,0,0">
+    <Path Data="F1M874.094,289.369L854.3,254.63C854.028,254.151 853.515,253.856 852.958,253.856 852.403,253.856 851.89,254.151 851.617,254.63L831.824,289.369C831.555,289.84 831.559,290.416 831.835,290.883 832.111,291.348 832.618,291.634 833.165,291.634L872.752,291.634C873.299,291.634 873.805,291.348 874.081,290.883 874.357,290.416 874.361,289.84 874.094,289.369 M855.653,287.189L850.264,287.189 850.264,282.745 855.653,282.745 855.653,287.189z M855.653,279.41L850.264,279.41 850.264,266.077 855.653,266.077 855.653,279.41z" Stretch="Uniform" Fill="#FFFFFFFF" Width="32" Height="32" Margin="0,0,0,0">
       <Path.RenderTransform>
         <TransformGroup>
           <TransformGroup.Children>
@@ -27,4 +29,5 @@
 </Viewbox>
 		
 	</Grid>
+
 </UserControl>

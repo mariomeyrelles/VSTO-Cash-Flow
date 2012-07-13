@@ -56,6 +56,101 @@ namespace Expression.Blend.SampleData.SampleDataSource1
 				}
 			}
 		}
+
+		private string _header = string.Empty;
+
+		public string header
+		{
+			get
+			{
+				return this._header;
+			}
+
+			set
+			{
+				if (this._header != value)
+				{
+					this._header = value;
+					this.OnPropertyChanged("header");
+				}
+			}
+		}
+
+		private string _header2 = string.Empty;
+
+		public string header2
+		{
+			get
+			{
+				return this._header2;
+			}
+
+			set
+			{
+				if (this._header2 != value)
+				{
+					this._header2 = value;
+					this.OnPropertyChanged("header2");
+				}
+			}
+		}
+
+		private string _content2 = string.Empty;
+
+		public string content2
+		{
+			get
+			{
+				return this._content2;
+			}
+
+			set
+			{
+				if (this._content2 != value)
+				{
+					this._content2 = value;
+					this.OnPropertyChanged("content2");
+				}
+			}
+		}
+
+		private string _header_3 = string.Empty;
+
+		public string header_3
+		{
+			get
+			{
+				return this._header_3;
+			}
+
+			set
+			{
+				if (this._header_3 != value)
+				{
+					this._header_3 = value;
+					this.OnPropertyChanged("header_3");
+				}
+			}
+		}
+
+		private string _content_3 = string.Empty;
+
+		public string content_3
+		{
+			get
+			{
+				return this._content_3;
+			}
+
+			set
+			{
+				if (this._content_3 != value)
+				{
+					this._content_3 = value;
+					this.OnPropertyChanged("content_3");
+				}
+			}
+		}
 	}
 #endif
 }

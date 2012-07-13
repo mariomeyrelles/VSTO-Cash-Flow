@@ -1,0 +1,30 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="ModernCashFlow.WpfControls.DownArrow"
+	x:Name="UserControl"
+	d:DesignWidth="48" d:DesignHeight="48">
+
+	
+	<Grid x:Name="LayoutRoot">
+		<Viewbox>
+  <Grid>
+    
+    <Path Data="F1 M 81.099,56.741 L 52.313,85.526 L 23.526,56.741 C 23.526,56.741 22.281,52.313 27.955,52.313 C 29.240,52.313 33.521,52.313 39.026,52.313 L 39.026,30.170 C 39.026,27.727 41.014,25.741 43.455,25.741 L 61.170,25.741 C 63.608,25.741 65.599,27.727 65.599,30.170 L 65.599,52.313 C 70.896,52.313 75.147,52.313 76.808,52.313 C 82.759,52.313 81.099,56.741 81.099,56.741 Z M 52.313,0.000 C 23.421,0.000 0.000,23.423 0.000,52.313 C 0.000,81.202 23.421,104.625 52.313,104.625 C 81.202,104.625 104.625,81.202 104.625,52.313 C 104.625,23.423 81.202,0.000 52.313,0.000 Z" Stretch="Uniform" Fill="Black" Width="32" Height="32" Margin="0,0,0,0">
+      <Path.RenderTransform>
+        <TransformGroup>
+          <TransformGroup.Children>
+            <RotateTransform Angle="0" />
+            <ScaleTransform ScaleX="1" ScaleY="1" />
+          </TransformGroup.Children>
+        </TransformGroup>
+      </Path.RenderTransform>
+    </Path>
+  </Grid>
+</Viewbox>
+		
+	</Grid>
+</UserControl>
