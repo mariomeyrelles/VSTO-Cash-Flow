@@ -5,4 +5,4 @@
 -->
 <SampleData:SampleDataSource2 
 xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource2" 
-SampleName="okay"/>
+StatusName="notOkay"/>

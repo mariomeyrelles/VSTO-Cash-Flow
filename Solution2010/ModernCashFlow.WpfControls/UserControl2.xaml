@@ -20,9 +20,9 @@
 		
 		<local:CalendarIcon Margin="0,0,101.867,264" VerticalAlignment="Bottom" Height="136" HorizontalAlignment="Right" Width="154.133"/>
 		
-		<Controls:MultiStatus Margin="0,233.158,8,8" 
+		<Controls:MultiStatus Margin="0,0,162,128" 
 		DataContext="{StaticResource SampleDataSource2}" 
-		HorizontalAlignment="Right" Width="280" />
+		HorizontalAlignment="Right" Height="48" VerticalAlignment="Bottom" />
 		
 	
 		<Controls:IconText Height="48" 

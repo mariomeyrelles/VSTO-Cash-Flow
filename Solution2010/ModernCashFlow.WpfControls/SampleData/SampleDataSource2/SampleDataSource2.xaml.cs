@@ -38,21 +38,21 @@ namespace Expression.Blend.SampleData.SampleDataSource2
 			}
 		}
 
-		private string _SampleName = string.Empty;
+		private string _StatusName = string.Empty;
 
-		public string SampleName
+		public string StatusName
 		{
 			get
 			{
-				return this._SampleName;
+				return this._StatusName;
 			}
 
 			set
 			{
-				if (this._SampleName != value)
+				if (this._StatusName != value)
 				{
-					this._SampleName = value;
-					this.OnPropertyChanged("SampleName");
+					this._StatusName = value;
+					this.OnPropertyChanged("StatusName");
 				}
 			}
 		}

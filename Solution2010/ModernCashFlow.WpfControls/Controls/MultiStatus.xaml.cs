@@ -18,15 +18,22 @@ namespace ModernCashFlow.WpfControls.Controls
     {
         public override System.Windows.DataTemplate SelectTemplate(object item, System.Windows.DependencyObject container)
         {
-            var element = container as FrameworkElement;
-
-            if (element != null && item != null)
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+            if (item == null)
             {
-               if (item.ToString() == "okay")
+                return null;
+            }
+            
+            var element = container as FrameworkElement;
+            var value = (item as dynamic).StatusName;
+
+            if (element != null && value != null)
+            {
+               if (value == "okay")
                     return element.FindResource("okay") as DataTemplate;
 
-               if (item.ToString() == "notOkay")
-                   return element.FindResource("okay") as DataTemplate;
+               if (value == "notOkay")
+                   return element.FindResource("notOkay") as DataTemplate;
                
             }
 
