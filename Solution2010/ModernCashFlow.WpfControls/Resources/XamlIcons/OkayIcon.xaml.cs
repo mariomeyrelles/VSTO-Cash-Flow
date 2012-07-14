@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace ModernCashFlow.WpfControls
+namespace ModernCashFlow.WpfControls.Resources.XamlIcons
 {
-	/// <summary>
+    /// <summary>
 	/// Interaction logic for OkayIcon.xaml
 	/// </summary>
 	public partial class OkayIcon : UserControl
@@ -22,5 +13,27 @@ namespace ModernCashFlow.WpfControls
 		{
 			this.InitializeComponent();
 		}
+
+
+        public static readonly DependencyProperty BackgroundBrushProperty =
+           DependencyProperty.Register("BackgroundBrush", typeof(Brush), typeof(OkayIcon), new FrameworkPropertyMetadata(null, ChangeBackgroundBrush));
+
+        private static void ChangeBackgroundBrush(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+           ((OkayIcon) d).Rect.Fill = (Brush) e.NewValue;
+        }
+
+
+        public object BackgroundBrush
+        {
+            get
+            {
+                return GetValue(BackgroundBrushProperty);
+            }
+            set
+            {
+                SetValue(BackgroundBrushProperty, value);
+            }
+        }
 	}
 }

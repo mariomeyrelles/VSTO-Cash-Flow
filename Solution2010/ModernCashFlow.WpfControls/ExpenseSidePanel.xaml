@@ -6,8 +6,7 @@
              xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
              xmlns:local="clr-namespace:ModernCashFlow.WpfControls" 
              xmlns:c="clr-namespace:ModernCashFlow.WpfControls.Controls" 
-            xmlns:SampleDataSource2="clr-namespace:Expression.Blend.SampleData.SampleDataSource2" 
-            x:Class="ModernCashFlow.WpfControls.ExpenseSidePanel" 
+            xmlns:SampleDataSource2="clr-namespace:Expression.Blend.SampleData.SampleDataSource2" xmlns:XamlIcons="clr-namespace:ModernCashFlow.WpfControls.Resources.XamlIcons" x:Class="ModernCashFlow.WpfControls.ExpenseSidePanel" 
              mc:Ignorable="d"  
 			 d:DesignHeight="700" d:DesignWidth="170">
     <UserControl.Resources>
@@ -26,7 +25,7 @@
             <!--Montagem do cabeçalho-->
             <Canvas Background="#FFE97F12">
                 <TextBlock Text="Saídas" Foreground="Black" HorizontalAlignment="Center" FontSize="32" FontFamily="Segoe UI Semibold" FontWeight="Bold" Canvas.Left="47" Canvas.Top="7.389" VerticalAlignment="Center" />
-                <local:DownArrow Canvas.Left="8" Canvas.Top="14" ></local:DownArrow>
+                <XamlIcons:DownArrow Canvas.Left="8" Canvas.Top="14" ></XamlIcons:DownArrow>
             </Canvas>
 
             <!--Montagem do painel de informações sobre a saída.-->
@@ -35,7 +34,7 @@
 
                     <c:IconText Text ="{Binding ExpectedValue, StringFormat=N2}" Background="#FF164047" Margin="2,2,2,2">
                     	<c:IconText.Icon>
-                    		<local:MoneyIcon/>
+                    		<XamlIcons:MoneyIcon/>
 						</c:IconText.Icon>               
 					</c:IconText>
 
@@ -43,7 +42,7 @@
  					<c:IconHeaderText HeaderText="{Binding Date, StringFormat=\{0:dddd\}}" Background="#FF164047" Margin="2,2,2,2"
                                       ContentText ="{Binding Date, StringFormat=\{0:MMM dd\, yyyy\}}">
                         <c:IconHeaderText.Icon>
-                    		<local:CalendarIcon/>
+                    		<XamlIcons:CalendarIcon/>
 						</c:IconHeaderText.Icon>
                     </c:IconHeaderText>
 
@@ -56,7 +55,7 @@
                     
                     <c:IconHeaderText HeaderText="faltam" Background="#FF164047" Margin="2,2,2,2">
                         <c:IconHeaderText.Icon>
-                            <local:ClockIcon/>
+                            <XamlIcons:ClockIcon/>
                         </c:IconHeaderText.Icon>
                         <c:IconHeaderText.MainContent>
                             <TextBlock Style="{DynamicResource ContentTextStyle}">

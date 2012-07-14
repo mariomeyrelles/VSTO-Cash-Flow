@@ -23,4 +23,8 @@
     		<Setter Property="FontSize" Value="12"/>
 			<Setter Property="Foreground" Value="#FFF"/>
 	</Style>
+	
+    <SolidColorBrush x:Key="IconDefaultFillBrush" Color="#FF17BDD7"/>
+    <SolidColorBrush x:Key="IconOkayFillBrush" Color="#FF25D861"/>
+    <SolidColorBrush x:Key="IconNotOkayFillBrush" Color="#FFD2210F"/>
 </ResourceDictionary>

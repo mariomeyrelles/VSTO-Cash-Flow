@@ -4,8 +4,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:ModernCashFlow.WpfControls"
-	xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource1"
-	mc:Ignorable="d"
+	xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource1" xmlns:i="clr-namespace:ModernCashFlow.WpfControls.Resources.XamlIcons" mc:Ignorable="d"
 	x:Class="ModernCashFlow.WpfControls.Controls.IconText"
 	x:Name="UserControl" Height="48" Width="150">
 	
@@ -17,7 +16,9 @@
 		<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
 			
 			<Viewbox Stretch="Fill" Margin="0,0,0,0" HorizontalAlignment="Left">
-				<ContentControl x:Name="iconControl"><local:MoneyIcon /></ContentControl>
+				<ContentControl x:Name="iconControl">
+					<i:AlertIcon />
+				</ContentControl>
 			</Viewbox>
 			
 			<Viewbox Width="102" Stretch="Fill" StretchDirection="DownOnly">

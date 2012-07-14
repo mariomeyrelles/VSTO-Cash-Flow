@@ -5,8 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:ModernCashFlow.WpfControls"
 	xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource1"
-    xmlns:c="clr-namespace:ModernCashFlow.WpfControls.Controls" 
-	mc:Ignorable="d"
+    xmlns:c="clr-namespace:ModernCashFlow.WpfControls.Controls" xmlns:i="clr-namespace:ModernCashFlow.WpfControls.Resources.XamlIcons" mc:Ignorable="d"
 	x:Class="ModernCashFlow.WpfControls.Controls.MultiStatus"
 	x:Name="UserControl"
 	Width="150" Height="48">
@@ -15,7 +14,7 @@
         <DataTemplate x:Key="okay">
             <c:IconHeaderText HeaderText="status" ContentText="{Binding TransactionStatusDescription, Mode=OneWay}" Background="#FF164047">
                     <c:IconHeaderText.Icon>
-                        <local:OkayIcon/>
+                    <i:OkayIcon BackgroundBrush ="{StaticResource IconOkayFillBrush}"/>
                     </c:IconHeaderText.Icon>
                </c:IconHeaderText>
             
@@ -25,7 +24,7 @@
         <DataTemplate x:Key="notOkay">
             <c:IconHeaderText HeaderText="status" ContentText="{Binding TransactionStatusDescription, Mode=OneWay}" Background="#FF164047">
                     <c:IconHeaderText.Icon>
-                        <local:NotOkayIcon/>
+                    <i:NotOkayIcon BackgroundBrush ="{StaticResource IconNotOkayFillBrush}"/>
                     </c:IconHeaderText.Icon>
                 </c:IconHeaderText>
         </DataTemplate>
@@ -33,7 +32,7 @@
         <DataTemplate x:Key="unknown">
             <c:IconHeaderText HeaderText="status" ContentText="{Binding TransactionStatusDescription, Mode=OneWay}" Background="#FF164047">
                     <c:IconHeaderText.Icon>
-                        <local:UnknownIcon/>
+                        <i:UnknownIcon/>
                     </c:IconHeaderText.Icon>
                 </c:IconHeaderText>
         </DataTemplate>

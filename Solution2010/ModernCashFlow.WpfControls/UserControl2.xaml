@@ -5,8 +5,8 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:ModernCashFlow.WpfControls"
 	xmlns:Controls="clr-namespace:ModernCashFlow.WpfControls.Controls"
-	xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource2"
-	mc:Ignorable="d"
+	xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource2" 
+    xmlns:i="clr-namespace:ModernCashFlow.WpfControls.Resources.XamlIcons" mc:Ignorable="d"
 	x:Class="ModernCashFlow.WpfControls.UserControl2"
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480">
@@ -18,7 +18,7 @@
 	<Grid x:Name="LayoutRoot" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
 		
 		
-		<local:CalendarIcon Margin="0,0,101.867,264" VerticalAlignment="Bottom" Height="136" HorizontalAlignment="Right" Width="154.133"/>
+		<i:CalendarIcon Margin="0,0,101.867,264" VerticalAlignment="Bottom" Height="136" HorizontalAlignment="Right" Width="154.133"/>
 		
 		<Controls:MultiStatus Margin="0,0,162,128" 
 		DataContext="{StaticResource SampleDataSource2}" 
@@ -28,7 +28,7 @@
 		<Controls:IconText Height="48" 
 			Text ="140.00" Background="#FF164047" Margin="128,149,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
 			<Controls:IconText.Icon>
-				<local:MoneyIcon/>
+				<i:MoneyIcon/>
 			</Controls:IconText.Icon>               
 		</Controls:IconText>
 					
@@ -36,7 +36,7 @@
 			HeaderText="quinta" Background="#FF164047" Margin="128,149,0,0" 
 			HorizontalAlignment="Left" VerticalAlignment="Top" >
 			<Controls:IconHeaderText.Icon>
-				<local:MoneyIcon/>
+				<i:MoneyIcon/>
 			</Controls:IconHeaderText.Icon>               
 			<!--<Controls:IconHeaderText.MainContent>
 				<TextBlock Text="teste" Style="{DynamicResource ContentTextStyle}"></TextBlock>
@@ -46,26 +46,26 @@
 		<Controls:IconText Height="48" 
 			Text ="10.00" Background="#FF164047" Margin="128,85,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" >
 			<Controls:IconText.Icon>
-				<local:MoneyIcon/>
+                <i:OkayIcon BackgroundBrush ="{StaticResource IconOkayFillBrush}" />
 			</Controls:IconText.Icon>               
 		</Controls:IconText>
 					
 		<Controls:IconText Height="48" 
 			Text ="1.234,00" Background="#FF164047" Margin="128,213,0,219" HorizontalAlignment="Left" >
 			<Controls:IconText.Icon>
-				<local:MoneyIcon/>
+				<i:MoneyIcon/>
 			</Controls:IconText.Icon>               
 		</Controls:IconText>
 		<Controls:IconText Height="48" 
 			Text ="1.234,00" Background="#FF164047" Margin="128,0,0,155" HorizontalAlignment="Left"  VerticalAlignment="Bottom" d:LayoutOverrides="Height">
 			<Controls:IconText.Icon>
-				<local:MoneyIcon/>
+				<i:MoneyIcon/>
 			</Controls:IconText.Icon>               
 		</Controls:IconText>
 		<Controls:IconText Height="48" 
 			Text ="11.234,00" Background="#FF164047" Margin="128,0,0,91" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:LayoutOverrides="Height">
 			<Controls:IconText.Icon>
-				<local:MoneyIcon/>
+				<i:MoneyIcon/>
 			</Controls:IconText.Icon>               
 		</Controls:IconText>
 		

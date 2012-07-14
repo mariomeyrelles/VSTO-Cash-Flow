@@ -4,7 +4,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
-	x:Class="ModernCashFlow.WpfControls.AlertIcon"
+	x:Class="ModernCashFlow.WpfControls.Resources.XamlIcons.AlertIcon"
 	x:Name="UserControl"
 	d:DesignWidth="48" d:DesignHeight="48">
 
@@ -13,7 +13,7 @@
 		<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
   <Grid>
     <Grid Name="backgroundGrid" Width="48" Height="48" Visibility="Visible">
-      <Rectangle Fill="#FF17BDD7" Name="Rect" Visibility="Visible" />
+      <Rectangle Name="Rect" Fill="#FF17BDD7" Visibility="Visible"  />
     </Grid>
     <Path Data="F1M874.094,289.369L854.3,254.63C854.028,254.151 853.515,253.856 852.958,253.856 852.403,253.856 851.89,254.151 851.617,254.63L831.824,289.369C831.555,289.84 831.559,290.416 831.835,290.883 832.111,291.348 832.618,291.634 833.165,291.634L872.752,291.634C873.299,291.634 873.805,291.348 874.081,290.883 874.357,290.416 874.361,289.84 874.094,289.369 M855.653,287.189L850.264,287.189 850.264,282.745 855.653,282.745 855.653,287.189z M855.653,279.41L850.264,279.41 850.264,266.077 855.653,266.077 855.653,279.41z" Stretch="Uniform" Fill="#FFFFFFFF" Width="32" Height="32" Margin="0,0,0,0">
       <Path.RenderTransform>
