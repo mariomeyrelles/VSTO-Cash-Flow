@@ -56,6 +56,25 @@ namespace Expression.Blend.SampleData.SampleDataSource2
 				}
 			}
 		}
+
+		private double _TransactionStatus = 0;
+
+		public double TransactionStatus
+		{
+			get
+			{
+				return this._TransactionStatus;
+			}
+
+			set
+			{
+				if (this._TransactionStatus != value)
+				{
+					this._TransactionStatus = value;
+					this.OnPropertyChanged("TransactionStatus");
+				}
+			}
+		}
 	}
 #endif
 }

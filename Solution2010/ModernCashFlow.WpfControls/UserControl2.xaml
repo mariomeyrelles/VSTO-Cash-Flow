@@ -32,12 +32,15 @@
 			</Controls:IconText.Icon>               
 		</Controls:IconText>
 					
-		<Controls:IconHeaderText Height="48" 
-			Text ="mai 05, 2012" HeaderText="quinta" Background="#FF164047" Margin="128,149,0,0" 
+		<Controls:IconHeaderText Height="48" ContentText="Nov 2, 2012"
+			HeaderText="quinta" Background="#FF164047" Margin="128,149,0,0" 
 			HorizontalAlignment="Left" VerticalAlignment="Top" >
 			<Controls:IconHeaderText.Icon>
 				<local:MoneyIcon/>
 			</Controls:IconHeaderText.Icon>               
+			<!--<Controls:IconHeaderText.MainContent>
+				<TextBlock Text="teste" Style="{DynamicResource ContentTextStyle}"></TextBlock>
+			</Controls:IconHeaderText.MainContent>-->
 		</Controls:IconHeaderText>
 					
 		<Controls:IconText Height="48" 

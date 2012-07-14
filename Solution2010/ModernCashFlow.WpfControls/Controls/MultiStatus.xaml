@@ -9,22 +9,31 @@
 	mc:Ignorable="d"
 	x:Class="ModernCashFlow.WpfControls.Controls.MultiStatus"
 	x:Name="UserControl"
-	d:DesignWidth="150" d:DesignHeight="48">
+	Width="150" Height="48">
 
     <UserControl.Resources>
         <DataTemplate x:Key="okay">
-              <c:IconHeaderText HeaderText="status" Text ="ok" Background="#FF164047">
+            <c:IconHeaderText HeaderText="status" ContentText="{Binding TransactionStatusDescription, Mode=OneWay}" Background="#FF164047">
                     <c:IconHeaderText.Icon>
                         <local:OkayIcon/>
                     </c:IconHeaderText.Icon>
-                </c:IconHeaderText>
+               </c:IconHeaderText>
+            
          
 	    </DataTemplate>
        
         <DataTemplate x:Key="notOkay">
-                <c:IconHeaderText HeaderText="status" Text ="pendente" Background="#FF164047">
+            <c:IconHeaderText HeaderText="status" ContentText="{Binding TransactionStatusDescription, Mode=OneWay}" Background="#FF164047">
                     <c:IconHeaderText.Icon>
                         <local:NotOkayIcon/>
+                    </c:IconHeaderText.Icon>
+                </c:IconHeaderText>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="unknown">
+            <c:IconHeaderText HeaderText="status" ContentText="{Binding TransactionStatusDescription, Mode=OneWay}" Background="#FF164047">
+                    <c:IconHeaderText.Icon>
+                        <local:UnknownIcon/>
                     </c:IconHeaderText.Icon>
                 </c:IconHeaderText>
         </DataTemplate>

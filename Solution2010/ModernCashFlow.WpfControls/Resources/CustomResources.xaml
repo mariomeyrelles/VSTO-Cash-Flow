@@ -7,12 +7,20 @@
                 <MultiTrigger.Conditions>
                     <Condition Property="Validation.HasError" Value="true"/>
                 </MultiTrigger.Conditions>
-          
                  <Setter Property="BorderBrush" Value="Red"/>
                 <Setter Property="BorderThickness" Value="1"/>
-
             </MultiTrigger>
-          
         </Style.Triggers>
     </Style>
+	
+	<Style x:Key="ContentTextStyle" TargetType="{x:Type TextBlock}">
+        	<Setter Property="FontSize" Value="17"/>
+			<Setter Property="Foreground" Value="#FFF"/>
+			<Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+	</Style>
+	<Style x:Key="HeaderTextStyle" TargetType="{x:Type TextBlock}">
+    		<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Foreground" Value="#FFF"/>
+	</Style>
 </ResourceDictionary>

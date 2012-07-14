@@ -11,6 +11,7 @@
 
     <UserControl.Resources>
         <SampleData:SampleDataSource1 x:Key="SampleDataSource1" d:IsDataSource="True"/>
+        
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" d:DataContext="{Binding Source={StaticResource SampleDataSource1}}">
@@ -24,8 +25,10 @@
 
             <Viewbox Width="102" Stretch="Fill" StretchDirection="DownOnly" HorizontalAlignment="Left">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="4">
-                    <TextBlock x:Name="textHeader" Text="{Binding header2}" Foreground="#FFF" HorizontalAlignment="Left" FontSize="12" Margin="0,0,0,0"  />
-                    <TextBlock x:Name="textContent" FontSize="17" Text="{Binding content_3}" Foreground="#FFF" HorizontalAlignment="Center" FontFamily="Segoe UI Semibold" VerticalAlignment="Center"  />
+                    <TextBlock x:Name="headerContent" Text="{Binding header2}" Margin="0,0,0,0" Style="{DynamicResource HeaderTextStyle}"  />
+                    <ContentControl x:Name="mainContent">
+                        <TextBlock x:Name="textContent" Text="{Binding content_3}" Style="{DynamicResource ContentTextStyle}"  />
+                    </ContentControl>
                 </StackPanel>
             </Viewbox>
         </StackPanel>

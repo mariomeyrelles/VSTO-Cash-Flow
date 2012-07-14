@@ -8,5 +8,6 @@
   <xs:element name="SampleDataSource2" type="tns:SampleDataSource2" />
   <xs:complexType name="SampleDataSource2">
     <xs:attribute name="StatusName" type="xs:string" />
+    <xs:attribute blend:FormatParameters="1" name="TransactionStatus" type="xs:double" />
   </xs:complexType>
 </xs:schema>

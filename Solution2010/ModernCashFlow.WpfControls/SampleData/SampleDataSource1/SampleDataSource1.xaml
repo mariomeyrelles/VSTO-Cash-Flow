@@ -5,4 +5,4 @@
 -->
 <SampleData:SampleDataSource1 xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource1" 
 	content="8852" header="Aenean" 
-	header2="quinta" content2="mai 22, 2012" header_3="Nam sed" content_3="Nam"/>
+	header2="quinta" content2="mai 22, 2012" header_3="status" content_3="ok"/>

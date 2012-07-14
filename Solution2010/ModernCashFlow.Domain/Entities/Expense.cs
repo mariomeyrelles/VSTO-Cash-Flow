@@ -342,8 +342,10 @@ namespace ModernCashFlow.Domain.Entities
                 this.TransactionStatus = TransactionStatus.Scheduled;
             }
         }
+        #endregion
 
-        
+
+
         public string PanelMessage
         {
             get { return MountPanelMessage(); }
@@ -390,9 +392,23 @@ namespace ModernCashFlow.Domain.Entities
 
             return "-";
         }
-        
-        #endregion
 
+
+        public int DaysLeft
+        {
+            get
+            {
+                var transactionDate = this.Date.Value.Today();
+                var today = DateTime.Now.Today();
+
+                return (transactionDate - today).Days;
+            }
+        }
+
+        
+        
+
+       
         public override string ToString()
         {
             return string.Format("AccountId:{0}; Date: {1}, Value: {2}", this.AccountId, this.Date, this.Value);

@@ -75,6 +75,7 @@
     <Compile Include="Controls\MultiStatus.xaml.cs">
       <DependentUpon>MultiStatus.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MultiStatusDataTemplateSelector.xaml.cs" />
     <Compile Include="HasErrorToVisibilityConverter.cs" />
     <Compile Include="Controls\IconText.xaml.cs">
       <DependentUpon>IconText.xaml</DependentUpon>

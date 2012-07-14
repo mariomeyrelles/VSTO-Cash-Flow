@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="/Resources/CustomResources.xaml" />
                	   
             </ResourceDictionary.MergedDictionaries>
+    	
         </ResourceDictionary>
     </Application.Resources>
 </Application>

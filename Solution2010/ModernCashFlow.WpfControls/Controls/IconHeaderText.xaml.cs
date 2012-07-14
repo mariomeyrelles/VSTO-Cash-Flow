@@ -25,31 +25,30 @@ namespace ModernCashFlow.WpfControls.Controls
         }
 
 
-        #region Text Dependency Property
+       
+        #region MainContent Dependency Property
 
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(IconHeaderText),
-                                        new FrameworkPropertyMetadata("-", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ChangeText));
+        public static readonly DependencyProperty MainContentProperty = DependencyProperty.Register("MainContent", typeof(object), typeof(IconHeaderText),
+                                       new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, ChangeMainContent));
 
-        private static void ChangeText(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ChangeMainContent(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as IconHeaderText).textContent.Text = e.NewValue.ToString();
+            (d as IconHeaderText).mainContent.Content = (e.NewValue);
         }
-
-        public string Text
+        
+        public object MainContent
         {
             get
             {
-                return (string)GetValue(TextProperty);
+                return GetValue(MainContentProperty);
             }
             set
             {
-                SetValue(TextProperty, value);
+                SetValue(MainContentProperty, value);
             }
         }
 
         #endregion
-
-
 
         #region Header Text Dependency Property
 
@@ -59,7 +58,7 @@ namespace ModernCashFlow.WpfControls.Controls
 
         private static void ChangeHeaderText(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as IconHeaderText).textHeader.Text = e.NewValue.ToString();
+            (d as IconHeaderText).headerContent.Text = e.NewValue.ToString();
         }
 
 
@@ -77,6 +76,31 @@ namespace ModernCashFlow.WpfControls.Controls
 
         #endregion
 
+        #region Content Text Dependency Property
+
+        public static readonly DependencyProperty ContentTextProperty = DependencyProperty.Register("ContentText", typeof(string), typeof(IconHeaderText),
+                                        new FrameworkPropertyMetadata("-", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ChangeContentText));
+
+
+        private static void ChangeContentText(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as IconHeaderText).textContent.Text = e.NewValue.ToString();
+        }
+
+
+        public string ContentText
+        {
+            get
+            {
+                return (string)GetValue(ContentTextProperty);
+            }
+            set
+            {
+                SetValue(ContentTextProperty, value);
+            }
+        }
+
+        #endregion
 
 
         #region Icon Dependency Property

@@ -27,7 +27,7 @@ namespace ModernCashFlow.Excel2010
 {
     public partial class ThisWorkbook
     {
-        //private Application _wpfApp;
+        private Application _wpfApp;
         private static int _sheeetCount;
         public static event EventHandler WorksheetsLoaded;
 
@@ -50,22 +50,23 @@ namespace ModernCashFlow.Excel2010
             //iniciando WPF para conseguir expor recursos para os user controls acessarem.
 
             // Create a WPF application 
-            //_wpfApp = new System.Windows.Application();
+            _wpfApp = new System.Windows.Application();
 
             
             // Load the ressources
-            //var resources = System.Windows.Application.LoadComponent(
-            //    new Uri("ModernCashFlow.WpfControls;component/Resources/CustomResources.xaml", UriKind.RelativeOrAbsolute))
-            //                as System.Windows.ResourceDictionary;
+            var resources = System.Windows.Application.LoadComponent(
+                new Uri("ModernCashFlow.WpfControls;component/Resources/CustomResources.xaml", UriKind.RelativeOrAbsolute))
+                            as System.Windows.ResourceDictionary;
 
             //// Recursos visuais do Reuxables
            // //var resource2 = System.Windows.Application.LoadComponent(
            // //    new Uri("/ReuxablesLegacy;component/edge.xaml", UriKind.RelativeOrAbsolute))
            // //                as System.Windows.ResourceDictionary;
 
-           // // Merge it on application level
-            //_wpfApp.Resources.MergedDictionaries.Add(resources);
+            // Merge it on application level
+            _wpfApp.Resources.MergedDictionaries.Add(resources);
            // _wpfApp.Resources.MergedDictionaries.Add(resource2);
+
 
            // //dizer ao WPF que é preciso aceitar a linguagem padrão do sistema.
             FrameworkElement.LanguageProperty.OverrideMetadata(

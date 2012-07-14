@@ -6,58 +6,64 @@
              xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
              xmlns:local="clr-namespace:ModernCashFlow.WpfControls" 
              xmlns:c="clr-namespace:ModernCashFlow.WpfControls.Controls" 
-             x:Class="ModernCashFlow.WpfControls.ExpenseSidePanel" 
+            xmlns:SampleDataSource2="clr-namespace:Expression.Blend.SampleData.SampleDataSource2" 
+            x:Class="ModernCashFlow.WpfControls.ExpenseSidePanel" 
              mc:Ignorable="d"  
-			 d:DesignHeight="700" d:DesignWidth="250">
+			 d:DesignHeight="700" d:DesignWidth="170">
     <UserControl.Resources>
         <SampleData:SampleDataSource x:Key="SampleDataSource" d:IsDataSource="True"/>
+        <SampleDataSource2:SampleDataSource2 x:Key="SampleDataSource2" d:IsDataSource="True"/>
     </UserControl.Resources>
     <Grid d:DataContext="{Binding Source={StaticResource SampleDataSource}}" >
         <Grid Background="#FFF9F5F5">
         	<Grid.ColumnDefinitions>
-        		<ColumnDefinition Width="0.832*"/>
-        		<ColumnDefinition Width="0.168*"/>
+        		<ColumnDefinition />
         	</Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="60" x:Name="Header" />
                 <RowDefinition Height="*" x:Name="MainContent" />
             </Grid.RowDefinitions>
             <!--Montagem do cabeçalho-->
-            <Canvas Grid.ColumnSpan="2" Background="#FFEB7F33">
+            <Canvas Background="#FFE97F12">
                 <TextBlock Text="Saídas" Foreground="Black" HorizontalAlignment="Center" FontSize="32" FontFamily="Segoe UI Semibold" FontWeight="Bold" Canvas.Left="47" Canvas.Top="7.389" VerticalAlignment="Center" />
                 <local:DownArrow Canvas.Left="8" Canvas.Top="14" ></local:DownArrow>
             </Canvas>
 
             <!--Montagem do painel de informações sobre a saída.-->
-            <StackPanel Grid.Row="1" Margin="10,10,10,10" Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="1" Margin="5">
                 <WrapPanel x:Name="valorData" >
 
-                    <c:IconText Text ="{Binding ExpectedValue, StringFormat=N2}" Background="#FF164047" Margin="2,2,2,4">
+                    <c:IconText Text ="{Binding ExpectedValue, StringFormat=N2}" Background="#FF164047" Margin="2,2,2,2">
                     	<c:IconText.Icon>
                     		<local:MoneyIcon/>
 						</c:IconText.Icon>               
 					</c:IconText>
 
- 					<c:IconHeaderText HeaderText="{Binding Date, StringFormat=\{0:dddd\}}"
-					Text ="{Binding Date, StringFormat=\{0:MMM dd\, yyyy\}}" Background="#FF164047" Margin="2,2,2,4">
-                    	<c:IconHeaderText.Icon>
+                    
+ 					<c:IconHeaderText HeaderText="{Binding Date, StringFormat=\{0:dddd\}}" Background="#FF164047" Margin="2,2,2,2"
+                                      ContentText ="{Binding Date, StringFormat=\{0:MMM dd\, yyyy\}}">
+                        <c:IconHeaderText.Icon>
                     		<local:CalendarIcon/>
-						</c:IconHeaderText.Icon>               
-					</c:IconHeaderText>
+						</c:IconHeaderText.Icon>
+                    </c:IconHeaderText>
 
-            	
-                    <StackPanel Orientation="Horizontal" Margin="0,0,10,10" VerticalAlignment="Center">
-                		<local:OkayIcon HorizontalAlignment="Left"  Margin="0,0,4,0"/>
-                        <StackPanel VerticalAlignment="Center">
-                			<TextBlock Margin="0,0,0,0" Text="status" Foreground="#FF625858" HorizontalAlignment="Left" FontSize="14"  />
-                			<TextBlock Margin="0,0,0,0" Text="previsto" FontSize="14" Foreground="Black" HorizontalAlignment="Left" FontWeight="Bold"  />
-                		</StackPanel>
-                	</StackPanel>
 
-                    <c:IconHeaderText HeaderText="faltam" Text ="14 dias" Background="#FF164047" Margin="2,2,2,4">
+                    <c:MultiStatus 	d:DataContext="{StaticResource SampleDataSource2}" 
+                                    DataContext="{Binding Mode=OneTime}" 
+                                    Margin="2,2,2,2"
+                                    HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+
+                    
+                    <c:IconHeaderText HeaderText="faltam" Background="#FF164047" Margin="2,2,2,2">
                         <c:IconHeaderText.Icon>
                             <local:ClockIcon/>
                         </c:IconHeaderText.Icon>
+                        <c:IconHeaderText.MainContent>
+                            <TextBlock Style="{DynamicResource ContentTextStyle}">
+                            	<Run Text="{Binding DaysLeft, Mode=OneTime}"/>
+								<Run Text="dia(s)" />
+							</TextBlock>	
+                        </c:IconHeaderText.MainContent>
                     </c:IconHeaderText>
 
 
