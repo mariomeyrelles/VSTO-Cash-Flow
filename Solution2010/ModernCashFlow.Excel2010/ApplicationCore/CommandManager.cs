@@ -30,7 +30,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             
             foreach (var expense in ExpenseController.CurrentSessionData.Where(e => e.IsTransient))
             {
-                expense.EditStatus = expense.IsValid ? EditStatus.Complete : EditStatus.Incomplete;
+                expense.EditStatus = expense.CanBeUsedInCashFlow ? EditStatus.Complete : EditStatus.Incomplete;
             }
             ExpenseController.RefreshAllLocalData();
         }
@@ -39,7 +39,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         {
             foreach (var income in IncomeController.CurrentSessionData.Where(i => i.IsTransient))
             {
-                income.EditStatus = income.IsValid ? EditStatus.Complete : EditStatus.Incomplete;
+                income.EditStatus = income.CanBeUsedInCashFlow ? EditStatus.Complete : EditStatus.Incomplete;
             }
             ExpenseController.RefreshAllLocalData();
         }

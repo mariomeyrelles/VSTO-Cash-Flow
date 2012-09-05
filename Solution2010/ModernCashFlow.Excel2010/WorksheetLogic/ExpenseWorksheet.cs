@@ -116,14 +116,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 databindingArray[i, Cols[Lang.ActualValue] - 1] = data[i].ActualValue;
                 databindingArray[i, Cols[Lang.TransactionStatusDescription] - 1] = data[i].TransactionStatusDescription;
                 databindingArray[i, Cols[Lang.EditStatus] - 1] = data[i].EditStatus.ToString();
-                databindingArray[i, Cols[Lang.DueDate] - 1] = data[i].DueDate_OA;
-                databindingArray[i, Cols[Lang.IsRecurring] - 1] = data[i].IsRecurring;
-                databindingArray[i, Cols[Lang.MonthlyInterval] - 1] = data[i].MonthlyInterval;
-                databindingArray[i, Cols[Lang.RemainingInstallments] - 1] = data[i].RemainingInstallments;
-                databindingArray[i, Cols[Lang.AccountTransferCode] - 1] = data[i].AccountTransferCode;
                 databindingArray[i, Cols[Lang.CheckNumber] - 1] = data[i].CheckNumber;
-                databindingArray[i, Cols[Lang.SupportsDrillDown] - 1] = data[i].SupportsDrillDown;
-                databindingArray[i, Cols[Lang.TransactionGroup] - 1] = data[i].TransactionGroup.ToString();
                 databindingArray[i, Cols[Lang.TransactionCode] - 1] = data[i].TransactionCode.ToString();
                 databindingArray[i, Cols[Lang.Remarks] - 1] = data[i].Remarks;
                 
@@ -188,14 +181,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             s.ActualValue = RangeUtils.ToDecimal(r.Cells[1, AbsCols[Lang.ActualValue]]);
             s.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(RangeUtils.ToString(r.Cells[1, AbsCols[Lang.TransactionStatusDescription]]));
             s.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(RangeUtils.ToString(r.Cells[1, AbsCols[Lang.EditStatus]]));
-            s.DueDate = RangeUtils.ToDateTime(r.Cells[1, AbsCols[Lang.DueDate]]);
-            s.IsRecurring = RangeUtils.ToBoolean(r.Cells[1, AbsCols[Lang.IsRecurring]]);
-            s.MonthlyInterval = RangeUtils.ToInt(r.Cells[1, AbsCols[Lang.MonthlyInterval]]);
-            s.RemainingInstallments = RangeUtils.ToInt(r.Cells[1, AbsCols[Lang.RemainingInstallments]]);
-            s.AccountTransferCode = RangeUtils.ToString(r.Cells[1, AbsCols[Lang.AccountTransferCode]]);
             s.CheckNumber = RangeUtils.ToString(r.Cells[1, AbsCols[Lang.CheckNumber]]);
-            s.SupportsDrillDown = RangeUtils.ToBoolean(r.Cells[1, AbsCols[Lang.SupportsDrillDown]]);
-            s.TransactionGroup = RangeUtils.ToGuid(r.Cells[1, AbsCols[Lang.TransactionGroup]]);
             s.TransactionCode = RangeUtils.ToGuid(r.Cells[1, AbsCols[Lang.TransactionCode]]) ?? Guid.NewGuid();
             s.Remarks = RangeUtils.ToString(r.Cells[1, AbsCols[Lang.Remarks]]);
         }
@@ -215,14 +201,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             s.ActualValue = Parse.ToDecimal(dados[row, Cols[Lang.ActualValue]]);
             s.TransactionStatus = EnumTools.GetValueFromDescription<TransactionStatus>(Parse.ToString(dados[row, Cols[Lang.TransactionStatusDescription]]));
             s.EditStatus = EnumTools.GetValueFromDescription<EditStatus>(Parse.ToString(dados[row, Cols[Lang.EditStatus]]));
-            s.DueDate = Parse.ToDateTime(dados[row, Cols[Lang.DueDate]]);
-            s.IsRecurring = Parse.ToBoolean(dados[row, Cols[Lang.IsRecurring]]);
-            s.MonthlyInterval = Parse.ToInt(dados[row, Cols[Lang.MonthlyInterval]]);
-            s.RemainingInstallments = Parse.ToInt(dados[row, Cols[Lang.RemainingInstallments]]);
-            s.AccountTransferCode = Parse.ToString(dados[row, Cols[Lang.AccountTransferCode]]);
             s.CheckNumber = Parse.ToString(dados[row, Cols[Lang.CheckNumber]]);
-            s.SupportsDrillDown = Parse.ToBoolean(dados[row, Cols[Lang.SupportsDrillDown]]);
-            s.TransactionGroup = Parse.ToGuid(dados[row, Cols[Lang.TransactionGroup]]);
             s.TransactionCode = Parse.ToGuid(dados[row, Cols[Lang.TransactionCode]]) ?? Guid.NewGuid();
             s.Remarks = Parse.ToString(dados[row, Cols[Lang.Remarks]]);
         }
@@ -243,14 +222,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             r.Cells[1, AbsCols[Lang.ActualValue]].Value2 = s.ActualValue ?? r.Cells[1, AbsCols[Lang.ActualValue]].Value2;
             r.Cells[1, AbsCols[Lang.TransactionStatusDescription]].Value2 = s.TransactionStatusDescription ?? r.Cells[1, AbsCols[Lang.TransactionStatusDescription]].Value2;
             r.Cells[1, AbsCols[Lang.EditStatus]].Value2 = s.EditStatus.ToString();
-            r.Cells[1, AbsCols[Lang.DueDate]].Value2 = s.DueDate ?? r.Cells[1, AbsCols[Lang.DueDate]].Value2;
-            r.Cells[1, AbsCols[Lang.IsRecurring]].Value2 = s.IsRecurring ?? r.Cells[1, AbsCols[Lang.IsRecurring]].Value2;
-            r.Cells[1, AbsCols[Lang.MonthlyInterval]].Value2 = s.MonthlyInterval ?? r.Cells[1, AbsCols[Lang.MonthlyInterval]].Value2;
-            r.Cells[1, AbsCols[Lang.RemainingInstallments]].Value2 = s.RemainingInstallments ?? r.Cells[1, AbsCols[Lang.RemainingInstallments]].Value2;
-            r.Cells[1, AbsCols[Lang.AccountTransferCode]].Value2 = s.AccountTransferCode ?? r.Cells[1, AbsCols[Lang.AccountTransferCode]].Value2;
             r.Cells[1, AbsCols[Lang.CheckNumber]].Value2 = s.CheckNumber ?? r.Cells[1, AbsCols[Lang.CheckNumber]].Value2;
-            r.Cells[1, AbsCols[Lang.SupportsDrillDown]].Value2 = s.SupportsDrillDown ?? r.Cells[1, AbsCols[Lang.SupportsDrillDown]].Value2;
-            r.Cells[1, AbsCols[Lang.TransactionGroup]].Value2 = s.TransactionGroup ?? r.Cells[1, AbsCols[Lang.TransactionGroup]].Value2;
             r.Cells[1, AbsCols[Lang.TransactionCode]].Value2 = s.TransactionCode.ToString();
             r.Cells[1, AbsCols[Lang.Remarks]].Value2 = s.Remarks ?? r.Cells[1, AbsCols[Lang.Remarks]].Value2;
         }
@@ -286,7 +258,9 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                     }
 
 
-                    Guid codLancamento = RangeUtils.ToGuid(targetRange.EntireRow.Cells[1, _parent.AbsCols[Lang.TransactionCode]]);
+                    var columnIndex = _parent.AbsCols[Lang.TransactionCode];
+
+                    Guid codLancamento = RangeUtils.ToGuid(targetRange.EntireRow.Cells[1, columnIndex]);
                     var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
                     _parent.ReadWorksheetRow(targetRange, entity);
 

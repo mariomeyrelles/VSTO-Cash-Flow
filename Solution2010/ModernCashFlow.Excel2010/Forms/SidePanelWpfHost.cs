@@ -27,12 +27,11 @@ namespace ModernCashFlow.Excel2010.Forms
             get { return CurrentControl.DataContext; }
             set
             {
-                if (this.CurrentControl != null)
-                {
-                    CurrentControl.DataContext = value;
-                }
-                else
+                if (this.CurrentControl == null)
                     throw new InvalidOperationException("Can't assign a model to an empty child control.");
+                
+                CurrentControl.DataContext = null;
+                CurrentControl.DataContext = value;
             }
         }
         

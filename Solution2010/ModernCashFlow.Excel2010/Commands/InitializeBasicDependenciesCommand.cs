@@ -5,6 +5,9 @@ using Ninject;
 
 namespace ModernCashFlow.Excel2010.Commands
 {
+    //todo: pass reference via constructor.
+
+
     public class InitializeBasicDependenciesCommand : ICommand
     {
         [Inject]

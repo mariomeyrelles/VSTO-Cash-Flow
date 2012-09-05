@@ -14,7 +14,7 @@ namespace ModernCashFlow.Domain.Services
             var today = DateTime.Now.Today();
 
             var todayPayments = from x in allPayments
-                                where (x.DueDate == today || x.Date == today)
+                                where (x.Date == today)
                                       &&
                                       (x.TransactionStatus == TransactionStatus.Scheduled ||
                                        x.TransactionStatus == TransactionStatus.Pending)
