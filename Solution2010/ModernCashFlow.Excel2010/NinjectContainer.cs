@@ -3,9 +3,11 @@ using System.IO;
 using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Domain.Services;
 using ModernCashFlow.Excel2010.ApplicationCore;
+using ModernCashFlow.Excel2010.ApplicationCore.Factories;
 using ModernCashFlow.Excel2010.Commands;
 using ModernCashFlow.Excel2010.WorksheetLogic;
 using Ninject;
+using Ninject.Extensions.Factory;
 
 namespace ModernCashFlow.Excel2010
 {
@@ -64,26 +66,28 @@ namespace ModernCashFlow.Excel2010
             _kernel.Bind<IncomeWorksheet.Events>().ToSelf().InSingletonScope();
             _kernel.Bind<IncomeWorksheet.ContextMenus>().ToSelf().InSingletonScope();
             _kernel.Bind<AccountWorksheet>().ToSelf().InSingletonScope();
-
-            //the controllers, for instance, maintain state and should be singleton.
+            
+            //the controllers in this case maintain state and should be singleton.
             _kernel.Bind<BaseController<Expense>>().To<ExpenseController>().InSingletonScope();
             _kernel.Bind<BaseController<Income>>().To<IncomeController>().InSingletonScope();
             _kernel.Bind<BaseController<Account>>().To<AccountController>().InSingletonScope();
-
+            
             _kernel.Bind<CommandManager>().ToSelf().InSingletonScope();
+            //singleton commands
+            _kernel.Bind<ConfigureSidePanelCommand>().ToSelf().InSingletonScope();
+            //non-singleton commands
+            _kernel.Bind<ICommand>().To<InitializeBasicBusinessDependenciesCommand>();
+            _kernel.Bind<ICommand>().To<InitializeMainWorksheetsCommand>();
+            _kernel.Bind<ICommand>().To<InitializeBusinessRulesCommand>();
 
-
+            
             //serviços de domínio
             _kernel.Bind<ExpenseStatusService>().ToSelf().InSingletonScope();
 
-            //singleton commands
-            _kernel.Bind<ConfigureSidePanelCommand>().ToSelf().InSingletonScope();
-
-
-            //non-singleton commands
-            _kernel.Bind<ICommand>().To<InitializeBasicDependenciesCommand>();
-            _kernel.Bind<ICommand>().To<InitializeMainWorkooksCommand>();
-            _kernel.Bind<ICommand>().To<InitializeBusinessRulesCommand>();
+           
+            //factories
+            _kernel.Bind<IExpenseWorksheetFactory>().ToFactory();
+            _kernel.Bind<IIncomeWorksheetFactory>().ToFactory();
         }
     }
 }

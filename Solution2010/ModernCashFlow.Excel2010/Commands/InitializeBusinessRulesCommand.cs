@@ -12,15 +12,20 @@ namespace ModernCashFlow.Excel2010.Commands
     public class InitializeBusinessRulesCommand : ICommand
     {
 
+        private readonly BaseController<Expense> _expenseController;
+        private readonly BaseController<Income> _incomeController;
+        private readonly BaseController<Account> _accountController;
+        private readonly ExpenseStatusService _paymentSvc;
 
-        [Inject]
-        public BaseController<Expense> ExpenseController { get; set; }
-
-        [Inject]
-        public BaseController<Income> IncomeController { get; set; }
-
-        [Inject]
-        public BaseController<Account> AccountController { get; set; }
+        public InitializeBusinessRulesCommand(BaseController<Expense> expenseController,
+            BaseController<Income> incomeController, BaseController<Account> accountController,
+            ExpenseStatusService paymentStatusService)
+        {
+            _expenseController = expenseController;
+            _incomeController = incomeController;
+            _accountController = accountController;
+            _paymentSvc = paymentStatusService;
+        }
 
         public void Execute(CommandArgs args)
         {
@@ -32,22 +37,21 @@ namespace ModernCashFlow.Excel2010.Commands
 
         private void LoadAllTransactions()
         {
-            ExpenseController.GetLocalDataAndSyncronizeSession();
-            IncomeController.GetLocalDataAndSyncronizeSession();
+            _expenseController.GetLocalDataAndSyncronizeSession();
+            _incomeController.GetLocalDataAndSyncronizeSession();
         }
 
 
         private void ConvertTodayPaymentsToPending()
         {
-            var paymentSvc = NinjectContainer.Kernel.Get<ExpenseStatusService>();
-            var todayPayments = paymentSvc.GetTodayPayments(ExpenseController.CurrentSessionData).ToList();
+            var todayPayments = _paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
             todayPayments.ForEach(x => x.Expense.TransactionStatus = TransactionStatus.Pending);
         }
 
         private void WriteAllTransactionsToWorsheets()
         {
-            ExpenseController.RefreshAllLocalData();
-            IncomeController.RefreshAllLocalData();
+            _expenseController.RefreshAllLocalData();
+            _incomeController.RefreshAllLocalData();
         }
 
         private void ShowSplashWindow()
@@ -57,10 +61,10 @@ namespace ModernCashFlow.Excel2010.Commands
 
         private void ProcessTodayPayments()
         {
-            var paymentSvc = NinjectContainer.Kernel.Get<ExpenseStatusService>();
-            var todayPayments = paymentSvc.GetTodayPayments(ExpenseController.CurrentSessionData).ToList();
-            var comingPayments = paymentSvc.GetComingPayments(ExpenseController.CurrentSessionData).ToList();
-            var latePayments = paymentSvc.GetLatePayments(ExpenseController.CurrentSessionData).ToList();
+
+            var todayPayments = _paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
+            var comingPayments = _paymentSvc.GetComingPayments(_expenseController.CurrentSessionData).ToList();
+            var latePayments = _paymentSvc.GetLatePayments(_expenseController.CurrentSessionData).ToList();
 
             var form = new FormPendingExpensesViewModel { TodayPayments = todayPayments, ComingPayments = comingPayments, LatePayments = latePayments };
             form.ShowDialog();
@@ -71,7 +75,7 @@ namespace ModernCashFlow.Excel2010.Commands
             processedPayments.AddRange(EditPendingExpenseDto.ToList(form.LatePayments, w => w.IsPaid == true));
             processedPayments.AddRange(EditPendingExpenseDto.ToList(form.ComingPayments, w => w.IsPaid == true));
 
-            ExpenseController.AcceptDataCollection(processedPayments, true);
+            _expenseController.AcceptDataCollection(processedPayments, true);
 
         }
     }

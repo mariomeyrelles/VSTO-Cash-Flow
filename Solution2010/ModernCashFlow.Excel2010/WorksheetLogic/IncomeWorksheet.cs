@@ -1,15 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Office.Core;
 using Microsoft.Office.Tools.Excel;
-using Microsoft.VisualStudio.Tools.Applications.Runtime;
 using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Excel2010.ApplicationCore;
 using ModernCashFlow.Excel2010.Commands;
@@ -17,10 +11,7 @@ using ModernCashFlow.Globalization.Resources;
 using ModernCashFlow.Tools;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
-
-using Ninject;
 using Microsoft.Office.Interop.Excel;
-using ListObject = Microsoft.Office.Tools.Excel.ListObject;
 
 namespace ModernCashFlow.Excel2010.WorksheetLogic
 {
@@ -29,18 +20,23 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         private static BaseController<Income> _controller;
         private static CommandManager _commandManager;
 
-        private BaseController<Account> _accountController;
+        private readonly BaseController<Account> _accountController;
 
-        [Inject]
-        public IncomeWorksheet(CommandManager commandManager, BaseController<Income> controller) : base(Globals.Incomes,Globals.Incomes.tblIncomes)
+       
+        public IncomeWorksheet(CommandManager commandManager, BaseController<Income> controller, BaseController<Account> accountController) : base(Globals.Incomes,Globals.Incomes.tblIncomes)
         {
+
+            if (commandManager == null) throw new ArgumentException("Can't be null", "commandManager");
+            if (commandManager == null) throw new ArgumentException("Can't be null", "controller");
+            if (commandManager == null) throw new ArgumentException("Can't be null", "accountController");
+       
             _commandManager = commandManager;
             _controller = controller;
             _controller.UpdateAllLocalData += OnUpdateAllLocalData;
             _controller.UpdateSingleLocalData += OnUpdateSingleLocalData;
             _controller.RetrieveAllLocalData += OnRetrieveLocalData;
 
-            _accountController = NinjectContainer.Kernel.Get<BaseController<Account>>();
+            _accountController = accountController;
         }
 
         public void Start()
@@ -219,7 +215,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             private Excel.Range _activeRange;
             private readonly IncomeWorksheet _parent;
 
-            [Inject]
+            
             public Events(IncomeWorksheet parent)
             {
                 _parent = parent;
@@ -306,7 +302,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             private Range _activeRange;
             private IncomeWorksheet _parent;
 
-            [Inject]
+            
             public ContextMenus(IncomeWorksheet parent)
             {
                 _parent = parent;

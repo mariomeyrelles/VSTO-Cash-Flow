@@ -6,7 +6,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
     public class CommandHandler
     {
 
-        internal static void Send<T>(Commands.CommandArgs commandArgs) where T : ICommand
+        internal static void Send<T>(CommandArgs commandArgs = null) where T : ICommand
         {
             NinjectContainer.Kernel.Get<T>().Execute(commandArgs);
         }

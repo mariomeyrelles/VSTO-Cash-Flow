@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Excel;
+using ModernCashFlow.Excel2010.ApplicationCore.Factories;
 using ModernCashFlow.Excel2010.WorksheetLogic;
 using Ninject;
 
@@ -7,6 +8,9 @@ namespace ModernCashFlow.Excel2010
 {
     public partial class Incomes
     {
+
+        private IIncomeWorksheetFactory _factory;
+
         private void Incomes_Startup(object sender, System.EventArgs e)
         {
             this.tblIncomes.Change += (this.tblIncomes_Change);
@@ -14,21 +18,23 @@ namespace ModernCashFlow.Excel2010
             this.tblIncomes.SelectionChange += (tblIncomes_SelectionChange);
 
             ThisWorkbook.NotifySheetLoaded(this);
+
+            //todo: review DI process for the factory itself.
+            _factory = NinjectContainer.Kernel.Get<IIncomeWorksheetFactory>();
         }
 
 
         void tblIncomes_SelectionChange(Range target)
         {
-            var eventHandlers = NinjectContainer.Kernel.Get<IncomeWorksheet.Events>();
+            var eventHandlers = _factory.CreateEventHandlers();
             eventHandlers.OnSelectionChange(target);
-
         }
 
         void tblIncomes_BeforeRightClick(Range target, ref bool cancel)
         {
             Application.EnableEvents = false;
 
-            var popup = NinjectContainer.Kernel.Get<IncomeWorksheet.ContextMenus>();
+            var popup = _factory.CreateContextMenu();
             popup.ShowContextMenu(target, ref cancel);
 
             Application.EnableEvents = true;
@@ -40,7 +46,7 @@ namespace ModernCashFlow.Excel2010
             //todo: analisar se é preciso colocar try catch para manter os eventos da app ativos mesmo em caso de erro.
             Application.EnableEvents = false;
 
-            var eventHandlers = NinjectContainer.Kernel.Get<IncomeWorksheet.Events>();
+            var eventHandlers = _factory.CreateEventHandlers();
             eventHandlers.OnChange(target, changedRanges);
 
             Application.EnableEvents = true;

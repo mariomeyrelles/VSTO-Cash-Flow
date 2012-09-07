@@ -17,7 +17,6 @@ using ModernCashFlow.Tools;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 
-using Ninject;
 using Microsoft.Office.Interop.Excel;
 using ListObject = Microsoft.Office.Tools.Excel.ListObject;
 
@@ -28,9 +27,13 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         private static BaseController<Account> _controller;
         private static CommandManager _commandManager;
 
-        [Inject]
+        
         public AccountWorksheet(CommandManager commandManager, BaseController<Account> controller) : base(Globals.Config,Globals.Config.tblAccounts)
         {
+
+            if (commandManager == null) throw new ArgumentException("Can't be null", "commandManager");
+            if (commandManager == null) throw new ArgumentException("Can't be null", "controller");
+       
             _commandManager = commandManager;
             _controller = controller;
             _controller.UpdateAllLocalData += OnUpdateAllLocalData;

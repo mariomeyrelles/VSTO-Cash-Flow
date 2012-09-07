@@ -18,7 +18,6 @@ using ModernCashFlow.Tools;
 using Excel = Microsoft.Office.Interop.Excel;
 using Office = Microsoft.Office.Core;
 
-using Ninject;
 using Microsoft.Office.Interop.Excel;
 using ListObject = Microsoft.Office.Tools.Excel.ListObject;
 
@@ -30,17 +29,21 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
         private static CommandManager _commandManager;
         private BaseController<Account> _accountController;
 
-        [Inject]
-        public ExpenseWorksheet(CommandManager commandManager, BaseController<Expense> controller)
+        public ExpenseWorksheet(CommandManager commandManager, BaseController<Expense> controller, BaseController<Account> accountController)
             : base(Globals.Expenses, Globals.Expenses.tblExpenses)
         {
+
+            if (commandManager == null) throw new ArgumentException("Can't be null", "commandManager");
+            if (commandManager == null) throw new ArgumentException("Can't be null", "controller");
+            if (commandManager == null) throw new ArgumentException("Can't be null", "accountController");
+            
             _commandManager = commandManager;
             _controller = controller;
             _controller.UpdateAllLocalData += OnUpdateAllLocalData;
             _controller.UpdateSingleLocalData += OnUpdateSingleLocalData;
             _controller.RetrieveAllLocalData += OnRetrieveLocalData;
 
-            _accountController = NinjectContainer.Kernel.Get<BaseController<Account>>();
+            _accountController = accountController;
         }
 
         #region Worksheet Startup
@@ -237,7 +240,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             private Excel.Range _activeRange;
             private readonly ExpenseWorksheet _parent;
             
-            [Inject]
+          
             public Events(ExpenseWorksheet parent)
             {
                 _parent = parent;
@@ -328,7 +331,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             private Excel.Range _activeRange;
             private readonly ExpenseWorksheet _parent;
 
-            [Inject]
+           
             public ContextMenus(ExpenseWorksheet parent)
             {
                 _parent = parent;

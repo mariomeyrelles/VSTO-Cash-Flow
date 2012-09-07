@@ -75,7 +75,6 @@ namespace ModernCashFlow.Domain.Entities
         /// Campo opcional que indica o valor pago após juros e/ou descontos.
         /// </summary>
         [LocalizableColumnName]
-        [Ignore("Future Use")]
         public decimal? ActualValue { get; set; }
 
         public abstract decimal Value { get; }

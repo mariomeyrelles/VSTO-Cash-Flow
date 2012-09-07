@@ -52,28 +52,27 @@ namespace ModernCashFlow.Excel2010
             // Create a WPF application 
             _wpfApp = new System.Windows.Application();
 
-            
+
             // Load the ressources
             var resources = System.Windows.Application.LoadComponent(
-                new Uri("ModernCashFlow.WpfControls;component/Resources/CustomResources.xaml", UriKind.RelativeOrAbsolute))
+                new Uri("ModernCashFlow.WpfControls;component/Resources/CustomResources.xaml",
+                        UriKind.RelativeOrAbsolute))
                             as System.Windows.ResourceDictionary;
 
             //// Recursos visuais do Reuxables
-           // //var resource2 = System.Windows.Application.LoadComponent(
-           // //    new Uri("/ReuxablesLegacy;component/edge.xaml", UriKind.RelativeOrAbsolute))
-           // //                as System.Windows.ResourceDictionary;
+            // //var resource2 = System.Windows.Application.LoadComponent(
+            // //    new Uri("/ReuxablesLegacy;component/edge.xaml", UriKind.RelativeOrAbsolute))
+            // //                as System.Windows.ResourceDictionary;
 
             // Merge it on application level
             _wpfApp.Resources.MergedDictionaries.Add(resources);
-           // _wpfApp.Resources.MergedDictionaries.Add(resource2);
+            // _wpfApp.Resources.MergedDictionaries.Add(resource2);
 
 
-           // //dizer ao WPF que é preciso aceitar a linguagem padrão do sistema.
+            // //dizer ao WPF que é preciso aceitar a linguagem padrão do sistema.
             FrameworkElement.LanguageProperty.OverrideMetadata(
-                typeof(FrameworkElement),
-                new FrameworkPropertyMetadata(
-                                            XmlLanguage.GetLanguage(
-                                            CultureInfo.CurrentCulture.IetfLanguageTag)));
+                typeof (FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(
+                    CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             WorksheetsLoaded += ThisWorkbookWorksheetsLoaded;
         }
@@ -88,9 +87,9 @@ namespace ModernCashFlow.Excel2010
 
         private void ThisWorkbookWorksheetsLoaded(object sender, EventArgs e)
         {
-            CommandHandler.Send<InitializeBasicDependenciesCommand>(new CommandArgs());
-            CommandHandler.Send<InitializeMainWorkooksCommand>(new CommandArgs());
-            CommandHandler.Send<InitializeBusinessRulesCommand>(new CommandArgs());
+            CommandHandler.Send<InitializeBasicBusinessDependenciesCommand>();
+            CommandHandler.Send<InitializeMainWorksheetsCommand>();
+            CommandHandler.Send<InitializeBusinessRulesCommand>();
             CommandHandler.Send<ConfigureSidePanelCommand>(new SidePanelCommandArgs {WpfControl = new ExpenseSidePanel()});
         }
 

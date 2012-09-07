@@ -21,7 +21,5 @@ namespace ModernCashFlow.Domain.Entities
         /// </summary>
         Complete,
 
-
-        //todo: maybe it's necessary to create a "partially complete" status
     }
 }

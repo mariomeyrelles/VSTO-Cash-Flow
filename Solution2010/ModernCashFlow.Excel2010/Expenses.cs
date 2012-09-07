@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Tools.Excel;
+using ModernCashFlow.Excel2010.ApplicationCore.Factories;
 using ModernCashFlow.Excel2010.WorksheetLogic;
 using Ninject;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -8,48 +9,49 @@ namespace ModernCashFlow.Excel2010
 {
     public partial class Expenses
     {
-        private ExpenseWorksheet _wksHelper;
+        
+        private IExpenseWorksheetFactory _factory;
 
-        private void Expenses_Startup(object sender, System.EventArgs e)
+
+        
+        private void ExpensesStartup(object sender, System.EventArgs e)
         {
-            this.tblExpenses.Change += Expenses_Change;
-            this.tblExpenses.BeforeRightClick += Expenses_BeforeRightClick;
-            this.tblExpenses.SelectionChange += Expenses_SelectionChange;
-            this.ActivateEvent += Expenses_ActivateEvent;
+            this.tblExpenses.Change += ExpensesChange;
+            this.tblExpenses.BeforeRightClick += ExpensesBeforeRightClick;
+            this.tblExpenses.SelectionChange += ExpensesSelectionChange;
           
+            
             ThisWorkbook.NotifySheetLoaded(this);
+
+            //todo: review DI process for the factory itself.
+            _factory = NinjectContainer.Kernel.Get<IExpenseWorksheetFactory>();
         }
 
-        void Expenses_SelectionChange(Excel.Range target)
+        void ExpensesSelectionChange(Excel.Range target)
         {
-            var eventHandlers = NinjectContainer.Kernel.Get<ExpenseWorksheet.Events>();
+            var eventHandlers = _factory.CreateEventHandlers();
             eventHandlers.OnSelectionChange(target);
         }
 
-        void Expenses_BeforeRightClick(Excel.Range target, ref bool cancel)
+        void ExpensesBeforeRightClick(Excel.Range target, ref bool cancel)
         {
             Application.EnableEvents = false;
 
-            var popup = NinjectContainer.Kernel.Get<ExpenseWorksheet.ContextMenus>();
+            var popup = _factory.CreateContextMenu();
             popup.ShowContextMenu(target, ref cancel);
 
             Application.EnableEvents = true;
         }
 
-        private void Expenses_Change(Excel.Range target, ListRanges changedRanges)
+        private void ExpensesChange(Excel.Range target, ListRanges changedRanges)
         {
             //todo: analisar se é preciso colocar try catch para manter os eventos da app ativos mesmo em caso de erro.
             Application.EnableEvents = false;
 
-            var eventHandlers = NinjectContainer.Kernel.Get<ExpenseWorksheet.Events>();
+            var eventHandlers = _factory.CreateEventHandlers();
             eventHandlers.OnChange(target, changedRanges);
 
             Application.EnableEvents = true;
-        }
-
-        private void Expenses_ActivateEvent()
-        {
-          
         }
 
         private void Expenses_Shutdown(object sender, System.EventArgs e)
@@ -64,7 +66,7 @@ namespace ModernCashFlow.Excel2010
         /// </summary>
         private void InternalStartup()
         {
-            this.Startup += Expenses_Startup;
+            this.Startup += ExpensesStartup;
             this.Shutdown += Expenses_Shutdown;
             
         }
@@ -72,5 +74,6 @@ namespace ModernCashFlow.Excel2010
         
         #endregion
 
+      
     }
 }

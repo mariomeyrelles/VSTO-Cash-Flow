@@ -5,18 +5,26 @@ using Ninject;
 
 namespace ModernCashFlow.Excel2010.Commands
 {
-    //todo: pass reference via constructor.
-
-
-    public class InitializeBasicDependenciesCommand : ICommand
+    /// <summary>
+    /// Responsible to read the configuration stored in configuration worksheets. With this data,
+    /// the main application build validation lists, environment configuration and so on.
+    /// </summary>
+    public class InitializeBasicBusinessDependenciesCommand : ICommand
     {
-        [Inject]
-        public BaseController<Account> AccountController { get; set; }
+        private readonly BaseController<Account> _accountController;
+        private readonly AccountWorksheet _accountWorksheet;
+
+
+        public InitializeBasicBusinessDependenciesCommand(AccountWorksheet accountWorksheet, BaseController<Account> accountController)
+        {
+            _accountWorksheet = accountWorksheet;
+            _accountController = accountController;
+        }
 
         public void Execute(CommandArgs args)
         {
-            NinjectContainer.Kernel.Get<AccountWorksheet>().Start();
-            AccountController.GetLocalDataAndSyncronizeSession();
+            _accountWorksheet.Start();
+            _accountController.GetLocalDataAndSyncronizeSession();
         }
     }
 }

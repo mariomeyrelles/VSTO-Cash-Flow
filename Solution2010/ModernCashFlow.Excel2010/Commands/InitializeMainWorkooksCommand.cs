@@ -5,16 +5,26 @@ using Ninject;
 
 namespace ModernCashFlow.Excel2010.Commands
 {
-    public class InitializeMainWorkooksCommand : ICommand
+
+    /// <summary>
+    /// Responsible to initalize the main worksheets after their dependencies initialization.
+    /// </summary>
+    public class InitializeMainWorksheetsCommand : ICommand
     {
-        [Inject]
-        public BaseController<Account> AccountController { get; set; }
+        private readonly IncomeWorksheet _incomeWorksheet;
+        private readonly ExpenseWorksheet _expenseWorksheet;
+
+        public InitializeMainWorksheetsCommand(IncomeWorksheet incomeWorksheet, ExpenseWorksheet expenseWorksheet)
+        {
+            _expenseWorksheet = expenseWorksheet;
+            _incomeWorksheet = incomeWorksheet;
+        }
 
         public void Execute(CommandArgs args)
         {
             //initalize other worksheet helpers
-            NinjectContainer.Kernel.Get<IncomeWorksheet>().Start();
-            NinjectContainer.Kernel.Get<ExpenseWorksheet>().Start();
+            _incomeWorksheet.Start();
+            _expenseWorksheet.Start();
         }
     }
 
