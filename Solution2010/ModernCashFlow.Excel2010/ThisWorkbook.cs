@@ -33,22 +33,32 @@ namespace ModernCashFlow.Excel2010
 
         private void ThisWorkbookStartup(object sender, System.EventArgs e)
         {
+            //all initialization code should be placed here.
             _sheeetCount = this.Sheets.Count;
-            var kernel = NinjectContainer.Kernel;
-            if (kernel == null)
-            {
-                throw new ApplicationException(Lang.Failed_to_load_Ninject);
-            }
 
-            //todo: verificar como setar a culture de forma mais legal.
+            //set culture.
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("pt-br");
 
             //impedir usuário de arrastar células 
             ThisApplication.CellDragAndDrop = false;
-            //Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
 
-            //iniciando WPF para conseguir expor recursos para os user controls acessarem.
+            //Start WPF in another thread.
+            var wpfInit = new System.Action(InitializeWpfEngine);
 
+            wpfInit.BeginInvoke(null, null);
+
+
+            WorksheetsLoaded += ThisWorkbookWorksheetsLoaded;
+        }
+
+        private static void StartNinject()
+        {
+            //call ninject the first time.
+            var kernel = NinjectContainer.Kernel;
+        }
+
+        private void InitializeWpfEngine()
+        {
             // Create a WPF application 
             _wpfApp = new System.Windows.Application();
 
@@ -71,10 +81,8 @@ namespace ModernCashFlow.Excel2010
 
             // //dizer ao WPF que é preciso aceitar a linguagem padrão do sistema.
             FrameworkElement.LanguageProperty.OverrideMetadata(
-                typeof (FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(
+                typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(
                     CultureInfo.CurrentCulture.IetfLanguageTag)));
-
-            WorksheetsLoaded += ThisWorkbookWorksheetsLoaded;
         }
 
         private static void OnWorksheetsLoaded()
@@ -89,8 +97,8 @@ namespace ModernCashFlow.Excel2010
         {
             CommandHandler.Send<InitializeBasicBusinessDependenciesCommand>();
             CommandHandler.Send<InitializeMainWorksheetsCommand>();
-            CommandHandler.Send<InitializeBusinessRulesCommand>();
-            CommandHandler.Send<ConfigureSidePanelCommand>(new SidePanelCommandArgs {WpfControl = new ExpenseSidePanel()});
+            CommandHandler.SendAsync<InitializeBusinessRulesCommand>();
+            CommandHandler.Send<ConfigureSidePanelCommand>(new SidePanelCommandArgs { WpfControl = new ExpenseSidePanel() });
         }
 
 
@@ -104,12 +112,12 @@ namespace ModernCashFlow.Excel2010
         {
             //todo: rever processos do before save.
             var eventHandlers = NinjectContainer.Kernel.Get<ExpenseWorksheet.Events>();
-            eventHandlers.BeforeSave(saveAsUi,ref cancel);
+            eventHandlers.BeforeSave(saveAsUi, ref cancel);
         }
 
         private void ThisWorkbookBeforeClose(ref bool cancel)
         {
-              ThisApplication.CellDragAndDrop = true;
+            ThisApplication.CellDragAndDrop = true;
         }
 
 
@@ -142,7 +150,7 @@ namespace ModernCashFlow.Excel2010
 
         }
 
-       
+
         #endregion
 
     }

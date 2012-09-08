@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Domain.Services;
@@ -19,6 +20,8 @@ namespace ModernCashFlow.Excel2010
     {
         private static IKernel _kernel;
 
+        public static object SyncLock = new object();
+
         /// <summary>
         /// O kernel é o container de injeção de dependência usado para simplicar a construção dos objetos neste projeto.
         /// </summary>
@@ -28,7 +31,11 @@ namespace ModernCashFlow.Excel2010
             {
                 if (_kernel == null)
                 {
-                    Start();
+                    lock (SyncLock)
+                    {
+                        Start();
+                    }
+
                 }
                 return _kernel;
             }
@@ -36,13 +43,13 @@ namespace ModernCashFlow.Excel2010
 
 
         /// <summary>
-        /// Configura a injeção de dependência para este projeto.
+        /// Configures the Dependency Injection bindings for the project.
         /// </summary>
         private static void Start()
         {
             #region After deploy code
 
-////ler o arquivo de configuração em busca do endereço do modelo de dados e conexão com o banco.
+            ////ler o arquivo de configuração em busca do endereço do modelo de dados e conexão com o banco.
             //var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App.Config");
 
             ////ler o xml do app.config e colocá-lo em um XElement.
@@ -54,40 +61,46 @@ namespace ModernCashFlow.Excel2010
 
             #endregion
 
-
             //cria uma instância do kernel do Ninject.
-            _kernel = new StandardKernel();
-
+            var kernel = new StandardKernel();
+            Debug.WriteLine("start ninject");
             //worksheet related stuff - seems to be ok to be singleton
-            _kernel.Bind<ExpenseWorksheet>().ToSelf().InSingletonScope();
-            _kernel.Bind<ExpenseWorksheet.Events>().ToSelf().InSingletonScope();
-            _kernel.Bind<ExpenseWorksheet.ContextMenus>().ToSelf().InSingletonScope();
-            _kernel.Bind<IncomeWorksheet>().ToSelf().InSingletonScope();
-            _kernel.Bind<IncomeWorksheet.Events>().ToSelf().InSingletonScope();
-            _kernel.Bind<IncomeWorksheet.ContextMenus>().ToSelf().InSingletonScope();
-            _kernel.Bind<AccountWorksheet>().ToSelf().InSingletonScope();
-            
+            kernel.Bind<ExpenseWorksheet>().ToSelf().InSingletonScope();
+            kernel.Bind<ExpenseWorksheet.Events>().ToSelf().InSingletonScope();
+            kernel.Bind<ExpenseWorksheet.ContextMenus>().ToSelf().InSingletonScope();
+            kernel.Bind<IncomeWorksheet>().ToSelf().InSingletonScope();
+            kernel.Bind<IncomeWorksheet.Events>().ToSelf().InSingletonScope();
+            kernel.Bind<IncomeWorksheet.ContextMenus>().ToSelf().InSingletonScope();
+            kernel.Bind<AccountWorksheet>().ToSelf().InSingletonScope();
+
             //the controllers in this case maintain state and should be singleton.
-            _kernel.Bind<BaseController<Expense>>().To<ExpenseController>().InSingletonScope();
-            _kernel.Bind<BaseController<Income>>().To<IncomeController>().InSingletonScope();
-            _kernel.Bind<BaseController<Account>>().To<AccountController>().InSingletonScope();
-            
-            _kernel.Bind<CommandManager>().ToSelf().InSingletonScope();
+            kernel.Bind<BaseController<Expense>>().To<ExpenseController>().InSingletonScope();
+            kernel.Bind<BaseController<Income>>().To<IncomeController>().InSingletonScope();
+            kernel.Bind<BaseController<Account>>().To<AccountController>().InSingletonScope();
+
+            kernel.Bind<CommandManager>().ToSelf().InSingletonScope();
             //singleton commands
-            _kernel.Bind<ConfigureSidePanelCommand>().ToSelf().InSingletonScope();
+            kernel.Bind<ConfigureSidePanelCommand>().ToSelf().InSingletonScope();
             //non-singleton commands
-            _kernel.Bind<ICommand>().To<InitializeBasicBusinessDependenciesCommand>();
-            _kernel.Bind<ICommand>().To<InitializeMainWorksheetsCommand>();
-            _kernel.Bind<ICommand>().To<InitializeBusinessRulesCommand>();
+            kernel.Bind<ICommand>().To<InitializeBasicBusinessDependenciesCommand>();
+            kernel.Bind<ICommand>().To<InitializeMainWorksheetsCommand>();
+            kernel.Bind<ICommand>().To<InitializeBusinessRulesCommand>();
 
-            
+
             //serviços de domínio
-            _kernel.Bind<ExpenseStatusService>().ToSelf().InSingletonScope();
+            kernel.Bind<ExpenseStatusService>().ToSelf().InSingletonScope();
 
-           
+
             //factories
-            _kernel.Bind<IExpenseWorksheetFactory>().ToFactory();
-            _kernel.Bind<IIncomeWorksheetFactory>().ToFactory();
+            kernel.Bind<IExpenseWorksheetFactory>().ToFactory();
+            kernel.Bind<IIncomeWorksheetFactory>().ToFactory();
+
+            _kernel = kernel;
+        }
+
+        private static void OnAsyncCallback(IAsyncResult ar)
+        {
+            _kernel = ar.AsyncState as IKernel;
         }
     }
 }
