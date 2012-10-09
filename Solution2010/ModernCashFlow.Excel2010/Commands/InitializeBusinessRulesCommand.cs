@@ -32,7 +32,7 @@ namespace ModernCashFlow.Excel2010.Commands
             LoadAllTransactions();
             //ConvertTodayPaymentsToPending();
             //WriteAllTransactionsToWorsheets();
-            //ShowSplashWindow();
+            ShowSplashWindow();
         }
 
         private void LoadAllTransactions()

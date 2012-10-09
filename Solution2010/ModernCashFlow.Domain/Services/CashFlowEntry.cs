@@ -23,15 +23,14 @@ namespace ModernCashFlow.Domain.Services
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            if (obj.GetType() != typeof (CashFlowEntry)) return false;
-            return Equals((CashFlowEntry) obj);
+            return obj is CashFlowEntry && Equals((CashFlowEntry) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                int result = AccountId;
+                var result = AccountId;
                 result = (result*397) ^ Value.GetHashCode();
                 result = (result*397) ^ Date.GetHashCode();
                 return result;

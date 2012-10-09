@@ -97,7 +97,7 @@ namespace ModernCashFlow.Excel2010
         {
             CommandHandler.Send<InitializeBasicBusinessDependenciesCommand>();
             CommandHandler.Send<InitializeMainWorksheetsCommand>();
-            CommandHandler.SendAsync<InitializeBusinessRulesCommand>();
+            CommandHandler.Send<InitializeBusinessRulesCommand>();
             CommandHandler.Send<ConfigureSidePanelCommand>(new SidePanelCommandArgs { WpfControl = new ExpenseSidePanel() });
         }
 
