@@ -35,7 +35,6 @@ namespace ModernCashFlow.Excel2010
                     {
                         Start();
                     }
-
                 }
                 return _kernel;
             }
