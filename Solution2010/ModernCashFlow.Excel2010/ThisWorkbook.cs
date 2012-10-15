@@ -51,12 +51,6 @@ namespace ModernCashFlow.Excel2010
             WorksheetsLoaded += ThisWorkbookWorksheetsLoaded;
         }
 
-        private static void StartNinject()
-        {
-            //call ninject the first time.
-            var kernel = NinjectContainer.Kernel;
-        }
-
         private void InitializeWpfEngine()
         {
             // Create a WPF application 

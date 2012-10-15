@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource" 
              xmlns:local="clr-namespace:ModernCashFlow.WpfControls" 
              xmlns:c="clr-namespace:ModernCashFlow.WpfControls.Controls" 
@@ -19,16 +20,19 @@
         		<ColumnDefinition />
         	</Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" x:Name="Header" />
-                <RowDefinition Height="*" x:Name="MainContent" />
+                
+                
             </Grid.RowDefinitions>
             <!--Montagem do cabeçalho-->
-            <Canvas Background="#FFE97F12">
-                <TextBlock Text="Saídas" Foreground="Black" HorizontalAlignment="Center" FontSize="32" FontFamily="Segoe UI Semibold" FontWeight="Bold" Canvas.Left="47" Canvas.Top="7.389" VerticalAlignment="Center" />
-                <XamlIcons:DownArrow Canvas.Left="8" Canvas.Top="14" ></XamlIcons:DownArrow>
-            </Canvas>
-
-            <!--Montagem do painel de informações sobre a saída.-->
+			
+			<telerik:RadTabControl x:Name="tabSidePanel">
+				<telerik:RadTabItem Height="26" HorizontalAlignment="Left" x:Name="tabDetails" VerticalAlignment="Top">
+					<telerik:RadTabItem.Header>
+						<StackPanel Orientation="Horizontal">
+							<Image Height="20" Source="Images/down_circular.png" Stretch="Uniform" Width="26"/>
+						</StackPanel>
+					</telerik:RadTabItem.Header>
+					<!--Montagem do painel de informações sobre a saída.-->
             <StackPanel Grid.Row="1" Margin="5">
                 <WrapPanel x:Name="valorData" >
 
@@ -72,6 +76,11 @@
 
 
             </StackPanel>
+				</telerik:RadTabItem>
+			</telerik:RadTabControl>
+			
+           
+            
 
         </Grid>
 
