@@ -30,8 +30,8 @@ namespace ModernCashFlow.Excel2010.Commands
         public void Execute(CommandArgs args)
         {
             LoadAllTransactions();
-            //ConvertTodayPaymentsToPending();
-            //WriteAllTransactionsToWorsheets();
+            ConvertTodayPaymentsToPending();
+            WriteAllTransactionsToWorsheets();
             ShowSplashWindow();
         }
 
@@ -45,7 +45,7 @@ namespace ModernCashFlow.Excel2010.Commands
         private void ConvertTodayPaymentsToPending()
         {
             var todayPayments = _paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
-            todayPayments.ForEach(x => x.Expense.TransactionStatus = TransactionStatus.Pending);
+            todayPayments.ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.Pending);
         }
 
         private void WriteAllTransactionsToWorsheets()
@@ -66,16 +66,19 @@ namespace ModernCashFlow.Excel2010.Commands
             var comingPayments = _paymentSvc.GetComingPayments(_expenseController.CurrentSessionData).ToList();
             var latePayments = _paymentSvc.GetLatePayments(_expenseController.CurrentSessionData).ToList();
 
-            var form = new FormPendingExpensesViewModel { TodayPayments = todayPayments, ComingPayments = comingPayments, LatePayments = latePayments };
+            var form = new FormPendingExpensesViewModel(todayPayments) { ComingPayments = comingPayments, LatePayments = latePayments };
             form.ShowDialog();
 
             //when the form is closed, read the modified data and notify the worksheet.
-            var processedPayments = new List<Expense>();
-            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.TodayPayments, w => w.IsPaid == true));
-            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.LatePayments, w => w.IsPaid == true));
-            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.ComingPayments, w => w.IsPaid == true));
+            var processedPayments = new List<BaseTransaction>();
+            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.TodayPayments, w => w.IsOk == true));
+            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.LatePayments, w => w.IsOk == true));
+            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.ComingPayments, w => w.IsOk == true));
 
-            _expenseController.AcceptDataCollection(processedPayments, true);
+            //todo: input of incomes and expenses
+
+            var processedExpenses = processedPayments.OfType<Expense>();
+            _expenseController.AcceptDataCollection(processedExpenses, true);
 
         }
     }

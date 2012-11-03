@@ -6,14 +6,8 @@ namespace ModernCashFlow.Tools
 {
     public class RelayCommand : ICommand
     {
-        #region Fields
-
         readonly Action<object> _execute;
         readonly Predicate<object> _canExecute;
-
-        #endregion // Fields
-
-        #region Constructors
 
         public RelayCommand(Action<object> execute)
             : this(execute, null)
@@ -28,14 +22,11 @@ namespace ModernCashFlow.Tools
             _execute = execute;
             _canExecute = canExecute;
         }
-        #endregion // Constructors
-
-        #region ICommand Members
 
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public event EventHandler CanExecuteChanged
@@ -48,8 +39,6 @@ namespace ModernCashFlow.Tools
         {
             _execute(parameter);
         }
-
-        #endregion // ICommand Members
     }
 
 }

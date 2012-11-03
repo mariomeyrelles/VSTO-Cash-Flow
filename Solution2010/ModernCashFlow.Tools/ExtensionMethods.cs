@@ -73,6 +73,14 @@ namespace ModernCashFlow.Tools
         }
     }
 
+    public static class CoreTypesExtensions
+    {
+        public static bool Invert(this bool value)
+        {
+            return !value;
+        }
+    }
+
     public static class EnumTools
     {
         public static string GetDescription(this Enum value)

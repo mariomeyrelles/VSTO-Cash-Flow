@@ -35,23 +35,32 @@ namespace ModernCashFlow.Excel2010
 
         void ExpensesBeforeRightClick(Excel.Range target, ref bool cancel)
         {
-            Application.EnableEvents = false;
+            try
+            {
+                Application.EnableEvents = false;
 
-            var popup = _factory.CreateContextMenu();
-            popup.ShowContextMenu(target, ref cancel);
-
-            Application.EnableEvents = true;
+                var popup = _factory.CreateContextMenu();
+                popup.ShowContextMenu(target, ref cancel);
+            }
+            finally
+            {
+                Application.EnableEvents = true;
+            }
         }
 
         private void ExpensesChange(Excel.Range target, ListRanges changedRanges)
         {
-            //todo: analisar se é preciso colocar try catch para manter os eventos da app ativos mesmo em caso de erro.
-            Application.EnableEvents = false;
+            try
+            {
+                Application.EnableEvents = false;
 
-            var eventHandlers = _factory.CreateEventHandlers();
-            eventHandlers.OnChange(target, changedRanges);
-
-            Application.EnableEvents = true;
+                var eventHandlers = _factory.CreateEventHandlers();
+                eventHandlers.OnChange(target, changedRanges);
+            }
+            finally
+            {
+                Application.EnableEvents = true;
+            }
         }
 
         private void Expenses_Shutdown(object sender, System.EventArgs e)

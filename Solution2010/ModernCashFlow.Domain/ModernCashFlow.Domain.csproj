@@ -49,6 +49,7 @@
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\BaseTransaction.cs" />
     <Compile Include="Entities\BaseTransaction.futureUse.cs" />
+    <Compile Include="Entities\BlendSampleData\ExpenseCollection.cs" />
     <Compile Include="Entities\IgnoreAttribute.cs" />
     <Compile Include="Entities\IMoneyTransaction.cs" />
     <Compile Include="Entities\Income.cs" />

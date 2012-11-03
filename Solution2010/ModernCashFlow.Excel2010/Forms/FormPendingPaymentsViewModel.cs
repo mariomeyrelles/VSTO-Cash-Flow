@@ -16,11 +16,25 @@ namespace ModernCashFlow.Excel2010.Forms
     /// </summary>
     public partial class FormPendingExpensesViewModel : Form
     {
-        public FormPendingExpensesViewModel()
+        public FormPendingExpensesViewModel(List<EditPendingExpenseDto> todayPayments)
         {
             InitializeComponent();
+            this.TodayPayments = todayPayments;
             this.pendingPayments1.ModelData = this;
             this.SaveAndCloseCommand = new RelayCommand(param => this.Save(), param=>this.CanSave());
+            this.MarkPaymentAsOkCommand = new RelayCommand(this.MarkPaymentAsOk, param => this.CanMarkPaymentAsOk());
+        }
+
+        private bool CanMarkPaymentAsOk()
+        {
+            return true;
+        }
+
+        private void MarkPaymentAsOk(object state)
+        {
+            var transactionCode = (Guid) state;
+            TodayPayments.Single(x => x.Transaction.TransactionCode == transactionCode).IsOk =
+                !TodayPayments.Single(x => x.Transaction.TransactionCode == transactionCode).IsOk;
         }
 
         private bool CanSave()
@@ -31,19 +45,22 @@ namespace ModernCashFlow.Excel2010.Forms
 
         private void Save()
         {
-            //atualizar os valores para ok.
-            TodayPayments.Where(x => x.IsPaid).ToList().ForEach(x => x.Expense.TransactionStatus = TransactionStatus.OK);
-            TodayPayments.Where(x => !x.IsPaid).ToList().ForEach(x => x.Expense.TransactionStatus = TransactionStatus.Pending);
-
-            ComingPayments.Where(x => x.IsPaid).ToList().ForEach(x => x.Expense.TransactionStatus = TransactionStatus.OK);
-            ComingPayments.Where(x => !x.IsPaid).ToList().ForEach(x => x.Expense.TransactionStatus = TransactionStatus.Scheduled);
+            foreach (var payment in TodayPayments)
+            {
+                payment.Transaction.TransactionStatus = payment.IsOk ? TransactionStatus.OK : TransactionStatus.Pending;
+            }
 
 
-            LatePayments.Where(x => x.IsPaid).ToList().ForEach(x => x.Expense.TransactionStatus = TransactionStatus.OK);
-            LatePayments.Where(x => !x.IsPaid).ToList().ForEach(x => x.Expense.TransactionStatus = TransactionStatus.Pending);
+            //ComingPayments.Where(x => x.IsOk).ToList().ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.OK);
+            //ComingPayments.Where(x => !x.IsOk).ToList().ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.Scheduled);
+
+
+            //LatePayments.Where(x => x.IsOk).ToList().ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.OK);
+            //LatePayments.Where(x => !x.IsOk).ToList().ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.Pending);
 
             this.Close();
         }
+
 
 
 
@@ -55,6 +72,7 @@ namespace ModernCashFlow.Excel2010.Forms
 
 
         public RelayCommand SaveAndCloseCommand { get; private set; }
+        public RelayCommand MarkPaymentAsOkCommand { get; private set; }
 
     }
 }

@@ -132,11 +132,11 @@
     <Compile Include="SampleData\SampleDataSource2\SampleDataSource2.xaml.cs">
       <DependentUpon>SampleDataSource2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SampleData\SampleDataSource3\SampleDataSource3.xaml.cs">
-      <DependentUpon>SampleDataSource3.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs">
       <DependentUpon>SampleDataSource.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SampleData\SampleDataSource_PendingTransactions\SampleDataSource_PendingTransactions.xaml.cs">
+      <DependentUpon>SampleDataSource_PendingTransactions.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
@@ -225,7 +225,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SampleData\SampleDataSource3\SampleDataSource3.xaml">
+    <Page Include="SampleData\SampleDataSource_PendingTransactions\SampleDataSource_PendingTransactions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -265,7 +265,7 @@
     <DesignTimeOnly Include="SampleData\SampleDataSource\SampleDataSource.xsd" />
     <DesignTimeOnly Include="SampleData\SampleDataSource1\SampleDataSource1.xsd" />
     <DesignTimeOnly Include="SampleData\SampleDataSource2\SampleDataSource2.xsd" />
-    <DesignTimeOnly Include="SampleData\SampleDataSource3\SampleDataSource3.xsd" />
+    <DesignTimeOnly Include="SampleData\SampleDataSource_PendingTransactions\SampleDataSource_PendingTransactions.xsd" />
   </ItemGroup>
   <ItemGroup>
     <BlendEmbeddedFont Include="Fonts\seguisym.ttf">

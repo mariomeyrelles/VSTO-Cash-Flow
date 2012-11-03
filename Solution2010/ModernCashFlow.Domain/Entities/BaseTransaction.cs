@@ -79,6 +79,8 @@ namespace ModernCashFlow.Domain.Entities
 
         public abstract decimal Value { get; }
 
+        public decimal AbsoluteValue {get { return Math.Abs(Value); }}
+
         /// <summary>
         /// Campo obrigatório que indica o ID da conta que deverá a ser debitada este valor. Pode ser opcional caso só se tenha uma 
         /// única conta.

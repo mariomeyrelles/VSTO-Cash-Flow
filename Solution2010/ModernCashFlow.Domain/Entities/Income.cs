@@ -23,10 +23,10 @@ namespace ModernCashFlow.Domain.Entities
         {
             get
             {
-                //if (this.ActualValue.HasValue)
-                //{
-                //    return this.ActualValue.Value;
-                //}
+                if (this.ActualValue.HasValue)
+                {
+                    return this.ActualValue.Value;
+                }
                 return this.ExpectedValue ?? 0.0m;
             }
         }

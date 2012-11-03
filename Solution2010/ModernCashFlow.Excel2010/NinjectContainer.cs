@@ -62,7 +62,7 @@ namespace ModernCashFlow.Excel2010
 
             //cria uma instância do kernel do Ninject.
             var kernel = new StandardKernel();
-            Debug.WriteLine("start ninject");
+           
             //worksheet related stuff - seems to be ok to be singleton
             kernel.Bind<ExpenseWorksheet>().ToSelf().InSingletonScope();
             kernel.Bind<ExpenseWorksheet.Events>().ToSelf().InSingletonScope();

@@ -27,8 +27,6 @@ namespace ModernCashFlow.WpfControls
         public PendingPayments()
         {
             InitializeComponent();
-
-           
         }
 
         public dynamic ModelData
@@ -36,7 +34,7 @@ namespace ModernCashFlow.WpfControls
             set
             {
                 this.DataContext = value;
-                this.gridPendingPayments.ItemsSource = value.LatePayments;
+                //this.gridTodayPayments.ItemsSource = value.TodayPayments;
             }
             get
             {
@@ -44,27 +42,6 @@ namespace ModernCashFlow.WpfControls
             }
         }
 
-
-
-        private void DataGridCell_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DataGridCell cell = sender as DataGridCell;
-
-            if (!cell.IsEditing)
-            {
-                // enables editing on single click
-
-                if (!cell.IsFocused)
-
-                    cell.Focus();
-
-                if (!cell.IsSelected)
-
-                    cell.IsSelected = true;
-
-            }
-        }
-
-        
+       
     }
 }

@@ -10,16 +10,16 @@ namespace ModernCashFlow.Domain.Dtos
     /// </summary>
     public class EditPendingExpenseDto
     {
-        public EditPendingExpenseDto( Expense s)
+        public EditPendingExpenseDto( BaseTransaction transaction)
         {
-            Expense = s;
+            Transaction = transaction;
         }
-        public Expense Expense { get; set; }
-        public bool IsPaid { get; set; }
+        public BaseTransaction Transaction { get; set; }
+        public bool IsOk { get; set; }
 
-        public static List<Expense> ToList(IEnumerable<EditPendingExpenseDto> entities, Func<EditPendingExpenseDto,bool> where)
+        public static List<BaseTransaction> ToList(IEnumerable<EditPendingExpenseDto> entities, Func<EditPendingExpenseDto,bool> where)
         {
-            return entities.Where(where).Select(x=>x.Expense).ToList();
+            return entities.Where(where).Select(x=>x.Transaction).ToList();
         }
     }
 }

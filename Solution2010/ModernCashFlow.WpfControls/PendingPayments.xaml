@@ -5,76 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
              xmlns:Util="clr-namespace:ModernCashFlow.WpfControls.Util" 
-             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource3" x:Class="ModernCashFlow.WpfControls.PendingPayments" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
+            x:Class="ModernCashFlow.WpfControls.PendingPayments" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="600"
-    d:DataContext="{Binding Source={StaticResource SampleDataSource3}}"
-    DataContext="{Binding}">
+            Name="root" DataContext="{Binding}" d:DataContext="{Binding Source={StaticResource SampleDataSource_PendingTransactions}}">
 
-	<UserControl.Resources>
-		<SampleData:SampleDataSource3 x:Key="SampleDataSource3" d:IsDataSource="True"/>
-	</UserControl.Resources>
+    <Grid Background="White"    >
 
-    <Grid Background="White" >
-
-        <Grid Margin="10,10,10,10">
-            <Grid.RowDefinitions>
-            	<RowDefinition Height="52*" x:Name="Header" />
-            	<RowDefinition Height="456*" x:Name="Body" />
-            	<RowDefinition Height="52*" x:Name="Footer" />
-            </Grid.RowDefinitions>
-            <!--Montagem do cabeçalho-->
-            <StackPanel>
-                <TextBlock Margin="0,10,0,0" Text="Pagamentos Pendentes" FontWeight="Bold" Foreground="#FF7A7A7A" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="18" />
-                <Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,10 0,15" />
-            </StackPanel>
-            <!--Montagem do conteúdo principal da janela.-->
-            <ScrollViewer Grid.Row="1" >
-
-                <telerik:RadTabControl x:Name="radTabControl1" Grid.Row="1" >
-                <telerik:RadTabItem Header="Hoje" Height="25" HorizontalAlignment="Left" x:Name="tabToday" VerticalAlignment="Top">
-                    <StackPanel>
-                    <TextBlock Margin="0,10,0,0" Text="Vencimentos em atraso:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
-                    <Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
-               
-                    	<telerik:RadGridView Name="gridPendingPayments" ShowGroupPanel="False" AutoGenerateColumns="False" RowIndicatorVisibility="Collapsed"  
-						d:ItemsSource="{Binding Collection, FallbackValue=-}" >
-                    		<telerik:RadGridView.Columns>
-                    			<telerik:GridViewDataColumn Header="Data" DataMemberBinding="{Binding Path=Data}" />
-                    			<telerik:GridViewDataColumn Header="Valor" DataMemberBinding="{Binding Path=Valor}" />
-                    			<telerik:GridViewDataColumn Header="Status" DataMemberBinding="{Binding Path=Data}" />
-                    			<telerik:GridViewDataColumn Header="Ações" Width="*"/>
-                    		</telerik:RadGridView.Columns>
-                    	</telerik:RadGridView>
-                                                   </StackPanel>
-                </telerik:RadTabItem>
-                <telerik:RadTabItem Header="Próximos Vencimentos" Height="25" HorizontalAlignment="Left" x:Name="tabNextPayments" VerticalAlignment="Top" >
-                    <StackPanel>
-                        <TextBlock Margin="0,10,0,0" Text="Vencimentos de hoje:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
-                       
-                    </StackPanel>
-                </telerik:RadTabItem>
-                <telerik:RadTabItem Header="Em Atraso" Height="25" HorizontalAlignment="Left" x:Name="tabLatePayments" VerticalAlignment="Top" >
-                    <StackPanel>
-                        <TextBlock Margin="0,10,0,0" Text="Vencimentos dos próximos dias:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
-                        <Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
-                        
-                        
-                        
-                    </StackPanel>
-                </telerik:RadTabItem>
-            </telerik:RadTabControl>
-
-
-           
-                
-                
-                
-       
-                </ScrollViewer>
-
-
-            <!--Montagem do footer da janela.-->
+    	<Grid Margin="10,10,10,10">
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="52*" x:Name="Header" />
+    			<RowDefinition Height="456*" x:Name="Body" />
+    			<RowDefinition Height="52*" x:Name="Footer" />
+    		</Grid.RowDefinitions>
+<!--Montagem do footer da janela.-->
             <StackPanel Grid.Row ="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Height="40" Width="80" Content="Fechar"  Margin="10 10 0 0">
                     <i:Interaction.Behaviors>
@@ -86,7 +31,57 @@
                     </i:Interaction.Behaviors>
                 </Button>
             </StackPanel>
+			<!--Montagem do cabeçalho-->
+    		<StackPanel>
+    			<TextBlock Margin="0,10,0,0" Text="Pagamentos Pendentes" FontWeight="Bold" Foreground="#FF7A7A7A" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="18" />
+    			<Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,10 0,15" />
+    		</StackPanel>
+    		<!--Montagem do conteúdo principal da janela.-->
+    		<ScrollViewer Grid.Row="1"  >
 
-        </Grid>
+    			<telerik:RadTabControl x:Name="radTabControl1" Grid.Row="1" >
+    				<telerik:RadTabItem Header="Hoje" Height="25" HorizontalAlignment="Left" x:Name="tabToday" VerticalAlignment="Top">
+    					<StackPanel Margin="5" >
+    						<TextBlock Margin="0,10,0,0" Text="Vencimentos de Hoje:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
+    						<Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
+
+    						<telerik:RadGridView x:Name="gridTodayPayments" ShowGroupPanel="False" AutoGenerateColumns="False" ItemsSource="{Binding TodayPayments}" RowIndicatorVisibility="Collapsed" >
+    							<telerik:RadGridView.Columns>
+    								<telerik:GridViewDataColumn Header="Data" DataMemberBinding="{Binding Transaction.Date}" DataFormatString="{}{0:d}" IsFilterable="False" IsGroupable="False" />
+    								<telerik:GridViewDataColumn Header="Valor" DataMemberBinding="{Binding Transaction.AbsoluteValue}" DataFormatString="{}{0:C2}" IsFilterable="False" />
+    								<telerik:GridViewDataColumn Header="Status" DataMemberBinding="{Binding Transaction.TransactionStatusDescription}" />
+    								<telerik:GridViewDataColumn Header="Ações" Width="*">
+    									<telerik:GridViewDataColumn.CellTemplate>
+    										<DataTemplate>
+    											<!--<Button Content="Marcar como OK" Command="MarkTransactionAsOk" />-->
+                                                <telerik:RadToggleButton Content="Confirmar" Command="{Binding Path=DataContext.MarkPaymentAsOkCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+                                                                         CommandParameter="{Binding Transaction.TransactionCode}" />
+    										</DataTemplate>
+    									</telerik:GridViewDataColumn.CellTemplate>
+    								</telerik:GridViewDataColumn>
+    							</telerik:RadGridView.Columns>
+    						</telerik:RadGridView>
+    					</StackPanel>
+    				</telerik:RadTabItem>
+    				<telerik:RadTabItem Header="Próximos Vencimentos" Height="25" HorizontalAlignment="Left" x:Name="tabNextPayments" VerticalAlignment="Top" >
+    					<StackPanel>
+    						<TextBlock Margin="0,10,0,0" Text="Vencimentos em Atraso:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
+
+    					</StackPanel>
+    				</telerik:RadTabItem>
+    				<telerik:RadTabItem Header="Em Atraso" Height="25" HorizontalAlignment="Left" x:Name="tabLatePayments" VerticalAlignment="Top" >
+    					<StackPanel>
+    						<TextBlock Margin="0,10,0,0" Text="Vencimentos dos próximos dias:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
+    						<Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
+    					</StackPanel>
+    				</telerik:RadTabItem>
+    			</telerik:RadTabControl>
+
+
+
+    		</ScrollViewer>
+
+
+    	</Grid>
     </Grid>
 </UserControl>
