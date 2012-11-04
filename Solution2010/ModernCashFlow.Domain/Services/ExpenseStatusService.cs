@@ -28,7 +28,7 @@ namespace ModernCashFlow.Domain.Services
         {
 
             var latePayments = from x in allPayments
-                                where x.TransactionStatus == TransactionStatus.Pending
+                                where x.TransactionStatus == TransactionStatus.Pending && x.Date < DateTime.Now.Today()
                                 select new EditPendingExpenseDto(x);
 
             return latePayments;
