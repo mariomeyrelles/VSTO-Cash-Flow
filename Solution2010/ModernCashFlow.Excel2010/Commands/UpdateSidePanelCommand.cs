@@ -9,7 +9,7 @@ namespace ModernCashFlow.Excel2010.Commands
         
         public void Execute(CommandArgs args)
         {
-            CommandHandler.Send<ConfigureSidePanelCommand>(args);
+            CommandHandler.Run<ConfigureSidePanelCommand>(args);
         }
     }
 }

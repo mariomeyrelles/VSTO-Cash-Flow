@@ -28,9 +28,10 @@
 			<telerik:RadTabControl x:Name="tabSidePanel">
 				<telerik:RadTabItem Height="26" HorizontalAlignment="Left" x:Name="tabDetails" VerticalAlignment="Top">
 					<telerik:RadTabItem.Header>
-						<StackPanel Orientation="Horizontal">
-							<Image Height="20" Source="Images/down_circular.png" Stretch="Uniform" Width="26"/>
-						</StackPanel>
+						<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Height="20" Source="Images/down_circular.png" Stretch="Uniform" Width="18"/>
+                            <TextBlock Height="20" Margin ="4 2 0 0"><Run Text="detalhes"/></TextBlock>
+                        </StackPanel>
 					</telerik:RadTabItem.Header>
 					<!--Montagem do painel de informações sobre a saída.-->
             <StackPanel Grid.Row="1" Margin="5">

@@ -19,18 +19,8 @@
     			<RowDefinition Height="456*" x:Name="Body" />
     			<RowDefinition Height="52*" x:Name="Footer" />
     		</Grid.RowDefinitions>
-<!--Montagem do footer da janela.-->
-            <StackPanel Grid.Row ="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Height="40" Width="80" Content="Fechar"  Margin="10 10 0 0">
-                    <i:Interaction.Behaviors>
-                    	<Util:ConfirmBehavior
-                    		ConfirmCaption="Pagamentos Pendentes" 
-                    		ConfirmMessage="Você deseja realmente fechar?"  
-                    		IsConfirm="False"
-                    		Command="{Binding SaveAndCloseCommand}"/>
-                    </i:Interaction.Behaviors>
-                </Button>
-            </StackPanel>
+
+           
 			<!--Montagem do cabeçalho-->
     		<StackPanel>
     			<TextBlock Margin="0,10,0,0" Text="Pagamentos Pendentes" FontWeight="Bold" Foreground="#FF7A7A7A" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="18" />
@@ -40,21 +30,25 @@
     		<ScrollViewer Grid.Row="1"  >
 
     			<telerik:RadTabControl x:Name="radTabControl1" Grid.Row="1" >
-    				<telerik:RadTabItem Header="Hoje" Height="25" HorizontalAlignment="Left" x:Name="tabToday" VerticalAlignment="Top">
+
+                    <!--Tab: Today's Payments-->
+                    <telerik:RadTabItem Header="Hoje" Height="25" HorizontalAlignment="Left" x:Name="tabToday" VerticalAlignment="Top">
     					<StackPanel Margin="5" >
     						<TextBlock Margin="0,10,0,0" Text="Vencimentos de Hoje:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
     						<Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
-
     						<telerik:RadGridView x:Name="gridTodayPayments" ShowGroupPanel="False" AutoGenerateColumns="False" ItemsSource="{Binding TodayPayments}" RowIndicatorVisibility="Collapsed" >
     							<telerik:RadGridView.Columns>
     								<telerik:GridViewDataColumn Header="Data" DataMemberBinding="{Binding Transaction.Date}" DataFormatString="{}{0:d}" IsFilterable="False" IsGroupable="False" />
     								<telerik:GridViewDataColumn Header="Valor" DataMemberBinding="{Binding Transaction.AbsoluteValue}" DataFormatString="{}{0:C2}" IsFilterable="False" />
-    								<telerik:GridViewDataColumn Header="Status" DataMemberBinding="{Binding Transaction.TransactionStatusDescription}" />
+    								<telerik:GridViewDataColumn Header="Motivo" DataMemberBinding="{Binding Transaction.Reason}"  IsFilterable="False" />
+    								<telerik:GridViewDataColumn Header="Local" DataMemberBinding="{Binding Transaction.Place}" IsFilterable="False" />
+    								<telerik:GridViewDataColumn Header="Responsável" DataMemberBinding="{Binding Transaction.ResponsibleName}"  IsFilterable="False" />
+    								<telerik:GridViewDataColumn Header="Conta" DataMemberBinding="{Binding Transaction.AccountName}" IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Status" DataMemberBinding="{Binding Transaction.TransactionStatusDescription}" />
     								<telerik:GridViewDataColumn Header="Ações" Width="*">
     									<telerik:GridViewDataColumn.CellTemplate>
     										<DataTemplate>
-    											<!--<Button Content="Marcar como OK" Command="MarkTransactionAsOk" />-->
-                                                <telerik:RadToggleButton Content="Confirmar" Command="{Binding Path=DataContext.MarkPaymentAsOkCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+    										<telerik:RadToggleButton Content="Confirmar" Command="{Binding Path=DataContext.MarkPaymentAsOkCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
                                                                          CommandParameter="{Binding Transaction.TransactionCode}" />
     										</DataTemplate>
     									</telerik:GridViewDataColumn.CellTemplate>
@@ -63,25 +57,77 @@
     						</telerik:RadGridView>
     					</StackPanel>
     				</telerik:RadTabItem>
+                    
+                    
+                    <!--Tab: Next Payments-->
     				<telerik:RadTabItem Header="Próximos Vencimentos" Height="25" HorizontalAlignment="Left" x:Name="tabNextPayments" VerticalAlignment="Top" >
-    					<StackPanel>
-    						<TextBlock Margin="0,10,0,0" Text="Vencimentos em Atraso:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
-
-    					</StackPanel>
+                        <StackPanel Margin="5">
+    						<TextBlock Margin="0,10,0,0" Text="Próximos Vencimentos:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
+                            <Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
+                            <telerik:RadGridView x:Name="gridNextPayments" ShowGroupPanel="False" AutoGenerateColumns="False" ItemsSource="{Binding NextPayments}" RowIndicatorVisibility="Collapsed" >
+                                <telerik:RadGridView.Columns>
+                                    <telerik:GridViewDataColumn Header="Data" DataMemberBinding="{Binding Transaction.Date}" DataFormatString="{}{0:d}" IsFilterable="False" IsGroupable="False" />
+                                    <telerik:GridViewDataColumn Header="Valor" DataMemberBinding="{Binding Transaction.AbsoluteValue}" DataFormatString="{}{0:C2}" IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Motivo" DataMemberBinding="{Binding Transaction.Reason}"  IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Local" DataMemberBinding="{Binding Transaction.Place}" IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Responsável" DataMemberBinding="{Binding Transaction.ResponsibleName}"  IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Conta" DataMemberBinding="{Binding Transaction.AccountName}" IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Status" DataMemberBinding="{Binding Transaction.TransactionStatusDescription}" />
+                                    <telerik:GridViewDataColumn Header="Ações" Width="*">
+                                        <telerik:GridViewDataColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <telerik:RadToggleButton Content="Confirmar" Command="{Binding Path=DataContext.MarkPaymentAsOkCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+                                                                         CommandParameter="{Binding Transaction.TransactionCode}" />
+                                            </DataTemplate>
+                                        </telerik:GridViewDataColumn.CellTemplate>
+                                    </telerik:GridViewDataColumn>
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                        </StackPanel>
     				</telerik:RadTabItem>
-    				<telerik:RadTabItem Header="Em Atraso" Height="25" HorizontalAlignment="Left" x:Name="tabLatePayments" VerticalAlignment="Top" >
-    					<StackPanel>
-    						<TextBlock Margin="0,10,0,0" Text="Vencimentos dos próximos dias:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
+
+                    <!--Tab: Next Payments-->
+                    <telerik:RadTabItem Header="Em Atraso" Height="25" HorizontalAlignment="Left" x:Name="tabLatePayments" VerticalAlignment="Top" >
+                        <StackPanel  Margin="5">
+    						<TextBlock Margin="0,10,0,0" Text="Vencimentos em atraso:" Foreground="#FF585858" HorizontalAlignment="Left"  FontFamily="Segoe UI" FontSize="14" />
     						<Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
+                            <telerik:RadGridView x:Name="gridLatePayments" ShowGroupPanel="False" AutoGenerateColumns="False" ItemsSource="{Binding LatePayments}" RowIndicatorVisibility="Collapsed" >
+                                <telerik:RadGridView.Columns>
+                                    <telerik:GridViewDataColumn Header="Data" DataMemberBinding="{Binding Transaction.Date}" DataFormatString="{}{0:d}" IsFilterable="False" IsGroupable="False" />
+                                    <telerik:GridViewDataColumn Header="Valor" DataMemberBinding="{Binding Transaction.AbsoluteValue}" DataFormatString="{}{0:C2}" IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Motivo" DataMemberBinding="{Binding Transaction.Reason}"  IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Local" DataMemberBinding="{Binding Transaction.Place}" IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Responsável" DataMemberBinding="{Binding Transaction.ResponsibleName}"  IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Conta" DataMemberBinding="{Binding Transaction.AccountName}" IsFilterable="False" />
+                                    <telerik:GridViewDataColumn Header="Status" DataMemberBinding="{Binding Transaction.TransactionStatusDescription}" />
+                                    <telerik:GridViewDataColumn Header="Ações" Width="*">
+                                        <telerik:GridViewDataColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <telerik:RadToggleButton Content="Confirmar" Command="{Binding Path=DataContext.MarkPaymentAsOkCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
+                                                                         CommandParameter="{Binding Transaction.TransactionCode}" />
+                                            </DataTemplate>
+                                        </telerik:GridViewDataColumn.CellTemplate>
+                                    </telerik:GridViewDataColumn>
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
     					</StackPanel>
     				</telerik:RadTabItem>
     			</telerik:RadTabControl>
-
-
-
     		</ScrollViewer>
 
-
-    	</Grid>
+            <!--Montagem do footer da janela.-->
+            <StackPanel Grid.Row ="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Height="40" Width="80" Content="Fechar"  Margin="10 10 0 0">
+                    <i:Interaction.Behaviors>
+                        <Util:ConfirmBehavior
+                    		ConfirmCaption="Pagamentos Pendentes" 
+                    		ConfirmMessage="Você deseja realmente fechar?"  
+                    		IsConfirm="False"
+                    		Command="{Binding SaveAndCloseCommand}"/>
+                    </i:Interaction.Behaviors>
+                </Button>
+            </StackPanel>
+            
+        </Grid>
     </Grid>
 </UserControl>

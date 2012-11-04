@@ -55,7 +55,7 @@ namespace ModernCashFlow.Excel2010
         {
             // Create a WPF application 
             _wpfApp = new System.Windows.Application();
-
+            
 
             // Load the ressources
             var resources = System.Windows.Application.LoadComponent(
@@ -68,19 +68,19 @@ namespace ModernCashFlow.Excel2010
             var uri2 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/System.Windows.xaml", UriKind.RelativeOrAbsolute);
             var uri3 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.Input.xaml", UriKind.RelativeOrAbsolute);
             var uri4 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.Navigation.xaml", UriKind.RelativeOrAbsolute);
-            var uri5 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.Chart.xaml", UriKind.RelativeOrAbsolute);
-            var uri6 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.Data.xaml", UriKind.RelativeOrAbsolute);
-            var uri7 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.DataVisualization.xaml", UriKind.RelativeOrAbsolute);
-            var uri8 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.Expressions.xaml", UriKind.RelativeOrAbsolute);
+            //var uri5 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.Chart.xaml", UriKind.RelativeOrAbsolute);
+            //var uri6 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.Data.xaml", UriKind.RelativeOrAbsolute);
+            //var uri7 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.DataVisualization.xaml", UriKind.RelativeOrAbsolute);
+            //var uri8 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.Expressions.xaml", UriKind.RelativeOrAbsolute);
             var uri9 = new Uri("/Telerik.Windows.Themes.Summer;component/Themes/Telerik.Windows.Controls.Gridview.xaml", UriKind.RelativeOrAbsolute);
             var r1 = System.Windows.Application.LoadComponent(uri1) as System.Windows.ResourceDictionary;
             var r2 = System.Windows.Application.LoadComponent(uri2) as System.Windows.ResourceDictionary;
             var r3 = System.Windows.Application.LoadComponent(uri3) as System.Windows.ResourceDictionary;
             var r4 = System.Windows.Application.LoadComponent(uri4) as System.Windows.ResourceDictionary;
-            var r5 = System.Windows.Application.LoadComponent(uri5) as System.Windows.ResourceDictionary;
-            var r6 = System.Windows.Application.LoadComponent(uri6) as System.Windows.ResourceDictionary;
-            var r7 = System.Windows.Application.LoadComponent(uri7) as System.Windows.ResourceDictionary;
-            var r8 = System.Windows.Application.LoadComponent(uri8) as System.Windows.ResourceDictionary;
+            //var r5 = System.Windows.Application.LoadComponent(uri5) as System.Windows.ResourceDictionary;
+            //var r6 = System.Windows.Application.LoadComponent(uri6) as System.Windows.ResourceDictionary;
+            //var r7 = System.Windows.Application.LoadComponent(uri7) as System.Windows.ResourceDictionary;
+            //var r8 = System.Windows.Application.LoadComponent(uri8) as System.Windows.ResourceDictionary;
             var r9 = System.Windows.Application.LoadComponent(uri9) as System.Windows.ResourceDictionary;
             
             // Merge it on application level
@@ -89,13 +89,12 @@ namespace ModernCashFlow.Excel2010
             _wpfApp.Resources.MergedDictionaries.Add(r2);
             _wpfApp.Resources.MergedDictionaries.Add(r3);
             _wpfApp.Resources.MergedDictionaries.Add(r4);
-            _wpfApp.Resources.MergedDictionaries.Add(r5);
-            _wpfApp.Resources.MergedDictionaries.Add(r6);
-            _wpfApp.Resources.MergedDictionaries.Add(r7);
-            _wpfApp.Resources.MergedDictionaries.Add(r8);
+            //_wpfApp.Resources.MergedDictionaries.Add(r5);
+            //_wpfApp.Resources.MergedDictionaries.Add(r6);
+            //_wpfApp.Resources.MergedDictionaries.Add(r7);
+            //_wpfApp.Resources.MergedDictionaries.Add(r8);
             _wpfApp.Resources.MergedDictionaries.Add(r9);
-            // _wpfApp.Resources.MergedDictionaries.Add(resource2);
-
+            
 
             // //dizer ao WPF que é preciso aceitar a linguagem padrão do sistema.
             FrameworkElement.LanguageProperty.OverrideMetadata(
@@ -113,16 +112,16 @@ namespace ModernCashFlow.Excel2010
 
         private void ThisWorkbookWorksheetsLoaded(object sender, EventArgs e)
         {
-            CommandHandler.Send<InitializeBasicBusinessDependenciesCommand>();
-            CommandHandler.Send<InitializeMainWorksheetsCommand>();
-            CommandHandler.Send<InitializeBusinessRulesCommand>();
-            CommandHandler.Send<ConfigureSidePanelCommand>(new SidePanelCommandArgs { WpfControl = new ExpenseSidePanel() });
+            CommandHandler.Run<InitializeBasicBusinessDependenciesCommand>();
+            CommandHandler.Run<InitializeMainWorksheetsCommand>();
+            CommandHandler.Run<InitializeBusinessRulesCommand>();
+            
         }
 
 
         private void ThisWorkbookShutdown(object sender, System.EventArgs e)
         {
-            _wpfApp.Shutdown();
+            //_wpfApp.Shutdown();
         }
 
         private void ThisWorkbookBeforeSave(bool saveAsUi, ref bool cancel)

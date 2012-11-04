@@ -5,6 +5,7 @@ using ModernCashFlow.Domain.Entities;
 using ModernCashFlow.Domain.Services;
 using ModernCashFlow.Excel2010.ApplicationCore;
 using ModernCashFlow.Excel2010.Forms;
+using ModernCashFlow.WpfControls;
 using Ninject;
 
 namespace ModernCashFlow.Excel2010.Commands
@@ -31,7 +32,7 @@ namespace ModernCashFlow.Excel2010.Commands
         {
             LoadAllTransactions();
             ConvertTodayPaymentsToPending();
-            WriteAllTransactionsToWorsheets();
+            //WriteAllTransactionsToWorsheets();
             ShowSplashWindow();
         }
 
@@ -63,22 +64,25 @@ namespace ModernCashFlow.Excel2010.Commands
         {
 
             var todayPayments = _paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
-            var comingPayments = _paymentSvc.GetComingPayments(_expenseController.CurrentSessionData).ToList();
+            var nextPayments = _paymentSvc.GetComingPayments(_expenseController.CurrentSessionData).ToList();
             var latePayments = _paymentSvc.GetLatePayments(_expenseController.CurrentSessionData).ToList();
 
-            var form = new FormPendingExpensesViewModel(todayPayments) { ComingPayments = comingPayments, LatePayments = latePayments };
+            var form = new FormPendingExpensesViewModel(todayPayments, nextPayments, latePayments);
             form.ShowDialog();
 
             //when the form is closed, read the modified data and notify the worksheet.
             var processedPayments = new List<BaseTransaction>();
             processedPayments.AddRange(EditPendingExpenseDto.ToList(form.TodayPayments, w => w.IsOk == true));
             processedPayments.AddRange(EditPendingExpenseDto.ToList(form.LatePayments, w => w.IsOk == true));
-            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.ComingPayments, w => w.IsOk == true));
-
-            //todo: input of incomes and expenses
+            processedPayments.AddRange(EditPendingExpenseDto.ToList(form.NextPayments, w => w.IsOk == true));
 
             var processedExpenses = processedPayments.OfType<Expense>();
+            var processedIncomes = processedPayments.OfType<Income>();
             _expenseController.AcceptDataCollection(processedExpenses, true);
+            _incomeController.AcceptDataCollection(processedIncomes, true);
+
+            CommandHandler.Run<ConfigureSidePanelCommand>(new SidePanelCommandArgs { WpfControl = new ExpenseSidePanel() });
+
 
         }
     }

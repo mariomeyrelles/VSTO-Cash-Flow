@@ -239,7 +239,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                    _parent.ReadWorksheetRow(targetRange, entity);
 
                     _controller.AcceptData(entity, true);
-                    CommandHandler.Send<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity });
+                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity });
                 }
                 catch (Exception ex)
                 {
@@ -262,7 +262,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                         return;
 
                     var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
-                    CommandHandler.Send<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity });
+                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity });
                 }
                 catch (Exception)
                 {
@@ -388,7 +388,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                 
                 var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
-                CommandHandler.Send<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity });
+                CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity });
 
             }
 

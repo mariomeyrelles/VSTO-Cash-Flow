@@ -16,12 +16,19 @@ namespace ModernCashFlow.Excel2010.Forms
     /// </summary>
     public partial class FormPendingExpensesViewModel : Form
     {
-        public FormPendingExpensesViewModel(List<EditPendingExpenseDto> todayPayments)
+        public FormPendingExpensesViewModel(List<EditPendingExpenseDto> todayPayments, 
+                                            List<EditPendingExpenseDto> nextPayments,
+                                            List<EditPendingExpenseDto> latePayments)
         {
             InitializeComponent();
-            this.TodayPayments = todayPayments;
+            
+            TodayPayments = todayPayments;
+            NextPayments = nextPayments;
+            LatePayments = latePayments;
+
             this.pendingPayments1.ModelData = this;
-            this.SaveAndCloseCommand = new RelayCommand(param => this.Save(), param=>this.CanSave());
+            
+            this.SaveAndCloseCommand = new RelayCommand(param => this.Save(), param => this.CanSave());
             this.MarkPaymentAsOkCommand = new RelayCommand(this.MarkPaymentAsOk, param => this.CanMarkPaymentAsOk());
         }
 
@@ -33,8 +40,15 @@ namespace ModernCashFlow.Excel2010.Forms
         private void MarkPaymentAsOk(object state)
         {
             var transactionCode = (Guid) state;
-            TodayPayments.Single(x => x.Transaction.TransactionCode == transactionCode).IsOk =
-                !TodayPayments.Single(x => x.Transaction.TransactionCode == transactionCode).IsOk;
+
+            foreach (var payment in TodayPayments.Where(x => x.Transaction.TransactionCode == transactionCode))
+                payment.IsOk = !payment.IsOk;
+
+            foreach (var payment in NextPayments.Where(x => x.Transaction.TransactionCode == transactionCode))
+                payment.IsOk = !payment.IsOk;
+
+            foreach (var payment in LatePayments.Where(x => x.Transaction.TransactionCode == transactionCode))
+                payment.IsOk = !payment.IsOk;
         }
 
         private bool CanSave()
@@ -46,17 +60,13 @@ namespace ModernCashFlow.Excel2010.Forms
         private void Save()
         {
             foreach (var payment in TodayPayments)
-            {
                 payment.Transaction.TransactionStatus = payment.IsOk ? TransactionStatus.OK : TransactionStatus.Pending;
-            }
 
+            foreach (var payment in NextPayments)
+                payment.Transaction.TransactionStatus = payment.IsOk ? TransactionStatus.OK : TransactionStatus.Pending;
 
-            //ComingPayments.Where(x => x.IsOk).ToList().ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.OK);
-            //ComingPayments.Where(x => !x.IsOk).ToList().ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.Scheduled);
-
-
-            //LatePayments.Where(x => x.IsOk).ToList().ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.OK);
-            //LatePayments.Where(x => !x.IsOk).ToList().ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.Pending);
+            foreach (var payment in LatePayments)
+                payment.Transaction.TransactionStatus = payment.IsOk ? TransactionStatus.OK : TransactionStatus.Pending;
 
             this.Close();
         }
@@ -64,11 +74,11 @@ namespace ModernCashFlow.Excel2010.Forms
 
 
 
-        public List<EditPendingExpenseDto> TodayPayments { get; set; }
+        public List<EditPendingExpenseDto> TodayPayments { get; private set; }
 
-        public List<EditPendingExpenseDto> ComingPayments { get; set; }
+        public List<EditPendingExpenseDto> NextPayments { get; private set; }
 
-        public List<EditPendingExpenseDto> LatePayments { get; set; }
+        public List<EditPendingExpenseDto> LatePayments { get; private set; }
 
 
         public RelayCommand SaveAndCloseCommand { get; private set; }
