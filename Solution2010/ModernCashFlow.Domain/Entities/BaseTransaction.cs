@@ -77,8 +77,23 @@ namespace ModernCashFlow.Domain.Entities
         [LocalizableColumnName]
         public decimal? ActualValue { get; set; }
 
+        /// <summary>
+        /// The effective value of this transaction, in order to be used in balance and cash flow calculations.
+        /// 
+        /// This value can be negative.
+        /// </summary>
         public abstract decimal Value { get; }
+        
+        /// <summary>
+        /// Returns a textual representation of the transaction type, for example, the string Income or Expense, for displaying purposes.
+        /// 
+        /// The property should be localized.
+        /// </summary>
+        public abstract string TransactionTypeDescription { get; }
 
+        /// <summary>
+        /// The absolute value of the transaction, useful for displaying situations where negative values can be cumbersome.
+        /// </summary>
         public decimal AbsoluteValue {get { return Math.Abs(Value); }}
 
         /// <summary>

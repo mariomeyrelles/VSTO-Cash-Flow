@@ -9,7 +9,7 @@ namespace ModernCashFlow.Domain.Services
 {
     public class ExpenseStatusService
     {
-        public IEnumerable<EditPendingExpenseDto> GetTodayPayments(IEnumerable<Expense> allPayments)
+        public IEnumerable<EditPendingExpenseDto> GetTodayPayments(IEnumerable<BaseTransaction> allPayments)
         {
             var today = DateTime.Now.Today();
 
@@ -24,7 +24,7 @@ namespace ModernCashFlow.Domain.Services
 
         }
 
-        public IEnumerable<EditPendingExpenseDto> GetLatePayments(IEnumerable<Expense> allPayments)
+        public IEnumerable<EditPendingExpenseDto> GetLatePayments(IEnumerable<BaseTransaction> allPayments)
         {
 
             var latePayments = from x in allPayments
@@ -35,7 +35,7 @@ namespace ModernCashFlow.Domain.Services
 
         }
 
-        public IEnumerable<EditPendingExpenseDto> GetComingPayments(IEnumerable<Expense> allPayments)
+        public IEnumerable<EditPendingExpenseDto> GetComingPayments(IEnumerable<BaseTransaction> allPayments)
         {
 
             var nextPayments = from x in allPayments

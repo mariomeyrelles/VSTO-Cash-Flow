@@ -45,8 +45,12 @@ namespace ModernCashFlow.Excel2010.Commands
 
         private void ConvertTodayPaymentsToPending()
         {
-            var todayPayments = _paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
-            todayPayments.ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.Pending);
+            var todaysExpenses = _paymentSvc.GetTodayPayments(_expenseController.CurrentSessionData).ToList();
+            todaysExpenses.ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.Pending);
+
+            var todaysIncomes = _paymentSvc.GetTodayPayments(_incomeController.CurrentSessionData).ToList();
+            todaysIncomes.ForEach(x => x.Transaction.TransactionStatus = TransactionStatus.Pending);
+
         }
 
         private void WriteAllTransactionsToWorsheets()
@@ -81,7 +85,7 @@ namespace ModernCashFlow.Excel2010.Commands
             _expenseController.AcceptDataCollection(processedExpenses, true);
             _incomeController.AcceptDataCollection(processedIncomes, true);
 
-            CommandHandler.Run<ConfigureSidePanelCommand>(new SidePanelCommandArgs { WpfControl = new ExpenseSidePanel() });
+            CommandHandler.Run<ConfigureSidePanelCommand>(new SidePanelCommandArgs { WpfControl = new MainSidePanel() });
 
 
         }

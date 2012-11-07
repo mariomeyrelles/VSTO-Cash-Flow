@@ -23,6 +23,7 @@ namespace ModernCashFlow.Domain.Entities
         {
             get
             {
+                //for math purposes the value of the income must not be negative.
                 if (this.ActualValue.HasValue)
                 {
                     return this.ActualValue.Value;
@@ -31,6 +32,11 @@ namespace ModernCashFlow.Domain.Entities
             }
         }
 
+        public override string TransactionTypeDescription
+        {
+            //todo: Localization
+            get { return "Entrada"; }
+        }
 
         public override string ToString()
         {

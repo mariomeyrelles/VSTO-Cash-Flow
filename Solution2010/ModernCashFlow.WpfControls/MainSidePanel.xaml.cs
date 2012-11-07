@@ -15,13 +15,23 @@ using System.Windows.Shapes;
 namespace ModernCashFlow.WpfControls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SaidaInspector.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainSidePanel : UserControl
     {
-        public MainWindow()
+        public MainSidePanel()
         {
             InitializeComponent();
+        }
+
+        public dynamic ModelData
+        {
+            set
+            {
+                this.DataContext = null;
+                this.DataContext = value;
+            }
+            get { return this.DataContext; }
         }
     }
 }

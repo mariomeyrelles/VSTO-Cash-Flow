@@ -99,8 +99,8 @@
     <Compile Include="PendingPayments.xaml.cs">
       <DependentUpon>PendingPayments.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ExpenseSidePanel.xaml.cs">
-      <DependentUpon>ExpenseSidePanel.xaml</DependentUpon>
+    <Compile Include="MainSidePanel.xaml.cs">
+      <DependentUpon>MainSidePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\XamlIcons\AlertIcon.xaml.cs">
       <DependentUpon>AlertIcon.xaml</DependentUpon>
@@ -138,11 +138,14 @@
     <Compile Include="SampleData\SampleDataSource_PendingTransactions\SampleDataSource_PendingTransactions.xaml.cs">
       <DependentUpon>SampleDataSource_PendingTransactions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="Scratch.xaml.cs">
+      <DependentUpon>Scratch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControl2.xaml.cs">
-      <DependentUpon>UserControl2.xaml</DependentUpon>
+    <Compile Include="SidePanel.Summary.xaml.cs">
+      <DependentUpon>SidePanel.Summary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SidePanel.TransactionDetails.xaml.cs">
+      <DependentUpon>SidePanel.TransactionDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Util\ConfirmBehavior.cs" />
     <Page Include="Controls\IconHeaderText.xaml">
@@ -153,16 +156,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Controls\IconText.xaml">
@@ -189,7 +184,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpenseSidePanel.xaml">
+    <Page Include="MainSidePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -229,13 +224,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControl1.xaml">
+    <Page Include="Scratch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControl2.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="SidePanel.Summary.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SidePanel.TransactionDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

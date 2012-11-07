@@ -26,6 +26,7 @@ namespace ModernCashFlow.Domain.Entities
         {
             get
             {
+                //for math purposes the value of the expense should be negative.
                 if (this.ActualValue.HasValue)
                 {
                     return this.ActualValue.Value * -1.0m;
@@ -34,6 +35,12 @@ namespace ModernCashFlow.Domain.Entities
             }
         }
 
+
+        public override string TransactionTypeDescription
+        {
+            //todo: localization of this string.
+            get { return "Saída"; }
+        }
 
         public override string ToString()
         {
