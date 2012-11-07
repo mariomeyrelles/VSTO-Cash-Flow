@@ -10,6 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
+        <SampleData:SampleDataSource x:Key="SampleDataSource" d:IsDataSource="True"/>
         <SampleDataSource2:SampleDataSource2 x:Key="SampleDataSource2" d:IsDataSource="True"/>
     </UserControl.Resources>
 
