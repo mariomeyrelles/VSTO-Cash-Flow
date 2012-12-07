@@ -7,8 +7,8 @@ namespace ModernCashFlow.Excel2010.ApplicationCore.Factories
     /// </summary>
     public interface IIncomeWorksheetFactory
     {
-        ExpenseWorksheet CreateWorksheet();
-        ExpenseWorksheet.ContextMenus CreateContextMenu();
-        ExpenseWorksheet.Events CreateEventHandlers();
+        IncomeWorksheet CreateWorksheet();
+        IncomeWorksheet.ContextMenus CreateContextMenu();
+        IncomeWorksheet.Events CreateEventHandlers();
     }
 }

@@ -46,11 +46,16 @@
   <ItemGroup>
     <Compile Include="BalanceCashFlowTDD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SummaryCalculationsTDD.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModernCashFlow.Domain\ModernCashFlow.Domain.csproj">
       <Project>{09A6B4FD-A9CB-4D70-8B6A-789BCDE61FC7}</Project>
       <Name>ModernCashFlow.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModernCashFlow.Tools\ModernCashFlow.Tools.csproj">
+      <Project>{160012E8-3337-473B-9EA0-0EFBEBC5422B}</Project>
+      <Name>ModernCashFlow.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
