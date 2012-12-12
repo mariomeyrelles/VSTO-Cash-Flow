@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServices\MainStatusAppService.cs" />
     <Compile Include="BaseInterfaces\DomainBase.cs" />
     <Compile Include="BaseInterfaces\IDomainObject.cs" />
     <Compile Include="Dtos\EditPendingPaymentDto.cs" />

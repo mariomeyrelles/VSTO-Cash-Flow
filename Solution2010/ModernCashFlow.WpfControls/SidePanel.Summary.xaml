@@ -7,8 +7,38 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TextBlock Margin="10,10,0,263" Text="resumo" Foreground="Black" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" />
-        <TextBlock Margin="10,42,0,231" Text="total de entradas do mês" Foreground="Black" HorizontalAlignment="Left" FontSize="16"  />
-        <TextBlock Margin="10,69,0,204" Text="total de saídas do mês" Foreground="Black" HorizontalAlignment="Left" FontSize="16"  />
+        <StackPanel>
+            <TextBlock Text="resumo total" Foreground="Black" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" />
+            <Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
+            <StackPanel Margin="0 5 0 0">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="entradas até o momento" Foreground="Black" HorizontalAlignment="Left" FontSize="14"  />
+                    <TextBlock Margin="5 0 0 0" Text="{Binding IncomesUpToDate}" Foreground="Black" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"  />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="saídas até o momento" Foreground="Black" HorizontalAlignment="Left" FontSize="14"  />
+                    <TextBlock Margin="5 0 0 0" Text="{Binding ExpensesUpToDate}" Foreground="Black" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"  />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="saldo no fim do mês" Foreground="Black" HorizontalAlignment="Left" FontSize="14"  />
+                    <TextBlock Margin="5 0 0 0" Text="{Binding EndOfMonthGeneralBalance}" Foreground="Black" HorizontalAlignment="Left" FontWeight="Bold" FontSize="16"  />
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Text="resumo por contas" Margin ="0 5 0 0" Foreground="Black" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" />
+            <StackPanel>
+                <Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
+                <telerik:RadGridView x:Name="gridTodayPayments" ShowGroupPanel="False" AutoGenerateColumns="False" ItemsSource="{Binding AccountSummary}" RowIndicatorVisibility="Collapsed" >
+                    <telerik:RadGridView.Columns>
+                        <telerik:GridViewDataColumn Header="Conta" DataMemberBinding="{Binding AccountName}" DataFormatString="{}{0:d}" IsFilterable="False" IsGroupable="False" Width="*" />
+                        <telerik:GridViewDataColumn Header="Saldo Atual" DataMemberBinding="{Binding CurrentBalance}" DataFormatString="{}{0:C2}" IsFilterable="False" Width="100" />
+                        <telerik:GridViewDataColumn Header="Fim do mês" DataMemberBinding="{Binding EndOfMonthBalance}"  IsFilterable="False" Width="100" />
+                    </telerik:RadGridView.Columns>
+                </telerik:RadGridView>
+            </StackPanel>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

@@ -10,7 +10,7 @@ namespace ModernCashFlow.Tests
     public class SummaryCalculationsTDD
     {
         [Test]
-        public void Can_Calculate_Incomes_Whole_Month()
+        public void Can_Sum_Incomes_Whole_Month()
         {
             var svc = new SummaryCalculationService();
 
@@ -39,7 +39,7 @@ namespace ModernCashFlow.Tests
         }
 
         [Test]
-        public void Can_Calculate_Incomes_Up_To_Given_Date_In_Current_Month()
+        public void Can_Sum_Incomes_Up_To_Given_Date_In_Current_Month()
         {
             var svc = new SummaryCalculationService();
             SystemTime.Now = () => new DateTime(2012,12,15);
@@ -86,14 +86,14 @@ namespace ModernCashFlow.Tests
         }
 
         [Test]
-        public void Can_Calculate_Expenses_Whole_Month()
+        public void Can_Sum_Expenses_Whole_Month()
         {
             
         }
 
     
         [Test]
-        public void Can_Calculate_Expenses_Up_To_Given_Date_In_Current_Month()
+        public void Can_Sum_Expenses_Up_To_Given_Date_In_Current_Month()
         {
             
         }
