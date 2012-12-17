@@ -86,9 +86,8 @@ namespace ModernCashFlow.Excel2010
             kernel.Bind<ICommand>().To<InitializeBusinessRulesCommand>();
 
 
-            //serviços de domínio
+            //some domain services can be singleton also
             kernel.Bind<ExpenseStatusService>().ToSelf().InSingletonScope();
-
 
             //factories
             kernel.Bind<IExpenseWorksheetFactory>().ToFactory();

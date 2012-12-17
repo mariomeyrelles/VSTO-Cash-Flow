@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationServices\MainStatusAppService.cs" />
+    <Compile Include="ApplicationServices\Singleton.cs" />
     <Compile Include="BaseInterfaces\DomainBase.cs" />
     <Compile Include="BaseInterfaces\IDomainObject.cs" />
     <Compile Include="Dtos\EditPendingPaymentDto.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Services\CashFlowCalculationResult.cs" />
     <Compile Include="Services\CashFlowEntry.cs" />
     <Compile Include="Services\ExpenseStatusService.cs" />
+    <Compile Include="Services\SummaryCalculationService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

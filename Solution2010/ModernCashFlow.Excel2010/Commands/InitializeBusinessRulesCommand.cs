@@ -18,6 +18,7 @@ namespace ModernCashFlow.Excel2010.Commands
         private readonly BaseController<Account> _accountController;
         private readonly ExpenseStatusService _paymentSvc;
 
+
         public InitializeBusinessRulesCommand(BaseController<Expense> expenseController,
             BaseController<Income> incomeController, BaseController<Account> accountController,
             ExpenseStatusService paymentStatusService)

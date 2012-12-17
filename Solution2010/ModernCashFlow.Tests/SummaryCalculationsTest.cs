@@ -1,13 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using ModernCashFlow.Domain.Entities;
-using NUnit.Framework;
+using ModernCashFlow.Domain.Services;
 using ModernCashFlow.Tools;
+using NUnit.Framework;
 
 namespace ModernCashFlow.Tests
 {
-    public class SummaryCalculationsTDD
+    public class SummaryCalculationsTest
     {
         [Test]
         public void Can_Sum_Incomes_Whole_Month()
@@ -99,28 +99,5 @@ namespace ModernCashFlow.Tests
         }
 
         
-    }
-
-    public class SummaryCalculationService
-    {
-        public decimal CalculateIncomesForCurrentMonth(IEnumerable<BaseTransaction> transactions)
-        {
-            var incomes = transactions.OfType<Income>();
-            var today = SystemTime.Now;
-
-            var sumOfIncomes = incomes.Where(x => x.Date.Value.Month == today().Month).Sum(x => x.Value);
-
-            return sumOfIncomes;
-
-        }
-
-        public decimal CalculateIncomesForCurrentMonthUpToGivenDate(IEnumerable<BaseTransaction> transactions, DateTime now)
-        {
-            var incomes = transactions.OfType<Income>();
-          
-            var sumOfIncomes = incomes.Where(x => x.Date.Value.Month == now.Month && x.Date <= now).Sum(x => x.Value);
-
-            return sumOfIncomes;
-        }
     }
 }

@@ -211,7 +211,7 @@
     <Compile Include="ApplicationCore\BaseController.cs" />
     <Compile Include="ApplicationCore\CommandHandler.cs" />
     <Compile Include="ApplicationCore\CommandManager.cs" />
-    <Compile Include="ApplicationCore\DataManager.cs" />
+    <Compile Include="ApplicationCore\SessionDataSingleton.cs" />
     <Compile Include="ApplicationCore\Factories\IIncomeWorksheetFactory.cs" />
     <Compile Include="ApplicationCore\Factories\IExpenseWorksheetFactory.cs" />
     <Compile Include="ApplicationCore\IncomeController.cs" />

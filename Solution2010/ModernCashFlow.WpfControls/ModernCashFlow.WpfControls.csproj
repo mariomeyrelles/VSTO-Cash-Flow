@@ -147,6 +147,7 @@
     <Compile Include="SidePanel.TransactionDetails.xaml.cs">
       <DependentUpon>SidePanel.TransactionDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SummaryViewModel.cs" />
     <Compile Include="Util\ConfirmBehavior.cs" />
     <Page Include="Controls\IconHeaderText.xaml">
       <SubType>Designer</SubType>

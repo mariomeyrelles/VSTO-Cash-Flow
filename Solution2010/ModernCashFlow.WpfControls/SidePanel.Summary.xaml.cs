@@ -22,6 +22,7 @@ namespace ModernCashFlow.WpfControls
         public SummaryTab()
         {
             InitializeComponent();
+            this.DataContext = new SummaryViewModel();
         }
     }
 }
