@@ -8,11 +8,11 @@ namespace ModernCashFlow.Domain.ApplicationServices
 {
     public class MainStatusAppService : IObservable<MainStatusAppService>
     {
+       
         public MainStatusAppService()
         {
             Observers = new List<IObserver<MainStatusAppService>>();
 
-            //var timer = new Timer(state => Notify(),null,1500,1500);
             var timer = new Timer(3000);
             timer.Elapsed += TimerElapsed;
             timer.Start();
@@ -22,38 +22,19 @@ namespace ModernCashFlow.Domain.ApplicationServices
         void TimerElapsed(object sender, ElapsedEventArgs e)
         {
             Notify();
-
         }
 
+        public decimal IncomesUpToDate { get; set; }
 
-        public decimal IncomesUpToDate
-        {
-            //todo: return from domain service
-            get
-            {
-                return 444.45m;
-            }
-        }
+        public decimal ExpensesUpToDate { get; set; }
 
-        public decimal ExpensesUpToDate
-        {
-            //todo: return from domain service
-            get { return 111.45m; }
-        }
-
-        public  decimal EndOfMonthBalance
-        {
-            //todo: return from domain service
-            get { return 222.33m; }
-        }
-
-
-
+        public decimal EndOfMonthBalance { get; set; }
+       
         public void Notify()
         {
             foreach (var observer in Observers)
             {
-               observer.OnNext(this);
+                observer.OnNext(this);
             }
         }
 

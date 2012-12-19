@@ -4,7 +4,7 @@ using ModernCashFlow.Domain.ApplicationServices;
 
 namespace ModernCashFlow.WpfControls
 {
-    public class SummaryViewModel : IObserver<MainStatusAppService>, INotifyPropertyChanged
+    public class SummaryViewModel : ViewModelBase, IObserver<MainStatusAppService>, INotifyPropertyChanged
     {
         private decimal _expensesUpToDate;
         private decimal _endOfMonthGeneralBalance;

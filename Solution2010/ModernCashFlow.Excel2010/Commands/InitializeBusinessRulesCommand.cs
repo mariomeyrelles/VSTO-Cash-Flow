@@ -86,7 +86,7 @@ namespace ModernCashFlow.Excel2010.Commands
             _expenseController.AcceptDataCollection(processedExpenses, true);
             _incomeController.AcceptDataCollection(processedIncomes, true);
 
-            CommandHandler.Run<ConfigureSidePanelCommand>(new SidePanelCommandArgs { WpfControl = new MainSidePanel() });
+            CommandHandler.Run<ConfigureSidePanelCommand>(new SidePanelCommandArgs { WpfControl = new MainSidePanel(), CurrentTransactions = CurrentSession.Transactions });
 
 
         }

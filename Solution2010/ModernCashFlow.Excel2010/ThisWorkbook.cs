@@ -57,9 +57,13 @@ namespace ModernCashFlow.Excel2010
             _wpfApp = new System.Windows.Application();
             
 
-            // Load the ressources
-            var resources = System.Windows.Application.LoadComponent(
+            // Load the resources
+            var customResources = System.Windows.Application.LoadComponent(
                 new Uri("ModernCashFlow.WpfControls;component/Resources/CustomResources.xaml",
+                        UriKind.RelativeOrAbsolute))
+                            as System.Windows.ResourceDictionary;
+            var objectResources = System.Windows.Application.LoadComponent(
+                new Uri("ModernCashFlow.WpfControls;component/Resources/ObjectResources.xaml",
                         UriKind.RelativeOrAbsolute))
                             as System.Windows.ResourceDictionary;
 
@@ -84,7 +88,8 @@ namespace ModernCashFlow.Excel2010
             var r9 = System.Windows.Application.LoadComponent(uri9) as System.Windows.ResourceDictionary;
             
             // Merge it on application level
-            _wpfApp.Resources.MergedDictionaries.Add(resources);
+            _wpfApp.Resources.MergedDictionaries.Add(customResources);
+            _wpfApp.Resources.MergedDictionaries.Add(objectResources);
             _wpfApp.Resources.MergedDictionaries.Add(r1);
             _wpfApp.Resources.MergedDictionaries.Add(r2);
             _wpfApp.Resources.MergedDictionaries.Add(r3);

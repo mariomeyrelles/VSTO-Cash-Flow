@@ -149,6 +149,8 @@
     </Compile>
     <Compile Include="SummaryViewModel.cs" />
     <Compile Include="Util\ConfirmBehavior.cs" />
+    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="ViewModelLocator.cs" />
     <Page Include="Controls\IconHeaderText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,6 +168,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PendingPayments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ObjectResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

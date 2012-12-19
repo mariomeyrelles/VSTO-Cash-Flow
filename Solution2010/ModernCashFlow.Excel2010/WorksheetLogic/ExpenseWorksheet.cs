@@ -269,7 +269,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                     _controller.AcceptData(entity, true);
 
-                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity });
+                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity, CurrentTransactions = CurrentSession.Transactions});
                 }
                 catch (Exception ex)
                 {
@@ -292,7 +292,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                         return;
 
                     var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
-                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity });
+                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity, CurrentTransactions = CurrentSession.Transactions });
                 }
                 catch (Exception)
                 {
@@ -413,7 +413,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 Guid codLancamento = RangeUtils.ToGuid(_activeRange.EntireRow.Cells[1, _parent.AbsCols[Lang.TransactionCode]]);
 
                 var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
-                CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity });
+                CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity, CurrentTransactions = CurrentSession.Transactions });
 
             }
 

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Windows.Controls;
+using ModernCashFlow.Domain.Entities;
 
 namespace ModernCashFlow.Excel2010.Commands
 {
@@ -6,5 +8,6 @@ namespace ModernCashFlow.Excel2010.Commands
     {
         public UserControl WpfControl { get; set; }
         public object Model { get; set; }
+        public IEnumerable<BaseTransaction> CurrentTransactions { get; set; }
     }
 }

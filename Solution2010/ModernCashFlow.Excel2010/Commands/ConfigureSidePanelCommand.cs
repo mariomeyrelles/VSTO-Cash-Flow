@@ -1,5 +1,8 @@
 ﻿using Microsoft.Office.Tools;
+using ModernCashFlow.Domain.ApplicationServices;
+using ModernCashFlow.Domain.Services;
 using ModernCashFlow.Excel2010.Forms;
+using ModernCashFlow.Tools;
 
 namespace ModernCashFlow.Excel2010.Commands
 {
@@ -33,6 +36,15 @@ namespace ModernCashFlow.Excel2010.Commands
             if (sidePanelArg.Model != null) _host.Model = sidePanelArg.Model;
 
             _host.Refresh();
+
+
+            //todo: only for tests
+            var svc = new SummaryCalculationService();
+            var currentMonthBalance = svc.CalculateIncomesForCurrentMonth(sidePanelArg.CurrentTransactions);
+            var incomesUpToDate = svc.CalculateIncomesForCurrentMonthUpToGivenDate(sidePanelArg.CurrentTransactions, SystemTime.Now());
+
+            Singleton<MainStatusAppService>.Instance.EndOfMonthBalance = currentMonthBalance;
+            Singleton<MainStatusAppService>.Instance.IncomesUpToDate = incomesUpToDate;
         }
     }
 

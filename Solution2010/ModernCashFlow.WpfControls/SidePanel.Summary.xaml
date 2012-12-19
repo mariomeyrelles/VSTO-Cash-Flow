@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="ModernCashFlow.WpfControls.SummaryTab" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             x:Class="ModernCashFlow.WpfControls.SummaryTab" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" 
+    DataContext="{Binding Source={StaticResource ResourceKey=VMLocator}, Path=Summary}">
     <Grid>
         <StackPanel>
+           
             <TextBlock Text="resumo total" Foreground="Black" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" />
             <Rectangle Fill="#FFD6D6D6" Height="1" Margin="0,1, 0,15" />
             <StackPanel Margin="0 5 0 0">
@@ -39,6 +42,6 @@
                 </telerik:RadGridView>
             </StackPanel>
         </StackPanel>
-        
+
     </Grid>
 </UserControl>

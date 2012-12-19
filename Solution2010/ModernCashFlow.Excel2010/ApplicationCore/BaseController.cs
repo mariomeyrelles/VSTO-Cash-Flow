@@ -152,7 +152,6 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             OnUpdateSingleLocalData(localData);
         }
 
-
         /// <summary>
         /// Tells the controller to accept a new entity from anywhere and sync it to the session.
         /// </summary>
@@ -166,7 +165,6 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         /// <param name="localData">The collection received to be synchronized</param>
         /// <param name="notifyChange">When true, this new entity must be sent to all clients. Default is false.</param>
         public abstract void AcceptDataCollection(IEnumerable<T> localData, bool notifyChange = false);
-
 
 
     }
