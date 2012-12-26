@@ -18,12 +18,15 @@ namespace ModernCashFlow.WpfControls.Controls
             try
             {
                 var element = container as FrameworkElement;
+                
 
                 if (element != null)
                 {
+                    element.DataContext = null;
                     switch ((TransactionStatus)status)
                     {
-                       
+                    
+   
                         case TransactionStatus.Pending:
                             return element.FindResource("notOkay") as DataTemplate;
                         case TransactionStatus.OK:
@@ -35,7 +38,9 @@ namespace ModernCashFlow.WpfControls.Controls
                         case TransactionStatus.Unknown:
                             return element.FindResource("unknown") as DataTemplate;
                     }
+                    
                 }
+                
             }
             catch (RuntimeBinderException)
             {

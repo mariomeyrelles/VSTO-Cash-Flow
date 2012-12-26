@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Documents;
 using ModernCashFlow.Domain.ApplicationServices;
+using ModernCashFlow.Domain.Services;
 
 namespace ModernCashFlow.WpfControls
 {
@@ -9,6 +12,7 @@ namespace ModernCashFlow.WpfControls
         private decimal _expensesUpToDate;
         private decimal _endOfMonthGeneralBalance;
         private decimal _incomesUpToDate;
+        private List<AccountSummary> _accountSummaries;
 
         public SummaryViewModel()
         {
@@ -45,6 +49,16 @@ namespace ModernCashFlow.WpfControls
             }
         }
 
+        public List<AccountSummary> AccountSummary
+        {
+            get { return _accountSummaries; }
+            set
+            {
+                _accountSummaries = value;
+                OnPropertyChanged("AccountSummary");
+            }
+        }
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -71,6 +85,7 @@ namespace ModernCashFlow.WpfControls
             this.ExpensesUpToDate = value.ExpensesUpToDate;
             this.IncomesUpToDate = value.IncomesUpToDate;
             this.EndOfMonthGeneralBalance = value.EndOfMonthBalance;
+            this.AccountSummary = value.AccountSummary;
         }
 
         public void OnError(Exception error)

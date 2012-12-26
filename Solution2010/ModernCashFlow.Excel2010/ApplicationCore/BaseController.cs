@@ -128,9 +128,9 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
             if (localData == null)
                 return;
             
-            var dataMgr = SessionDataSingleton<T>.Instance;
-            dataMgr.Clear();
-            dataMgr.AddRange(localData);
+            var sessionData = SessionDataSingleton<T>.Instance;
+            sessionData.Clear();
+            sessionData.AddRange(localData);
         }
 
         /// <summary>

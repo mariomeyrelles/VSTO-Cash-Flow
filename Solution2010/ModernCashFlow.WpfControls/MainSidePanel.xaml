@@ -33,6 +33,7 @@
             </Grid.RowDefinitions>
             <!--Montagem do cabeçalho-->
 
+            <ScrollViewer>
             <telerik:RadTabControl x:Name="tabSidePanel">
 
                 <telerik:RadTabItem Height="26" HorizontalAlignment="Left" x:Name="tabSummary" VerticalAlignment="Top">
@@ -59,7 +60,7 @@
                 
                 
             </telerik:RadTabControl>
-
+            </ScrollViewer>
 
 
 

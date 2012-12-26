@@ -239,7 +239,12 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                    _parent.ReadWorksheetRow(targetRange, entity);
 
                     _controller.AcceptData(entity, true);
-                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity, CurrentTransactions = CurrentSession.Transactions });
+                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs
+                                                                   {
+                                                                       Model = entity, 
+                                                                       CurrentTransactions = CurrentSession.Transactions,
+                                                                       CurrentAccounts = CurrentSession.Accounts
+                                                                   });
                 }
                 catch (Exception ex)
                 {
@@ -262,7 +267,12 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                         return;
 
                     var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
-                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity, CurrentTransactions = CurrentSession.Transactions });
+                    CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs
+                                                                   {
+                                                                       Model = entity, 
+                                                                       CurrentTransactions = CurrentSession.Transactions,
+                                                                       CurrentAccounts = CurrentSession.Accounts
+                                                                   });
                 }
                 catch (Exception)
                 {
@@ -388,7 +398,12 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
 
                 
                 var entity = _controller.CurrentSessionData.FirstOrDefault(x => x.TransactionCode == codLancamento);
-                CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs { Model = entity, CurrentTransactions = CurrentSession.Transactions });
+                CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs
+                                                               {
+                                                                   Model = entity, 
+                                                                   CurrentTransactions = CurrentSession.Transactions,
+                                                                   CurrentAccounts = CurrentSession.Accounts
+                                                               });
 
             }
 

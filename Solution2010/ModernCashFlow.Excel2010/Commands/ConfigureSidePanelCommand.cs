@@ -40,11 +40,16 @@ namespace ModernCashFlow.Excel2010.Commands
 
             //todo: only for tests
             var svc = new SummaryCalculationService();
-            var currentMonthBalance = svc.CalculateIncomesForCurrentMonth(sidePanelArg.CurrentTransactions);
+            var currentMonthBalance = svc.CalculateBalanceForCurrentMonth(sidePanelArg.CurrentTransactions);
             var incomesUpToDate = svc.CalculateIncomesForCurrentMonthUpToGivenDate(sidePanelArg.CurrentTransactions, SystemTime.Now());
+            var expensesUpToDate = svc.CalculateExpensesForCurrentMonthUpToGivenDate(sidePanelArg.CurrentTransactions, SystemTime.Now());
+            var accountSummary = svc.CalculateAccountSummary(sidePanelArg.CurrentAccounts,
+                                                             sidePanelArg.CurrentTransactions);
 
             Singleton<MainStatusAppService>.Instance.EndOfMonthBalance = currentMonthBalance;
             Singleton<MainStatusAppService>.Instance.IncomesUpToDate = incomesUpToDate;
+            Singleton<MainStatusAppService>.Instance.ExpensesUpToDate = expensesUpToDate;
+            Singleton<MainStatusAppService>.Instance.AccountSummary = accountSummary;
         }
     }
 

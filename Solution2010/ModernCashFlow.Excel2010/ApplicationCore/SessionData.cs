@@ -22,6 +22,17 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
                 
                 return transactions;
             }
-        } 
+        }
+
+        public static IEnumerable<Account> Accounts
+        {
+            get
+            {
+                var accounts = new List<Account>();
+                accounts.AddRange(SessionDataSingleton<Account>.Instance);
+                return accounts;
+            }
+
+        }
     }
 }

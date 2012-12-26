@@ -11,6 +11,7 @@ namespace ModernCashFlow.Domain.Entities
         private decimal? _expectedValue;
         private string _accountName;
         private string _accountTransferCode;
+        private TransactionStatus _transactionStatus;
 
         ///  /// <summary>
         /// Campo obrigatório para identificar unicamente um registro na planilha.
@@ -152,7 +153,7 @@ namespace ModernCashFlow.Domain.Entities
         /// <summary>
         /// Indica, de modo geral, se a saída pode ser usada ou não no cálculo de fluxo de caixa.
         /// </summary>
-        
+
         public TransactionStatus TransactionStatus { get; set; }
 
         /// <summary>
@@ -162,6 +163,7 @@ namespace ModernCashFlow.Domain.Entities
         public string TransactionStatusDescription
         {
             get { return this.TransactionStatus.GetDescription(); }
+            //set { throw new NotImplementedException(); }
         }
 
         /// <summary>
@@ -233,7 +235,7 @@ namespace ModernCashFlow.Domain.Entities
                 return ValidationMessage;
             }
 
-            var now = DateTime.Now.Today();
+            var now = SystemTime.Now().Today();
             var transactionDate = Date.Value.Today();
 
             switch (this.TransactionStatus)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Timers;
+using ModernCashFlow.Domain.Services;
 
 
 namespace ModernCashFlow.Domain.ApplicationServices
@@ -29,6 +30,8 @@ namespace ModernCashFlow.Domain.ApplicationServices
         public decimal ExpensesUpToDate { get; set; }
 
         public decimal EndOfMonthBalance { get; set; }
+
+        
        
         public void Notify()
         {
@@ -37,10 +40,11 @@ namespace ModernCashFlow.Domain.ApplicationServices
                 observer.OnNext(this);
             }
         }
-
-
-        public List<IObserver<MainStatusAppService>>  Observers { get; set; }
         
+        public List<IObserver<MainStatusAppService>>  Observers { get; set; }
+
+        public List<AccountSummary> AccountSummary { get; set; }
+
         public IDisposable Subscribe(IObserver<MainStatusAppService> observer)
         {
             if (!Observers.Contains(observer))

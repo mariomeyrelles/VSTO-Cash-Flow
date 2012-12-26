@@ -30,7 +30,7 @@
         </DataTemplate>
         
         <DataTemplate x:Key="unknown">
-            <c:IconHeaderText HeaderText="status" ContentText="{Binding TransactionStatusDescription, Mode=OneWay}" Background="#FF164047">
+            <c:IconHeaderText HeaderText="status" ContentText="{Binding TransactionStatusDescription,Mode=OneWay}" Background="#FF164047">
                     <c:IconHeaderText.Icon>
                         <i:UnknownIcon/>
                     </c:IconHeaderText.Icon>

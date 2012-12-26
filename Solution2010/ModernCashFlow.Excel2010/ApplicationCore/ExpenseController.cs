@@ -11,6 +11,16 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
     /// </summary>
     public class ExpenseController : BaseController<Expense>
     {
+        public override void GetLocalDataAndSyncronizeSession()
+        {
+            base.GetLocalDataAndSyncronizeSession();
+
+            foreach (var expense in SessionData)
+            {
+                expense.AccountId = CurrentSession.Accounts.First(x => x.Name == expense.AccountName).Id;
+            }
+        }
+
         /// <summary>
         /// Tells the controller to accept a new entity from anywhere and sync it to the session.
         /// </summary>
@@ -23,6 +33,11 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
                 SessionData.Add(localData);
             else
                 SessionData[index] = localData;
+
+            if (!string.IsNullOrEmpty(localData.AccountName))
+            {
+                localData.AccountId = CurrentSession.Accounts.First(x => x.Name == localData.AccountName).Id;
+            }
 
             if (notifyChange)
             {

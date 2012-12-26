@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace ModernCashFlow.WpfControls.Controls
 {
@@ -9,7 +10,16 @@ namespace ModernCashFlow.WpfControls.Controls
 	{
 		public MultiStatus()
 		{
-			this.InitializeComponent();
+		    this.InitializeComponent();
+            //this.DataContextChanged += MultiStatus_DataContextChanged;
+           
 		}
+
+        void MultiStatus_DataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            Debug.WriteLine(e.NewValue ?? "data context nulo");
+        }
+
+      
 	}
 }

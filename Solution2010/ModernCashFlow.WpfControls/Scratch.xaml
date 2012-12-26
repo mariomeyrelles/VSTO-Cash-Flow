@@ -6,69 +6,84 @@
 	xmlns:local="clr-namespace:ModernCashFlow.WpfControls"
 	xmlns:Controls="clr-namespace:ModernCashFlow.WpfControls.Controls"
 	xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource2" 
-    xmlns:i="clr-namespace:ModernCashFlow.WpfControls.Resources.XamlIcons" mc:Ignorable="d"
+    xmlns:i="clr-namespace:ModernCashFlow.WpfControls.Resources.XamlIcons" xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" mc:Ignorable="d"
 	x:Class="ModernCashFlow.WpfControls.UserControl2"
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480">
 
-	<UserControl.Resources>
-		<SampleData:SampleDataSource2 x:Key="SampleDataSource2" d:IsDataSource="True"/>
-	</UserControl.Resources>
+    <UserControl.Resources>
+        <SampleData:SampleDataSource2 x:Key="SampleDataSource2" d:IsDataSource="True"/>
+    </UserControl.Resources>
 
-	<Grid x:Name="LayoutRoot" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
-		
-		
-		<i:CalendarIcon Margin="0,0,101.867,264" VerticalAlignment="Bottom" Height="136" HorizontalAlignment="Right" Width="154.133"/>
-		
-		<Controls:MultiStatus Margin="0,0,162,128" 
-		DataContext="{StaticResource SampleDataSource2}" 
-		HorizontalAlignment="Right" Height="48" VerticalAlignment="Bottom" />
-		
-	
-		<Controls:IconText Height="48" 
+    <Grid x:Name="LayoutRoot" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+
+
+        <i:CalendarIcon Margin="0,0,101.867,264" VerticalAlignment="Bottom" Height="136" HorizontalAlignment="Right" Width="154.133"/>
+
+        <Controls:MultiStatus Margin="0,0,162,128" 
+			DataContext="{StaticResource SampleDataSource2}" 
+			HorizontalAlignment="Right" Height="48" VerticalAlignment="Bottom" />
+
+
+        <Controls:IconText Height="48" 
 			Text ="140.00" Background="#FF164047" Margin="128,149,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" >
-			<Controls:IconText.Icon>
-				<i:MoneyIcon/>
-			</Controls:IconText.Icon>               
-		</Controls:IconText>
-					
-		<Controls:IconHeaderText Height="48" ContentText="Nov 2, 2012"
+            <Controls:IconText.Icon>
+                <i:MoneyIcon/>
+            </Controls:IconText.Icon>
+        </Controls:IconText>
+
+        <Controls:IconHeaderText Height="48" ContentText="Nov 2, 2012"
 			HeaderText="quinta" Background="#FF164047" Margin="128,149,0,0" 
 			HorizontalAlignment="Left" VerticalAlignment="Top" >
-			<Controls:IconHeaderText.Icon>
-				<i:MoneyIcon/>
-			</Controls:IconHeaderText.Icon>               
-			<!--<Controls:IconHeaderText.MainContent>
+            <Controls:IconHeaderText.Icon>
+                <i:MoneyIcon/>
+            </Controls:IconHeaderText.Icon>
+            <!--<Controls:IconHeaderText.MainContent>
 				<TextBlock Text="teste" Style="{DynamicResource ContentTextStyle}"></TextBlock>
 			</Controls:IconHeaderText.MainContent>-->
-		</Controls:IconHeaderText>
-					
-		<Controls:IconText Height="48" 
+        </Controls:IconHeaderText>
+
+        <Controls:IconText Height="48" 
 			Text ="10.00" Background="#FF164047" Margin="128,85,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" >
-			<Controls:IconText.Icon>
+            <Controls:IconText.Icon>
                 <i:OkayIcon BackgroundBrush ="{StaticResource IconOkayFillBrush}" />
-			</Controls:IconText.Icon>               
-		</Controls:IconText>
-					
-		<Controls:IconText Height="48" 
+            </Controls:IconText.Icon>
+        </Controls:IconText>
+
+        <Controls:IconText Height="48" 
 			Text ="1.234,00" Background="#FF164047" Margin="128,213,0,219" HorizontalAlignment="Left" >
-			<Controls:IconText.Icon>
-				<i:MoneyIcon/>
-			</Controls:IconText.Icon>               
-		</Controls:IconText>
-		<Controls:IconText Height="48" 
+            <Controls:IconText.Icon>
+                <i:MoneyIcon/>
+            </Controls:IconText.Icon>
+        </Controls:IconText>
+        <Controls:IconText Height="48" 
 			Text ="1.234,00" Background="#FF164047" Margin="128,0,0,155" HorizontalAlignment="Left"  VerticalAlignment="Bottom" d:LayoutOverrides="Height">
-			<Controls:IconText.Icon>
-				<i:MoneyIcon/>
-			</Controls:IconText.Icon>               
-		</Controls:IconText>
-		<Controls:IconText Height="48" 
+            <Controls:IconText.Icon>
+                <i:MoneyIcon/>
+            </Controls:IconText.Icon>
+        </Controls:IconText>
+        <Controls:IconText Height="48" 
 			Text ="11.234,00" Background="#FF164047" Margin="128,0,0,91" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:LayoutOverrides="Height">
-			<Controls:IconText.Icon>
-				<i:MoneyIcon/>
-			</Controls:IconText.Icon>               
-		</Controls:IconText>
-		
-	</Grid>
-	
+            <Controls:IconText.Icon>
+                <i:MoneyIcon/>
+            </Controls:IconText.Icon>
+        </Controls:IconText>
+
+
+
+        <telerik:RadExpander Header="Header" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="384,359,0,0" Width="225">
+            <telerik:RadExpander.Content>
+                <Controls:IconText Height="48" 
+			Text ="11.234,00" Background="#FF164047" HorizontalAlignment="Left" VerticalAlignment="Bottom" d:LayoutOverrides="Height">
+                    <Controls:IconText.Icon>
+                        <i:MoneyIcon/>
+                    </Controls:IconText.Icon>
+                </Controls:IconText>
+            </telerik:RadExpander.Content>
+        </telerik:RadExpander>
+
+
+
+    </Grid>
+
 </UserControl>

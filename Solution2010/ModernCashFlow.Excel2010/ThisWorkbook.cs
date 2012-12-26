@@ -126,7 +126,7 @@ namespace ModernCashFlow.Excel2010
 
         private void ThisWorkbookShutdown(object sender, System.EventArgs e)
         {
-            //_wpfApp.Shutdown();
+            _wpfApp.Shutdown();
         }
 
         private void ThisWorkbookBeforeSave(bool saveAsUi, ref bool cancel)

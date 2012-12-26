@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:SampleData="clr-namespace:Expression.Blend.SampleData.SampleDataSource_PendingTransactions" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:WpfControls="clr-namespace:ModernCashFlow.WpfControls" mc:Ignorable="d" x:Class="ModernCashFlow.WpfControls.App"
-             StartupUri="PendingPayments.xaml">
+             StartupUri="Scratch.xaml">
 
     <Application.Resources>
         <ResourceDictionary  >
