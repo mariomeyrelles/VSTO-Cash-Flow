@@ -203,14 +203,21 @@ namespace ModernCashFlow.Domain.Entities
         {
             get
             {
-                //todo: ver como devo tratar contas
+               
                 if (!Date.HasValue || !ExpectedValue.HasValue || AccountName == null)
                 {
-                    ValidationMessage = "Este lançamento está incompleto e não pode ser considerado para o fluxo de caixa. Os campos data, valor e conta são obrigatórios.";
                     return false;
                 }
-                
-                ValidationMessage = string.Empty;
+
+                switch (TransactionStatus)
+                {
+                    case TransactionStatus.Unknown:
+                    case TransactionStatus.Suspended:
+                    case TransactionStatus.Canceled:
+                    case TransactionStatus.Invalid:
+                        return false;
+                }
+
                 return true;    
             }
         }
@@ -229,11 +236,6 @@ namespace ModernCashFlow.Domain.Entities
 
         protected virtual string MountPanelMessage()
         {
-
-            if (!CanBeUsedInCashFlow)
-            {
-                return ValidationMessage;
-            }
 
             var now = SystemTime.Now().Today();
             var transactionDate = Date.Value.Today();
@@ -263,7 +265,7 @@ namespace ModernCashFlow.Domain.Entities
                 case TransactionStatus.Unknown:
                     return "Este lançamento não está sendo considerado para o fluxo de caixa pois não ainda possui status definido.";
                 default:
-                    return "";
+                    return string.Empty;
             }
 
             return "-";

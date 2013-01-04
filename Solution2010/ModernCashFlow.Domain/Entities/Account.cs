@@ -23,6 +23,8 @@ namespace ModernCashFlow.Domain.Entities
         public int? CloseDay { get; set; }
         public int? PaymentDay { get; set; }
         public decimal? MonthlyCost { get; set; }
+        //todo: rever
+        public bool IsCreditCard { get; set; }
 
         public double? InitialDateOA
         {

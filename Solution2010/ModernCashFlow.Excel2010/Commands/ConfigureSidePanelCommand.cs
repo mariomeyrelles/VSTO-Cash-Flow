@@ -1,4 +1,8 @@
-﻿using Microsoft.Office.Tools;
+﻿
+
+
+using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Tools;
 using ModernCashFlow.Domain.ApplicationServices;
 using ModernCashFlow.Domain.Services;
 using ModernCashFlow.Excel2010.Forms;
@@ -8,8 +12,8 @@ namespace ModernCashFlow.Excel2010.Commands
 {
     public class ConfigureSidePanelCommand : ICommand
     {
-        private readonly SidePanelWpfHost _host;
-        private readonly ActionsPane _sidePane;
+        private  SidePanelWpfHost _host;
+        private  ActionsPane _sidePane;
 
         public ConfigureSidePanelCommand()
         {
@@ -27,6 +31,9 @@ namespace ModernCashFlow.Excel2010.Commands
         }
         public void Execute(CommandArgs args)
         {
+           
+           
+          
             var sidePanelArg = args as SidePanelCommandArgs;
             if (sidePanelArg == null)
             {
@@ -36,15 +43,16 @@ namespace ModernCashFlow.Excel2010.Commands
             if (sidePanelArg.Model != null) _host.Model = sidePanelArg.Model;
 
             _host.Refresh();
+            _host.Show();
 
 
             //todo: only for tests
             var svc = new SummaryCalculationService();
-            var currentMonthBalance = svc.CalculateBalanceForCurrentMonth(sidePanelArg.CurrentTransactions);
-            var incomesUpToDate = svc.CalculateIncomesForCurrentMonthUpToGivenDate(sidePanelArg.CurrentTransactions, SystemTime.Now());
-            var expensesUpToDate = svc.CalculateExpensesForCurrentMonthUpToGivenDate(sidePanelArg.CurrentTransactions, SystemTime.Now());
-            var accountSummary = svc.CalculateAccountSummary(sidePanelArg.CurrentAccounts,
-                                                             sidePanelArg.CurrentTransactions);
+            var currentMonthBalance = svc.CalculateBalanceForCurrentMonth(sidePanelArg.Transactions);
+            var incomesUpToDate = svc.CalculateIncomesForCurrentMonthUpToGivenDate(sidePanelArg.Transactions, SystemTime.Now());
+            var expensesUpToDate = svc.CalculateExpensesForCurrentMonthUpToGivenDate(sidePanelArg.Transactions, SystemTime.Now());
+            var accountSummary = svc.CalculateAccountSummary(sidePanelArg.Accounts,
+                                                             sidePanelArg.Transactions);
 
             Singleton<MainStatusAppService>.Instance.EndOfMonthBalance = currentMonthBalance;
             Singleton<MainStatusAppService>.Instance.IncomesUpToDate = incomesUpToDate;

@@ -8,8 +8,8 @@ namespace ModernCashFlow.Excel2010.Commands
     {
         public UserControl WpfControl { get; set; }
         public object Model { get; set; }
-        public IEnumerable<BaseTransaction> CurrentTransactions { get; set; }
+        public IEnumerable<BaseTransaction> Transactions { get; set; }
 
-        public IEnumerable<Account> CurrentAccounts { get; set; }
+        public IEnumerable<Account> Accounts { get; set; }
     }
 }

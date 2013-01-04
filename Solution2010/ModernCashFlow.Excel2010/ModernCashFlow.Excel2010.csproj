@@ -219,6 +219,7 @@
     <Compile Include="ApplicationCore\ExpenseController.cs" />
     <Compile Include="Commands\ConfigureSidePanelCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\ShowSidePanelCommand.cs" />
     <Compile Include="Commands\SidePanelCommandArgs.cs" />
     <Compile Include="Commands\InitializeMainWorkooksCommand.cs" />
     <Compile Include="Commands\InitializeBusinessRulesCommand.cs" />

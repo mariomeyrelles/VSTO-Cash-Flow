@@ -89,8 +89,8 @@ namespace ModernCashFlow.Excel2010.Commands
             CommandHandler.Run<ConfigureSidePanelCommand>(new SidePanelCommandArgs
                                                               {
                                                                   WpfControl = new MainSidePanel(), 
-                                                                  CurrentTransactions = CurrentSession.Transactions, 
-                                                                  CurrentAccounts = CurrentSession.Accounts
+                                                                  Transactions = CurrentSession.ValidTransactions, 
+                                                                  Accounts = CurrentSession.Accounts
                                                               });
 
 

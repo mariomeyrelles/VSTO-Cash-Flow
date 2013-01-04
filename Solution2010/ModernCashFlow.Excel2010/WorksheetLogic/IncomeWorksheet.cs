@@ -242,8 +242,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                     CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs
                                                                    {
                                                                        Model = entity, 
-                                                                       CurrentTransactions = CurrentSession.Transactions,
-                                                                       CurrentAccounts = CurrentSession.Accounts
+                                                                       Transactions = CurrentSession.ValidTransactions,
+                                                                       Accounts = CurrentSession.Accounts
                                                                    });
                 }
                 catch (Exception ex)
@@ -270,8 +270,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                     CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs
                                                                    {
                                                                        Model = entity, 
-                                                                       CurrentTransactions = CurrentSession.Transactions,
-                                                                       CurrentAccounts = CurrentSession.Accounts
+                                                                       Transactions = CurrentSession.ValidTransactions,
+                                                                       Accounts = CurrentSession.Accounts
                                                                    });
                 }
                 catch (Exception)
@@ -309,6 +309,7 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
             private CommandBarButton _menuSalvar;
             private CommandBarButton _menuRemover;
             private CommandBarButton _menuInserir;
+            private Office.CommandBarButton _menuShowSidebar;
             private Range _activeRange;
             private IncomeWorksheet _parent;
 
@@ -353,11 +354,24 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 _menuRemover.FaceId = 0478;
                 _menuRemover.Tag = "3";
 
+                _menuShowSidebar = (Office.CommandBarButton)_commandBar.Controls.Add(1);
+                _menuShowSidebar.Style = Office.MsoButtonStyle.msoButtonIconAndCaption;
+                _menuShowSidebar.Caption = "Show Side Panel";
+                _menuShowSidebar.FaceId = 0526;
+                _menuShowSidebar.Tag = "1";
+
 
                 //_menuEdit.Click += MenuEditClick;
                 //_menuSalvar.Click += MenuSaveClick;
                 //_menuRemover.Click += MenuRemoveClick;
                 _menuInserir.Click += this.MenuCreateClick;
+                ;
+                _menuShowSidebar.Click += _menuShowSidebar_Click;
+            }
+
+            private void _menuShowSidebar_Click(CommandBarButton ctrl, ref bool canceldefault)
+            {
+                CommandHandler.Run<ShowSidePanelCommand>();
             }
 
             private void MenuCreateClick(CommandBarButton ctrl, ref bool canceldefault)
@@ -401,8 +415,8 @@ namespace ModernCashFlow.Excel2010.WorksheetLogic
                 CommandHandler.Run<UpdateSidePanelCommand>(new SidePanelCommandArgs
                                                                {
                                                                    Model = entity, 
-                                                                   CurrentTransactions = CurrentSession.Transactions,
-                                                                   CurrentAccounts = CurrentSession.Accounts
+                                                                   Transactions = CurrentSession.ValidTransactions,
+                                                                   Accounts = CurrentSession.Accounts
                                                                });
 
             }

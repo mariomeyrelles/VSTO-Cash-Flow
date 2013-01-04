@@ -12,7 +12,7 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
         /// <summary>
         /// Returns all the transactions that are currently in memory. May not bring archived transactions.
         /// </summary>
-        public static IEnumerable<BaseTransaction> Transactions
+        public static IEnumerable<BaseTransaction> AllTransactions
         {
             get
             {
@@ -20,6 +20,21 @@ namespace ModernCashFlow.Excel2010.ApplicationCore
                 transactions.AddRange(SessionDataSingleton<Expense>.Instance);
                 transactions.AddRange(SessionDataSingleton<Income>.Instance);
                 
+                return transactions;
+            }
+        }
+
+        /// <summary>
+        /// Returns all the transactions that are currently in memory. May not bring archived transactions.
+        /// </summary>
+        public static IEnumerable<BaseTransaction> ValidTransactions
+        {
+            get
+            {
+                var transactions = new List<BaseTransaction>();
+                transactions.AddRange(SessionDataSingleton<Expense>.Instance.Where(x=>x.CanBeUsedInCashFlow));
+                transactions.AddRange(SessionDataSingleton<Income>.Instance.Where(x => x.CanBeUsedInCashFlow));
+
                 return transactions;
             }
         }

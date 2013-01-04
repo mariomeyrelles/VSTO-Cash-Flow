@@ -23,14 +23,14 @@
             
             <WrapPanel x:Name="valorData" >
 
-                <c:IconText Text ="{Binding ExpectedValue, StringFormat=N2}" Background="#FF164047" Margin="2,2,2,2">
+                <c:IconText Text ="{Binding AbsoluteValue, StringFormat=N2, Mode=OneTime}" Background="#FF164047" Margin="2,2,2,2">
                     <c:IconText.Icon>
                         <XamlIcons:MoneyIcon/>
                     </c:IconText.Icon>
                 </c:IconText>
 
 
-                <c:IconHeaderText HeaderText="{Binding Date, StringFormat=\{0:dddd\}}" Background="#FF164047" Margin="2,2,2,2"
+                <c:IconHeaderText HeaderText="{Binding Date, StringFormat=\{0:dddd\}, Mode=OneTime}" Background="#FF164047" Margin="2,2,2,2"
                                       ContentText ="{Binding Date, StringFormat=\{0:MMM dd\, yyyy\}}">
                     <c:IconHeaderText.Icon>
                         <XamlIcons:CalendarIcon/>
